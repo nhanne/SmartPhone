@@ -1,0 +1,73 @@
+﻿@model Nike.Models.KhachHang
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="auth-form">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        //@Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+        <div class="auth-form__container">
+
+            <div class="auth-form__header">
+                <h3 class="auth-form__heading">Đăng ký</h3>
+                <span>@Html.ActionLink("Đăng nhập", "Login", "Account", new { @class = "auth-form__switch-btn myactionlink" }) </span>
+            </div>
+            <div class="auth-form__form">
+                <div class="auth-form__group">
+                    @Html.TextBoxFor(m => m.FirstName, "", new { @class = "auth-form__input", @placeholder = "Tên" })
+                    @Html.ValidationMessageFor(m => m.FirstName,"", new {@class = "validate"})
+                </div>
+                <div class="auth-form__group">
+                    @Html.TextBoxFor(m => m.LastName, "", new { @class = "auth-form__input", @placeholder = "Họ" })
+                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "validate" })
+                </div>
+
+
+                <div class="auth-form__group">
+                    @Html.TextBoxFor(m => m.Email, "", new { @class = "auth-form__input", @placeholder = "Email của bạn" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validate" })
+                    @if (ViewBag.error != null)
+                    {
+                        <span style="color: #ff0000; display:block; margin:4px">@ViewBag.error</span>
+                    }
+                </div>
+                <div class="auth-form__group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "auth-form__input", @placeholder = "Mật khẩu của bạn" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validate" })
+                </div>
+                <div class="auth-form__group">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "auth-form__input", @placeholder = "Nhập lại mật khẩu" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "validate" })
+                </div>
+            </div>
+            <div class="auth-form__aside">
+                <p class="auth-form__policy-text">
+                    Bằng việc đăng ký, bạn đã đồng ý với shoppe về
+                    <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a> &
+                    <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
+                </p>
+            </div>
+            <div class="auth-form__controls">
+                <button class="btn btn--hover" type="button" onclick="location.href='@Url.Action("Index", "Home")'">TRỞ LẠI</button>
+                <input type="submit" name="submit" class="btn btn--primary value" value="Đăng Ký" />
+            </div>
+
+        </div>
+    
+    }
+</div>
+
+<style>
+    .validate{
+        color: var(--primary-color);
+        margin: 10px 0 0 10px;
+        display:block;
+    }
+</style>
+

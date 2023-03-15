@@ -1,0 +1,26 @@
+﻿@model Nike.Models.NhanVien
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Bạn có chắc muốn xóa đi nhân viên này ?</h3>
+<div>
+    <h4>@Model.FullName, @Model.ChucVu.ChucVu1, @Model.Email, @Model.Sdt</h4>
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+
+

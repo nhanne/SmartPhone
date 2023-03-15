@@ -1,0 +1,49 @@
+﻿@model Nike.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+}
+
+<h2>Chi tiết sản phẩm</h2>
+
+<div>
+    <h4>Sản phẩm thứ @Html.DisplayFor(model => model.Id)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Hình Ảnh</dt>
+        <dd>@Html.DisplayFor(model => model.Picture)</dd>
+
+        <dt>Tên Sản Phẩm</dt>
+        <dd>@Html.DisplayFor(model => model.ProductName)</dd>
+
+        <dt>Mã Sản Phẩm</dt>
+        <dd>@Html.DisplayFor(model => model.ProductCode)</dd>
+
+        <dt>Giá Sản Phẩm</dt>
+        <dd> @Html.DisplayFor(model => model.UnitPrice)</dd>
+
+        <dt>Đã Bán</dt>
+        <dd>@Html.DisplayFor(model => model.ProductSold)</dd>
+
+        <dt>Nhãn Hiệu</dt>
+        <dd> @Html.DisplayFor(model => model.ProductBrand)</dd>
+
+        <dt>Xuất Xứ</dt>
+        <dd>@Html.DisplayFor(model => model.ProductOrigin)</dd>
+
+        <dt>Giảm Giá</dt>
+        <dd>@Html.DisplayFor(model => model.ProductSale)</dd>
+
+        <dt>Giá Cũ</dt>
+        <dd>@Html.DisplayFor(model => model.PriceOld)</dd>
+
+        <dt>Mã Doanh Mục</dt>
+        <dd>@Html.DisplayFor(model => model.Catalog.CatalogCode)</dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -58,4 +58,32 @@ namespace Nike.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }
+    public partial class EditProFile
+    {
+        [Key, Column(Order = 1)]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int idUser { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập Tên")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Vui lòng nhập tên thật")]
+        public string FirstName { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập THọ")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Vui lòng nhập họ thật")]
+        public string LastName { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập Email")]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
+        public string Email { get; set; }
+        public string FullName()
+        {
+            return this.LastName + " " + this.FirstName;
+        }
+
+        public string Picture { get; set; }
+        public string Address { get; set; }
+        public Nullable<System.DateTime> NgaySinh { get; set; }
+        public string CMT { get; set; }
+        public string Sdt { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
+    }
 }

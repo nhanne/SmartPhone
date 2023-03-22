@@ -117,6 +117,7 @@ namespace Nike.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FullName,Email,Address,NgaySinh,Password,MaChucVu,Picture,Sex,Sdt")] NhanVien nv, HttpPostedFileBase file)
         {
+
             NhanVien nhanvien = _db.NhanViens.Find(nv.Id);
             ViewBag.MaChucVu = new SelectList(_db.ChucVus, "MaChucVu", "ChucVu1",nhanvien.MaChucVu);
             if (ModelState.IsValid)

@@ -6,15 +6,18 @@
 }
 <div class="grid row" style="text-align:center">
     <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.idUser)
+
         <h4>Thông tin tài khoản</h4>
         <hr />
         @using (Html.BeginForm("EditProFile", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-
-
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.idUser)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Password)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ConfirmPassword)
             <div class="form-group">
                 <h5>Tên</h5>
                 <div class="col-md-10">

@@ -2,7 +2,7 @@
 @using Nike.Models;
 @{
     List<Giohang> list = (List<Giohang>)Session["Giohang"] as List<Giohang>;
-    //List<Giohang> list = Session["Giohang"] as List<Giohang>;
+
 }
 
 
@@ -128,7 +128,7 @@
                                             <a href="@Url.Action("Profile","Account")"> Tài khoản của tôi</a>
                                         </li>
                                         <li class="navbar__item-user-item">
-                                            <a href=""> Đơn mua</a>
+                                            <a href="@Url.Action("OrderList","Account")">Đơn mua</a>
                                         </li>
                                         <li class="navbar__item-user-item">
                                             <a href="@Url.Action("Logout","Account")" class="btn btn-warning">Đăng xuất</a>
@@ -179,7 +179,17 @@
                         </button>
                     }
 
-
+                    @{int TongSoLuong(){
+                            int iTongSoLuong = 0;
+                            List<Giohang> listGiohang = Session["Giohang"] as List<Giohang>;
+                            if (listGiohang != null)
+                            {
+                                iTongSoLuong = listGiohang.Sum(n => n.SoLuong);
+                            }
+                            return iTongSoLuong;
+                        }
+                        ViewBag.TongSoLuong = TongSoLuong();
+                    }
                     <div class="header-search__cart">
                         <i class="header-search__cart-icon fa-solid fa-cart-shopping"></i>
                         <span class="header__cart-notice">@ViewBag.TongSoLuong</span>

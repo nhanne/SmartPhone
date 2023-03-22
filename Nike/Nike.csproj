@@ -384,6 +384,8 @@
     <Content Include="Views\Account\ProFile.cshtml" />
     <Content Include="Views\Account\EditProFile.cshtml" />
     <Content Include="Views\SanPham\Index.cshtml" />
+    <Content Include="Views\Account\OrderList.cshtml" />
+    <Content Include="Views\Account\CancelOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

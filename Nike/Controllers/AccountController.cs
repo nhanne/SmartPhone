@@ -18,10 +18,8 @@ namespace Nike.Controllers
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("ProFile");
         }
-
-
 
         public ActionResult Register()
         {
@@ -92,7 +90,7 @@ namespace Nike.Controllers
         //Logout
         public ActionResult Logout()
         {
-            Session.Clear();//remove session
+            Session.Clear();
             return RedirectToAction("Index","Home");
         }
 
@@ -159,7 +157,7 @@ namespace Nike.Controllers
                 khachhang.FirstName = kh.FirstName;
                 khachhang.LastName = kh.LastName;
                 khachhang.Email = kh.Email;
-                khachhang.Password = GetMD5(kh.Password);
+                //khachhang.Password = GetMD5(kh.Password);
                 khachhang.Address = kh.Address;
                 if(kh.NgaySinh != null)
                 {
@@ -177,10 +175,85 @@ namespace Nike.Controllers
             }
             return View(kh);
         }
+           
+        public ActionResult OrderList(string sr)
+        {
+          
+            var orderList = (from s in _db.Orders select s).ToList();
+            var orderDetail = (from s in _db.Order_Detail select s).ToList();
+            ViewBag.orderDetail = orderDetail;
+            //ViewBag.orderList = orderList;
+            if (String.IsNullOrEmpty(sr))
+            {
+                ViewBag.orderList = orderList;
+            }
+            else
+            {
+                switch (sr)
+                {
+                    case "Wait":
+                        ViewBag.orderList = orderList.Where(s => s.Status == "Chưa giao hàng");
+                        break;
+                    case "Deli":
+                        ViewBag.orderList = orderList.Where(s => s.Status == "Đang giao hàng");
+                        break;
+                    case "Done":
+                        ViewBag.orderList = orderList.Where(s=>s.Status == "Hoàn thành");
+                        break;
+                    case "Cancel":
+                        ViewBag.orderList = orderList.Where(s => s.Status == "Đã hủy");
+                        break;
+                    default:
+                        ViewBag.orderList = orderList.Where(s => s.ID.ToString().Contains(sr));
+                        break;
+                }
+            }
 
+            //ViewBag.TongSoLuong = TongSoLuong();
+            KhachHang kh = new KhachHang();
+            if(Session["Taikhoan"] == null)
+            {
+                return RedirectToAction("Login","Account");
+            }
+            else
+            {
+                kh = (KhachHang)Session["Taikhoan"];
+            }
+            return View(kh);
+        }
 
+        public ActionResult CancelOrder(int ID)
+        {
+            var orderList = (from s in _db.Orders select s).ToList();
+            Order order = _db.Orders.Find(ID);
+            if(order.Status == "Chưa giao hàng")
+            {
+                order.Status = "Đã hủy";
+            }
+            else
+            {
+                order.Status = order.Status;
+            }
+            return View(order);
+          
+        }
+        [HttpPost, ActionName("CancelOrder")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CancelOrderConfirmed(int ID)
+        {
+            try
+            {
+                Order order = _db.Orders.Find(ID);
+                order.Status = "Đã hủy";
+                _db.Entry(order).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            catch
+            {
 
-
+            }
+            return RedirectToAction("OrderList");
+        }
 
     }
 }

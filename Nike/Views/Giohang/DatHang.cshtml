@@ -54,40 +54,44 @@
         @{
             KhachHang kh = (KhachHang)Session["Taikhoan"];
         }
-        <table align="center">
-            @using (Html.BeginForm())
-            {
-                @Html.ValidationSummary(true)
-                <tr style="height:40px">
-                    <td class="table__item">Họ tên khách hàng</td>
-                    <td class="table__item-value">@kh.FullName()</td>
-                </tr>
-                <tr style="height:40px">
-                    <td class="table__item">Địa chỉ khách hàng</td>
-                    <td>@kh.Address</td>
-                </tr>
-                <tr style="height:40px">
-                    <td class="table__item">Sđt khách hàng</td>
-                    <td>@kh.Sdt</td>
-                </tr>
-                <tr style="height:40px">
-                    <td class="table__item">Ngày đặt</td>
-                    <td>@DateTime.Now.ToString("dd-MM-yyyy")</td>
-                </tr>
-                <tr style="height:40px">
-                    <td class="table__item">Ngày giao hàng</td>
-                    <td>
-                        <input type="date" name="Ngaygiao" />
-                    </td>
-                </tr>
-                <tr style="height:40px">
-                    <td></td>
-                    <td>
-                        <input type="submit" value="Đồng ý đặt hàng" class="btn btn--primary" />
-                    </td>
-                </tr>
-            }
-        </table>
+<table align="center">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <tr style="height:40px">
+            <td class="table__item">Họ tên khách hàng</td>
+            <td class="table__item-value">@kh.FullName()</td>
+        </tr>
+        <tr style="height:40px">
+            <td class="table__item">Địa chỉ khách hàng</td>
+            <td>@kh.Address</td>
+        </tr>
+        <tr style="height:40px">
+            <td class="table__item">Sđt khách hàng</td>
+            <td>@kh.Sdt</td>
+        </tr>
+        <tr style="height:40px">
+            <td class="table__item">Ngày đặt</td>
+            <td>@DateTime.Now.ToString("dd-MM-yyyy")</td>
+        </tr>
+        @*<tr style="height:40px">
+                <td class="table__item">Ngày giao hàng</td>
+                <td>
+                    <input type="date" name="Ngaygiao" />
+                </td>
+            </tr>*@
+        <tr style="height:40px">
+            <td class="table__item">Ngày giao (dự kiến)</td>
+            <td>@DateTime.Now.AddDays(3).ToString("dd-MM-yyyy")</td>
+        </tr>
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="submit" value="Đồng ý đặt hàng" class="btn btn--primary" />
+            </td>
+        </tr>
+    }
+</table>
 </div>
 
 <style>

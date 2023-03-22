@@ -25,16 +25,16 @@
 
                         <h3 class="category__heading">
 
-                            <span class="profile__user-name">Nhân Trần</span>
+                            <span class="profile__user-name">@Session["FullNamekh"]</span>
                         </h3>
                     </div>
 
                     <ul class="category-list">
                         <li class="category-item">
-                            <a href="" class="category-item__link">Tài khoản của tôi</a>
+                            <a href="@Url.Action("ProFile","Account")" class="category-item__link"> Tài khoản của tôi</a>
                         </li>
                         <li class="category-item">
-                            <a href="" class="category-item__link">Đơn mua</a>
+                            <a href="@Url.Action("OrderList","Account")" class="category-item__link">Đơn mua</a>
                         </li>
                         <li class="category-item">
                             <a href="" class="category-item__link">Thông báo</a>

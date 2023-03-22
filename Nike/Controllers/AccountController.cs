@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -136,46 +137,68 @@ namespace Nike.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProFile([Bind(Include = "idUser,FirstName,LastName,Email,Password,Picture,Address,NgaySinh,CMT,Sdt")] KhachHang kh, HttpPostedFileBase file)
+        public ActionResult EditProFile([Bind(Include = "idUser,FirstName,LastName,Email,Picture,Address,NgaySinh,CMT,Sdt")] KhachHang kh, HttpPostedFileBase file)
         {
-            KhachHang khachhang = _db.KhachHangs.Find(kh.idUser);
-            if (ModelState.IsValid)
+            try
             {
-                String anh = khachhang.Picture;
-                if (file != null)
+                KhachHang khachhang = _db.KhachHangs.Find(kh.idUser);
+                ModelState.Remove("Password");
+                ModelState.Remove("ConfirmPassword");
+                if (ModelState.IsValid)
                 {
-                    string pic = System.IO.Path.GetFileName(file.FileName);
-                    String path = System.IO.Path.Combine(
-                                           Server.MapPath("~/Hinh/KhachHang"), pic);
-                    file.SaveAs(path);
-                    anh = pic;
-                    using (MemoryStream ms = new MemoryStream())
+                    if (file != null)
                     {
-                        file.InputStream.CopyTo(ms);
-                        byte[] array = ms.GetBuffer();
+                        string pic = System.IO.Path.GetFileName(file.FileName);
+                        String path = System.IO.Path.Combine(
+                                               Server.MapPath("~/Hinh/NhanVien"), pic);
+                        file.SaveAs(path);
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            file.InputStream.CopyTo(ms);
+                            byte[] array = ms.GetBuffer();
+                        }
+                        khachhang.Picture = pic;
+                    }
+                    khachhang.FirstName = kh.FirstName;
+                    khachhang.LastName = kh.LastName;
+                    khachhang.Email = kh.Email;
+                    khachhang.Address = kh.Address;
+                    if(kh.NgaySinh != null)
+                    {
+                        khachhang.NgaySinh = kh.NgaySinh;
+                    }
+                    if (kh.CMT != null)
+                    {
+                        khachhang.CMT = kh.CMT;
+                    }
+
+                    if (kh.Sdt != null)
+                    {
+                        khachhang.Sdt = kh.Sdt;
+                    }
+                    kh.Password = khachhang.Password;
+                    kh.ConfirmPassword = khachhang.Password;
+                    _db.Entry(khachhang).State = EntityState.Modified;
+                    _db.SaveChanges();
+                    return RedirectToAction("ProFile");
+                }
+                return View(kh);
+               
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
                     }
                 }
-                khachhang.Picture = anh;
-                khachhang.FirstName = kh.FirstName;
-                khachhang.LastName = kh.LastName;
-                khachhang.Email = kh.Email;
-                khachhang.Password = GetMD5(kh.Password);
-                khachhang.Address = kh.Address;
-                if(kh.NgaySinh != null)
-                {
-                    khachhang.NgaySinh = kh.NgaySinh;
-                }
-                else
-                {
-                    khachhang.NgaySinh = khachhang.NgaySinh;
-                }
-                khachhang.CMT = kh.CMT;
-                khachhang.Sdt = kh.Sdt;
-                _db.Entry(khachhang).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("ProFile");
+                throw;
             }
-            return View(kh);
         }
 
 

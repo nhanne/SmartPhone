@@ -14,7 +14,6 @@ namespace Nike.Areas.Admin.Controllers
     public class CatalogController : Controller
     {
         // GET: Catalog
-        private QuanLySanPhamEntities1 _db = new QuanLySanPhamEntities1();
         public ActionResult Index()
         {
             var catalog = (from s in _db.Catalogs select s).ToList();

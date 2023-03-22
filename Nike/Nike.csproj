@@ -200,38 +200,37 @@
     <Compile Include="Models\KhachHang.cs">
       <DependentUpon>Testing.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\NhanVien.cs">
-      <DependentUpon>Testing.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>Testing.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order_Detail.cs">
-      <DependentUpon>Testing.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order_Status.cs">
-      <DependentUpon>Testing.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
-      <DependentUpon>Testing.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Testing.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Testing.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Testing.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Testing.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Testing.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Testing.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Testing.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -303,18 +302,19 @@
     <Content Include="Hinh\pro05.PNG" />
     <Content Include="Hinh\pro06.png" />
     <Content Include="Hinh\pro07.png" />
-    <Content Include="Models\Testing.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Testing.edmx</DependentUpon>
-      <LastGenOutput>Testing.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Testing.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Testing.edmx</DependentUpon>
-      <LastGenOutput>Testing.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model11.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_layoutadmin.cshtml" />

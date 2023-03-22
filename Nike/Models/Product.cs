@@ -29,6 +29,7 @@ namespace Nike.Models
         public Nullable<double> UnitPrice { get; set; }
         public Nullable<int> ProductSold { get; set; }
         public string ProductSale { get; set; }
+        public Nullable<double> PriceOld { get; set; }
         public Nullable<int> SoLuong { get; set; }
     
         public virtual Catalog Catalog { get; set; }

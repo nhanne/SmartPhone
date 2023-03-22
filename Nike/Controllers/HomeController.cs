@@ -16,7 +16,6 @@ namespace Nike.Controllers
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
         public ActionResult Index(string sort, int pageIndex = 1)
         {
-            ViewBag.TongSoLuong = TongSoLuong();
             Sort(sort, pageIndex);
             return View();         
         }
@@ -65,16 +64,6 @@ namespace Nike.Controllers
            
         }
 
-        public int TongSoLuong()
-        {
-            int iTongSoLuong = 0;
-            List<Giohang> listGiohang = Session["Giohang"] as List<Giohang>;
-            if (listGiohang != null)
-            {
-                iTongSoLuong = listGiohang.Sum(n => n.SoLuong);
-            }
-            return iTongSoLuong;
-        }
 
     }
 }

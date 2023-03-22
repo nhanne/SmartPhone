@@ -50,6 +50,22 @@ namespace Nike.Controllers
                 return Redirect(strURL);
             }
         }
+        public ActionResult BuyNow(int IdProduct)
+        {
+            List<Giohang> listGiohang = Laygiohang();
+            // Kiểm tra sản phẩm này có trong giỏ hàng chưa
+            Giohang product = listGiohang.Find(n => n.IdProduct == IdProduct);
+            if (product == null)
+            {
+                product = new Giohang(IdProduct);
+                listGiohang.Add(product);
+            }
+            else
+            {
+                product.SoLuong++;
+            }
+            return RedirectToAction("Index");
+        }
         // Tính số lượng sản phẩm
         public int TongSoLuong()
         {
@@ -136,8 +152,9 @@ namespace Nike.Controllers
             List<Giohang> gh = Laygiohang();
             order.KhachHangID = kh.idUser;
             order.NgayDat = DateTime.Now;
-            var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]);
-            order.NgayGiao = DateTime.Parse(ngaygiao).AddHours(12);
+            order.NgayGiao = order.NgayDat.Value.AddDays(3);
+            //var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]);
+            //order.NgayGiao = DateTime.Parse(ngaygiao).AddHours(12);
             order.Status = "Chưa giao hàng";
             order.Payment = false;
             order.Address = kh.Address;

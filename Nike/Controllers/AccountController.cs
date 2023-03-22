@@ -19,10 +19,8 @@ namespace Nike.Controllers
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("ProFile");
         }
-
-
 
         public ActionResult Register()
         {
@@ -38,7 +36,6 @@ namespace Nike.Controllers
                 var check = _db.KhachHangs.FirstOrDefault(s => s.Email == khachhang.Email);
                 if (check == null)
                 {
-                    khachhang.Password = GetMD5(khachhang.Password);
                     _db.Configuration.ValidateOnSaveEnabled = false;
                     _db.KhachHangs.Add(khachhang);
                     _db.SaveChanges();
@@ -67,9 +64,8 @@ namespace Nike.Controllers
         {
             if (ModelState.IsValid)
             {
-                var f_password = GetMD5(password);
-                var data = _db.KhachHangs.Where(s => s.Email.Equals(email) && s.Password.Equals(f_password)).ToList();
-                KhachHang kh = _db.KhachHangs.SingleOrDefault(s => s.Email.Equals(email) && s.Password.Equals(f_password));
+                var data = _db.KhachHangs.Where(s => s.Email.Equals(email) && s.Password.Equals(password)).ToList();
+                KhachHang kh = _db.KhachHangs.SingleOrDefault(s => s.Email.Equals(email) && s.Password.Equals(password));
                 if (kh != null)
                 {
                     Session["Taikhoan"] = kh;
@@ -93,7 +89,7 @@ namespace Nike.Controllers
         //Logout
         public ActionResult Logout()
         {
-            Session.Clear();//remove session
+            Session.Clear();
             return RedirectToAction("Index","Home");
         }
 
@@ -117,9 +113,11 @@ namespace Nike.Controllers
         public ActionResult ProFile()
         {
             KhachHang kh = (KhachHang)Session["Taikhoan"];
-            if(kh!= null)
+            KhachHang khachHang = _db.KhachHangs.Find(kh.idUser);
+
+            if (kh!= null && khachHang!=null)
             {
-                return View(kh);
+                return View(khachHang);
             }    
             return HttpNotFound();
 
@@ -128,6 +126,7 @@ namespace Nike.Controllers
         {
             KhachHang khsession = (KhachHang)Session["Taikhoan"];
             KhachHang kh = _db.KhachHangs.Find(idUser);
+            kh.ConfirmPassword = kh.Password;
             if (khsession.idUser != kh.idUser)
             {
                 return HttpNotFound();
@@ -137,73 +136,131 @@ namespace Nike.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProFile([Bind(Include = "idUser,FirstName,LastName,Email,Picture,Address,NgaySinh,CMT,Sdt")] KhachHang kh, HttpPostedFileBase file)
+        public ActionResult EditProFile([Bind(Include = "idUser,FirstName,LastName,Email,Picture,Address,NgaySinh,CMT,Sdt,Password,ConfirmPassword")] KhachHang kh, HttpPostedFileBase file)
+        {
+            KhachHang khachhang = _db.KhachHangs.Find(kh.idUser);
+            ModelState.Remove("Password");
+            ModelState.Remove("ConfirmPassword");
+            if (ModelState.IsValid)
+            {
+                if (file != null)
+                {
+                    string pic = System.IO.Path.GetFileName(file.FileName);
+                    String path = System.IO.Path.Combine(
+                                            Server.MapPath("~/Hinh/NhanVien"), pic);
+                    file.SaveAs(path);
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        byte[] array = ms.GetBuffer();
+                    }
+                    khachhang.Picture = pic;
+                }
+                khachhang.FirstName = kh.FirstName;
+                khachhang.LastName = kh.LastName;
+                khachhang.Email = kh.Email;
+                khachhang.Address = kh.Address;
+                khachhang.ConfirmPassword = kh.ConfirmPassword;
+
+                if (kh.NgaySinh != null)
+                {
+                    khachhang.NgaySinh = kh.NgaySinh;
+                }
+                if (kh.CMT != null)
+                {
+                    khachhang.CMT = kh.CMT;
+                }
+
+                if (kh.Sdt != null)
+                {
+                    khachhang.Sdt = kh.Sdt;
+                }
+                _db.Entry(khachhang).State = EntityState.Modified;
+                _db.SaveChanges();
+                
+                return RedirectToAction("ProFile");
+            }
+        return View(kh);
+        }
+
+        public ActionResult OrderList(string sr)
+        {
+          
+            var orderList = (from s in _db.Orders select s).ToList();
+            var orderDetail = (from s in _db.Order_Detail select s).ToList();
+            ViewBag.orderDetail = orderDetail;
+            //ViewBag.orderList = orderList;
+            if (String.IsNullOrEmpty(sr))
+            {
+                ViewBag.orderList = orderList;
+            }
+            else
+            {
+                switch (sr)
+                {
+                    case "Wait":
+                        ViewBag.orderList = orderList.Where(s => s.Status == "Chưa giao hàng");
+                        break;
+                    case "Deli":
+                        ViewBag.orderList = orderList.Where(s => s.Status == "Đang giao hàng");
+                        break;
+                    case "Done":
+                        ViewBag.orderList = orderList.Where(s=>s.Status == "Hoàn thành");
+                        break;
+                    case "Cancel":
+                        ViewBag.orderList = orderList.Where(s => s.Status == "Đã hủy");
+                        break;
+                    default:
+                        ViewBag.orderList = orderList.Where(s => s.ID.ToString().Contains(sr));
+                        break;
+                }
+            }
+
+            //ViewBag.TongSoLuong = TongSoLuong();
+            KhachHang kh = new KhachHang();
+            if(Session["Taikhoan"] == null)
+            {
+                return RedirectToAction("Login","Account");
+            }
+            else
+            {
+                kh = (KhachHang)Session["Taikhoan"];
+            }
+            return View(kh);
+        }
+
+        public ActionResult CancelOrder(int ID)
+        {
+            var orderList = (from s in _db.Orders select s).ToList();
+            Order order = _db.Orders.Find(ID);
+            if(order.Status == "Chưa giao hàng")
+            {
+                order.Status = "Đã hủy";
+            }
+            else
+            {
+                order.Status = order.Status;
+            }
+            return View(order);
+          
+        }
+        [HttpPost, ActionName("CancelOrder")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CancelOrderConfirmed(int ID)
         {
             try
             {
-                KhachHang khachhang = _db.KhachHangs.Find(kh.idUser);
-                ModelState.Remove("Password");
-                ModelState.Remove("ConfirmPassword");
-                if (ModelState.IsValid)
-                {
-                    if (file != null)
-                    {
-                        string pic = System.IO.Path.GetFileName(file.FileName);
-                        String path = System.IO.Path.Combine(
-                                               Server.MapPath("~/Hinh/NhanVien"), pic);
-                        file.SaveAs(path);
-                        using (MemoryStream ms = new MemoryStream())
-                        {
-                            file.InputStream.CopyTo(ms);
-                            byte[] array = ms.GetBuffer();
-                        }
-                        khachhang.Picture = pic;
-                    }
-                    khachhang.FirstName = kh.FirstName;
-                    khachhang.LastName = kh.LastName;
-                    khachhang.Email = kh.Email;
-                    khachhang.Address = kh.Address;
-                    if(kh.NgaySinh != null)
-                    {
-                        khachhang.NgaySinh = kh.NgaySinh;
-                    }
-                    if (kh.CMT != null)
-                    {
-                        khachhang.CMT = kh.CMT;
-                    }
-
-                    if (kh.Sdt != null)
-                    {
-                        khachhang.Sdt = kh.Sdt;
-                    }
-                    kh.Password = khachhang.Password;
-                    kh.ConfirmPassword = khachhang.Password;
-                    _db.Entry(khachhang).State = EntityState.Modified;
-                    _db.SaveChanges();
-                    return RedirectToAction("ProFile");
-                }
-                return View(kh);
-               
+                Order order = _db.Orders.Find(ID);
+                order.Status = "Đã hủy";
+                _db.Entry(order).State = EntityState.Modified;
+                _db.SaveChanges();
             }
-            catch (DbEntityValidationException e)
+            catch
             {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
+
             }
+            return RedirectToAction("OrderList");
         }
-
-
-
-
 
     }
 }

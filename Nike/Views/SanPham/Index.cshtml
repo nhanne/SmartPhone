@@ -51,7 +51,7 @@
                             onclick="location.href='@Url.Action("Themgiohang", "Giohang",new {  IdProduct = @Model.Id,@strURL = Request.Url.ToString() })'">
                         Thêm vào giỏ hàng
                     </button>
-                    <button class="detail__operation-buynow btn">Mua ngay</button>
+                    <button class="detail__operation-buynow btn" onclick="location.href='@Url.Action("BuyNow", "Giohang",new {  IdProduct = @Model.Id })'">Mua ngay</button>
                 </div>
             </div>
         </div>

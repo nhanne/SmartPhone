@@ -1,0 +1,26 @@
+﻿@model Nike.Models.Order
+
+@{
+    ViewBag.Title = "Hủy đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="grid center">
+    <div>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <h4>Xác nhận hủy đơn hàng #@Model.ID</h4>
+
+
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Hủy đơn hàng" class="btn btn-default" /> |
+                @Html.ActionLink("Quay về", "OrderList", null, new { @class = "btn" })
+            </div>
+        }
+    </div>
+</div>

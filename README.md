@@ -1,5 +1,5 @@
 # SmartPhone
-Website bán điện thoại online
+**Website bán điện thoại online**
 Dự án website bán điện thoại Online được thực hiện bởi sinh viên HUFLIT, website được thiết kế bởi mô hình Model-View-Controller, quy trình thực hiện dựa trên tiến trình Scrum, project bắt đầu vào ngày 07/02/2023 và kết thúc vào ngày 30/6/2023. 
 Dự án bao gồm 8 sprint tương ứng với 14 tuần thực hiện
 Giao diện được thiết kế dựa trên giao diện của shoppe

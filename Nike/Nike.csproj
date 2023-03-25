@@ -182,6 +182,7 @@
     <Compile Include="Areas\Admin\Controllers\KhachHangController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\POSController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GiohangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -287,6 +288,8 @@
     <Content Include="Assets\Css\main.css" />
     <Content Include="Assets\img\app_store.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Hinh\KhachHang\avt_nhan.jpg" />
+    <Content Include="Hinh\KhachHang\avt_phat.jpg" />
     <Content Include="Hinh\NhanVien\avt_nhan.jpg" />
     <Content Include="Hinh\NhanVien\avt_phat.jpg" />
     <Content Include="Hinh\NhanVien\default.png" />
@@ -350,6 +353,8 @@
     <Content Include="Areas\Admin\Views\NhanVien\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\KhachHang\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\POS\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -391,7 +396,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Assets\Scripts\" />
-    <Folder Include="Hinh\KhachHang\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

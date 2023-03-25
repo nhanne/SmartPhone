@@ -1,4 +1,4 @@
-﻿using Nike.Models;
+﻿    using Nike.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -147,7 +147,7 @@ namespace Nike.Controllers
                 {
                     string pic = System.IO.Path.GetFileName(file.FileName);
                     String path = System.IO.Path.Combine(
-                                            Server.MapPath("~/Hinh/NhanVien"), pic);
+                                            Server.MapPath("~/Hinh/KhachHang"), pic);
                     file.SaveAs(path);
                     using (MemoryStream ms = new MemoryStream())
                     {

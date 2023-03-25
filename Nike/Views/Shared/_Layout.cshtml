@@ -2,7 +2,7 @@
 @using Nike.Models;
 @{
     List<Giohang> list = (List<Giohang>)Session["Giohang"] as List<Giohang>;
-
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
 }
 
 
@@ -19,7 +19,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
+    @{
+        KhachHang khsession = (KhachHang)Session["Taikhoan"];
+        KhachHang kh;
+        if (khsession != null)
+        {
+            kh = _db.KhachHangs.Find(khsession.idUser);
+        }
+        else { kh = null; }
+    }
     <div class="app">
         <header class="header">
             <div class="grid">
@@ -109,12 +117,13 @@
                                 <i class="navbar__icon fa-solid fa-circle-question"></i>Trợ giúp
                             </a>
                         </li>
-                        @{if (Session["idUserkh"] != null)
+
+                        @{if (kh != null)
                             {
                                 <li class="navbar__item navbar__item-user">
-                                    @{ if (Session["Avatarkh"] != null)
+                                    @{ if (kh.Picture != null)
                                         {
-                                            <img src="~/Hinh/NhanVien/@Session["Avatarkh"].ToString()"
+                                            <img src="~/Hinh/KhachHang/@Url.Content(kh.Picture)"
                                                  alt="" class="navbar__item-user-avt">
                                         }
                                         else
@@ -122,7 +131,7 @@
                                             <img src="" alt="" class="navbar__item-user-avt">
                                         }
                                     }
-                                    <span class="navbar__item-user-name"> @Session["FullNamekh"]</span>
+                                    <span class="navbar__item-user-name"> @kh.FullName()</span>
                                     <ul class="navbar__item-user-menu">
                                         <li class="navbar__item-user-item">
                                             <a href="@Url.Action("Profile","Account")"> Tài khoản của tôi</a>
@@ -179,7 +188,8 @@
                         </button>
                     }
 
-                    @{int TongSoLuong(){
+                    @{int TongSoLuong()
+                        {
                             int iTongSoLuong = 0;
                             List<Giohang> listGiohang = Session["Giohang"] as List<Giohang>;
                             if (listGiohang != null)
@@ -373,9 +383,9 @@
     <script src="/Scripts/jquery-3.4.1.js"></script>
     <script src="/Scripts/bootstrap.js"></script>
     @*<script>
-        $(".btn-order").click(function () {
-            $(".modal").show();
-        });
-    </script>*@
+            $(".btn-order").click(function () {
+                $(".modal").show();
+            });
+        </script>*@
 </body>
 </html>

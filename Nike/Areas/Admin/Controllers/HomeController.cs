@@ -13,6 +13,7 @@ namespace Nike.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
+
             return View();
         }
         [HttpPost]
@@ -23,18 +24,19 @@ namespace Nike.Areas.Admin.Controllers
             {
                 var obj = _db.NhanViens.Where(a => a.Email.Equals(objUser.Email) && a.Password.Equals(objUser.Password)).FirstOrDefault();               
                 var data = _db.NhanViens.Where(s => s.Email.Equals(objUser.Email) && s.Password.Equals(objUser.Password)).ToList();
-                if (obj != null)
+                if (obj != null && obj.MaChucVu == 2)
                 {
                     Session["NV"] = obj;
-                    Session["FullName"] = data.FirstOrDefault().FullName;
-                    Session["ChucVu"] = data.FirstOrDefault().ChucVu.ChucVu1;
-                    Session["Avatar"] = data.FirstOrDefault().Picture;
-
                     return RedirectToAction("Index", "Home");
+                }
+                else if (obj != null && obj.MaChucVu == 1)
+                {
+                    Session["NV"] = obj;
+                    return RedirectToAction("Index", "POS");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Không phải là tài khoản admin");
+                    ModelState.AddModelError("", "Không phải là tài khoản quản trị viên");
                 }
             }
             return View(objUser);

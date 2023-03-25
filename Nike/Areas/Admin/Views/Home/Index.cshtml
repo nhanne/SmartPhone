@@ -1,7 +1,13 @@
-﻿
+﻿@using Nike.Models;
+
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+    var dsKhachHang = _db.KhachHangs.ToList();
+    var dsProduct = _db.Products.ToList();
+    var dsOrder = _db.Orders.ToList();
 }
 
 <div class="row">
@@ -24,7 +30,7 @@
                     <i class='icon bx bxs-user-account fa-3x'></i>
                     <div class="info">
                         <h4>Tổng khách hàng</h4>
-                        <p><b>56 khách hàng</b></p>
+                        <p><b>@dsKhachHang.Count() khách hàng</b></p>
                         <p class="info-tong">Tổng số khách hàng được quản lý.</p>
                     </div>
                 </div>
@@ -35,7 +41,7 @@
                     <i class='icon bx bxs-data fa-3x'></i>
                     <div class="info">
                         <h4>Tổng sản phẩm</h4>
-                        <p><b>1850 sản phẩm</b></p>
+                        <p><b>@dsProduct.Count() sản phẩm</b></p>
                         <p class="info-tong">Tổng số sản phẩm được quản lý.</p>
                     </div>
                 </div>
@@ -46,7 +52,7 @@
                     <i class='icon bx bxs-shopping-bags fa-3x'></i>
                     <div class="info">
                         <h4>Tổng đơn hàng</h4>
-                        <p><b>247 đơn hàng</b></p>
+                        <p><b>@dsOrder.Count() đơn hàng</b></p>
                         <p class="info-tong">Tổng số hóa đơn bán hàng trong tháng.</p>
                     </div>
                 </div>
@@ -57,7 +63,17 @@
                     <i class='icon bx bxs-error-alt fa-3x'></i>
                     <div class="info">
                         <h4>Sắp hết hàng</h4>
-                        <p><b>4 sản phẩm</b></p>
+                        <p><b>
+                        @{ 
+                            int var = 0;
+                            foreach(var item in dsProduct) {
+                                if (item.SoLuong <50 && item.SoLuong > 0) {
+                                    var++;
+                                }
+                            }
+                        }
+                           
+                            @var sản phẩm</b></p>
                         <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
                     </div>
                 </div>
@@ -77,38 +93,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>AL3947</td>
-                                    <td>Phạm Thị Ngọc</td>
-                                    <td>
-                                        19.770.000 đ
-                                    </td>
-                                    <td><span class="badge bg-info">Chờ xử lý</span></td>
-                                </tr>
-                                <tr>
-                                    <td>ER3835</td>
-                                    <td>Nguyễn Thị Mỹ Yến</td>
-                                    <td>
-                                        16.770.000 đ
-                                    </td>
-                                    <td><span class="badge bg-warning">Đang vận chuyển</span></td>
-                                </tr>
-                                <tr>
-                                    <td>MD0837</td>
-                                    <td>Triệu Thanh Phú</td>
-                                    <td>
-                                        9.400.000 đ
-                                    </td>
-                                    <td><span class="badge bg-success">Đã hoàn thành</span></td>
-                                </tr>
-                                <tr>
-                                    <td>MT9835</td>
-                                    <td>Đặng Hoàng Phúc	</td>
-                                    <td>
-                                        40.650.000 đ
-                                    </td>
-                                    <td><span class="badge bg-danger">Đã hủy	</span></td>
-                                </tr>
+                                @foreach (var item in dsOrder)
+                                {
+                                    <tr>
+                                        <td>@item.ID</td>
+                                        <td>@item.KhachHang.FullName()</td>
+                                        <td>
+                                            @String.Format("{0:#,0}", item.ThanhTien) ₫
+                                        </td>
+                                        <td>
+                                            @switch (item.Status)
+                                            {
+                                                case "Chưa giao hàng":
+                                                    <span class="badge bg-info">@item.Status</span>
+                                                    break;
+                                                case "Hoàn thành":
+                                                    <span class="badge bg-success">@item.Status</span>
+                                                    break;
+                                                case "Đang giao hàng":
+                                                    <span class="badge bg-warning">@item.Status</span>
+                                                    break;
+                                                case "Đã hủy":
+                                                    <span class="badge bg-danger">@item.Status</span>
+                                                    break;
+                                            }
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -131,30 +142,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#183</td>
-                                    <td>Hột vịt muối</td>
-                                    <td>21/7/1992</td>
-                                    <td><span class="tag tag-success">0921387221</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#219</td>
-                                    <td>Bánh tráng trộn</td>
-                                    <td>30/4/1975</td>
-                                    <td><span class="tag tag-warning">0912376352</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#627</td>
-                                    <td>Cút rang bơ</td>
-                                    <td>12/3/1999</td>
-                                    <td><span class="tag tag-primary">01287326654</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#175</td>
-                                    <td>Hủ tiếu nam vang</td>
-                                    <td>4/12/20000</td>
-                                    <td><span class="tag tag-danger">0912376763</span></td>
-                                </tr>
+                                @foreach (var item in dsKhachHang)
+                                {
+                                    <tr>
+                                        <td>@item.idUser</td>
+                                        <td>@item.FullName()</td>
+                                        <td>@(item.NgaySinh?.ToString("dd/MM/yyyy"))</td>
+                                        <td><span class="tag tag-success">@item.Sdt</span></td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

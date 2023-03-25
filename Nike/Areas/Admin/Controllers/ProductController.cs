@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Nike.Models;
+using System.Data.Entity;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Nike.Areas.Admin.Controllers
 {
@@ -14,20 +17,27 @@ namespace Nike.Areas.Admin.Controllers
     {
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
         // GET: Product
-        public ActionResult Index(string searchString)
+        public ActionResult Index(int? page, string searchString)
         {
+            int pageNum = (page ?? 1);
+            int pageSize = 10;
 
-            var products = (from s in _db.Products select s).ToList();
+            NhanVien nv = (NhanVien)Session["NV"];
+            if (nv.MaChucVu == 1)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var products = (from s in _db.Products select s).ToList().ToPagedList(pageNum, pageSize);
             if (!String.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.ToLower();
-                ViewBag.products = products.Where(s => s.ProductName.ToLower().Contains(searchString));
+                ViewBag.products = _db.Products.Where(s => s.ProductName.ToLower().Contains(searchString) || s.Catalog.CatalogName.ToLower().Contains(searchString));
             }
             else
             {
                 ViewBag.products = products;
             }
-            return View();
+            return View(products);
         }
         public ActionResult Create()
         {
@@ -36,7 +46,7 @@ namespace Nike.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(HttpPostedFileBase file, [Bind(Include= "Catalogid,ProductName,ProductCode,UnitPrice,SoLuong,ProductSold,Catalog.CatalogName,Catalog.ProductOrigin,ProductSale,PriceOld")] Product model)
+        public ActionResult Create(HttpPostedFileBase file, [Bind(Include= "CatalogId,ProductName,ProductCode,UnitPrice,SoLuong,ProductSold,ProductSale,PriceOld")] Product model)
         {
 
             if (ModelState.IsValid)
@@ -56,6 +66,9 @@ namespace Nike.Areas.Admin.Controllers
                     }
                 }
                 model.Picture = anh;
+                Random prCode = new Random();
+                model.ProductCode = prCode.Next(72000000, 79000000).ToString();
+                model.UnitPrice = (model.ProductSale != null) ? (model.UnitPrice = (model.PriceOld - (model.PriceOld * int.Parse(model.ProductSale)) / 100)) : (model.UnitPrice = model.PriceOld);
                 _db.Products.Add(model);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -152,12 +165,11 @@ namespace Nike.Areas.Admin.Controllers
                 pr.Picture = anh;
                 pr.CatalogId = product.CatalogId;
                 pr.ProductName = product.ProductName;
-                pr.UnitPrice = product.UnitPrice;
+                pr.UnitPrice = (pr.ProductSale != null) ? (pr.UnitPrice = (pr.PriceOld - (pr.PriceOld * int.Parse(pr.ProductSale)) / 100)) : (pr.UnitPrice = pr.PriceOld);
                 pr.ProductCode = product.ProductCode;
-                pr.PriceOld = product.PriceOld;
                 pr.ProductSold = product.ProductSold;
                 pr.ProductSale = product.ProductSale;
-                pr.SoLuong = product.SoLuong;
+                pr.SoLuong = product.SoLuong - pr.ProductSold;
                 _db.Entry(pr).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");

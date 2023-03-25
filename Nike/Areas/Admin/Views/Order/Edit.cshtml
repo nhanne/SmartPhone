@@ -1,0 +1,109 @@
+﻿@using Nike.Models;
+@model Nike.Models.Order
+
+@{
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+    ViewBag.Title = "Xử lí đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+    KhachHang kh = _db.KhachHangs.Find(Model.KhachHang.idUser);
+    NhanVien nvsession = (NhanVien)Session["NV"];
+    NhanVien nv = _db.NhanViens.Find(nvsession.Id);
+    Order orders = _db.Orders.Find(Model.ID);
+
+}
+
+
+@using (Html.BeginForm("Edit", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
+    <div class="row">
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">Xác nhận đơn hàng</h3>
+                <div class="du--lieu-san-pham">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="so--luong">Mã sản phẩm</th>
+                                <th class="so--luong">Tên sản phẩm</th>
+                                <th class="so--luong">Ảnh</th>
+                                <th class="so--luong">Số lượng</th>
+                                <th class="so--luong">Giá bán</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in orders.Order_Detail)
+                            {
+                                if (orders.ID == item.ID_Order)
+                                {
+                                    <tr>
+                                        <td>#@item.Product.Id</td>
+                                        <td>@item.Product.ProductName</td>
+                                        <td><img src="~/Hinh/@Url.Content(item.Product.Picture)" alt="" width="50px"></td>
+                                        <td>@item.SoLuong</td>
+                                        <td>@string.Format("{0:#,0}", item.Price / item.SoLuong) đ</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="alert">
+                    @string.Format("{0:#,0}", orders.ThanhTien) đ
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">Thông tin khách hàng</h3>
+                <div class="row">
+                    <div class="form-group  col-md-6">
+                        <label class="control-label">Họ tên khách hàng</label>
+                        <input class="form-control" type="text" value="@kh.FullName()" disabled>
+                    </div>
+                    <div class="form-group  col-md-6">
+                        <label class="control-label">Số điện thoại khách hàng</label>
+                        <input class="form-control" type="text" value="@kh.Sdt" disabled>
+                    </div>
+                    <div class="form-group  col-md-12">
+                        <label class="control-label">Địa chỉ khách hàng</label>
+                        <input class="form-control" type="text" value="@kh.Address" disabled>
+                    </div>
+                    <div class="form-group  col-md-6">
+                        <label class="control-label">Nhân viên bán hàng</label>
+                        <input class="form-control" type="text" value="@nv.FullName" disabled>
+                    </div>
+                    <div class="form-group  col-md-6">
+                        <label class="control-label">Trạng thái đơn hàng</label>
+                        <input class="form-control" type="text" value="@orders.Status" disabled>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="form-group  col-md-12">
+                        <label class="control-label">Hình thức thanh toán</label>
+                        <select class="form-control" id="exampleSelect2" required>
+                            <option>Trả tiền mặt khi nhận hàng (COD)</option>
+                            <option>Thanh toán chuyển khoản</option>
+                        </select>
+                    </div>
+                    <div class="form-group  col-md-12">
+                        <label class="control-label">Tổng cộng thanh toán: </label>
+                        <p class="control-all-money-total">= @string.Format("{0:#,0}", orders.ThanhTien) VNĐ</p>
+                    </div>
+
+                    <div class="tile-footer col-md-12">
+                        @if (orders.Status == "Chưa giao hàng")
+                        {
+                            <input type="submit" value="Xác nhận đơn hàng" class="btn btn-primary luu-san-pham" />
+                            @*<button class="btn btn-primary luu-san-pham" type="button"> Xác nhận đơn hàng</button>*@
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

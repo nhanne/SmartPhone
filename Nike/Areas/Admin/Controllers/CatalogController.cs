@@ -17,9 +17,15 @@ namespace Nike.Areas.Admin.Controllers
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
         public ActionResult Index()
         {
-            var catalog = (from s in _db.Catalogs select s).ToList();
-            ViewBag.catalogs = catalog;        
-            return View();
+            NhanVien nv = (NhanVien)Session["NV"];
+            if(nv.MaChucVu == 1)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+                var catalog = (from s in _db.Catalogs select s).ToList();
+                ViewBag.catalogs = catalog;
+                return View();
+            
         }
         public ActionResult Create()
         {

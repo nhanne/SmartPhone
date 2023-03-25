@@ -84,16 +84,8 @@
                                         <span class="home-product__item-price-current"> @string.Format("{0:#,0}", item.UnitPrice)</span>
                                     </div>
                                     <div class="home-product__item-action">
-                                        <span class="home-product__item-like home-product__item-like--liked">
-                                            <i class="home-product__item-like-icon-empty fa-regular fa-heart"></i>
-                                            <i class="home-product__item-like-icon-fill fa-solid fa-heart"></i>
-                                        </span>
-                                        <div class="home-product__item-rate">
-                                            <i class="home-product__item-star--gold fa-solid fa-star"></i>
-                                            <i class="home-product__item-star--gold fa-solid fa-star"></i>
-                                            <i class="home-product__item-star--gold fa-solid fa-star"></i>
-                                            <i class="home-product__item-star--gold fa-solid fa-star"></i>
-                                            <i class="home-product__item-star--gold fa-regular fa-star"></i>
+                                        
+                                        <div class="home-product__item-rate"> <span style="color: var(--primary-color); border: 1px solid var(--primary-color)">128GB</span>
                                         </div>
 
                                         <span class="home-product__item-sold">@item.ProductSold đã bán</span>
@@ -103,7 +95,15 @@
                                         <span class="home-product__item-origin-name">@item.Catalog.ProductOrigin</span>
                                     </div>
                                     <div class="home-product__favourite">
-                                        <i class="fa-solid fa-check"></i> Yêu thích
+                                        <i class="fa-solid fa-check"></i> 
+                                        @if (item.SoLuong > 0)
+                                        {
+                                            <span>Còn hàng</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Cháy hàng</span>
+                                        }
                                     </div>
                                     <div class="home-product__sale-off">
                                         <span class="home-product__sale-off-percent">@item.ProductSale %</span>

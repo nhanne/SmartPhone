@@ -1,6 +1,7 @@
 ﻿using Nike.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -148,7 +149,8 @@ namespace Nike.Controllers
             var dsProduct = (from s in _db.Products select s).ToList();
             //Thêm đơn hàng
             Order order = new Order();
-            KhachHang kh = (KhachHang)Session["Taikhoan"];
+            KhachHang khsession = (KhachHang)Session["Taikhoan"];
+            KhachHang kh = _db.KhachHangs.Find(khsession.idUser);   
             List<Giohang> gh = Laygiohang();
             order.KhachHangID = kh.idUser;
             order.NgayDat = DateTime.Now;
@@ -170,8 +172,8 @@ namespace Nike.Controllers
                 ctdh.SoLuong = item.SoLuong;
                 ctdh.Price = item.Price;
                 Product product = dsProduct.Find(n => n.Id == item.IdProduct);
-                product.SoLuong -= ctdh.SoLuong;
                 product.ProductSold += ctdh.SoLuong;
+                product.SoLuong = ctdh.SoLuong - product.ProductSold;
                 _db.Order_Detail.Add(ctdh);
             }
             _db.SaveChanges();

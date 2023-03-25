@@ -15,40 +15,40 @@
     <div class="col-md-12">
         <div class="tile">
             <div class="tile-body">
-                <div class="row element-button">
+             
+
+                <div class="row" style="display:flex;align-items:center">
                     <div class="col-sm-2">
 
-                        <a class="btn btn-add btn-sm" href="@Url.Action("Create","Product")">
-                            <i class="fas fa-plus"></i>
-                            Tạo mới đơn hàng
+                        <a class="btn bg-info btn-sm" href="@Url.Action("Index","Order",new {sort = "Wait" })">
+                            Chưa giao hàng
                         </a>
                     </div>
-
                     <div class="col-sm-2">
-                        <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chép">
-                            <i class="fas fa-copy"></i> Sao chép
+
+                        <a class="btn bg-warning btn-sm" href="@Url.Action("Index","Order",new { sort = "Deli" })">
+                            Đang giao hàng
                         </a>
                     </div>
-
                     <div class="col-sm-2">
-                        <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)">
-                            <i class="fas fa-trash-alt"></i> Xóa tất cả
+
+                        <a class="btn bg-success btn-sm" href="@Url.Action("Index","Order",new { sort = "Done" })">
+                            Hoàn thành
                         </a>
                     </div>
+                    <div class="col-sm-2">
 
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-
+                        <a class="btn bg-danger btn-sm" href="@Url.Action("Index","Order",new { sort = "Cancel" })">
+                            Đã hủy
+                        </a>
                     </div>
-                    <div class="col-sm-12 col-md-6">
-                        @using (Html.BeginForm("Index", "Product", FormMethod.Get, new { @class = "dataTables_filter d-flex justify-content-end" }))
+                    <div class="col-sm-12 col-md-4">
+                        @using (Html.BeginForm("Index", "Order", FormMethod.Get, new { @class = "dataTables_filter d-flex justify-content-end" }))
                         {
                             <label>
                                 Tìm kiếm:
 
-                                @Html.TextBox("searchString", null, new { @class = "form-control form-control-sm" })
+                                @Html.TextBox("sort", null, new { @class = "form-control form-control-sm" })
 
                             </label>
                         }
@@ -83,11 +83,11 @@
                         var orderDetail = from s in _db.Order_Detail select s;
                         ViewBag.orderDetail = orderDetail.ToList();
                     }
-                    @foreach (var item in Model)
+                    @foreach (var item in ViewBag.orderList)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ID)
+                                @item.ID
                             </td>
                             <td>
                                 @item.KhachHang.FullName()
@@ -103,7 +103,7 @@
                                 }
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.TongSoLuong)
+                                @item.TongSoLuong
                             </td>
                             <td>
                                 @string.Format("{0:#,0}", item.ThanhTien)
@@ -132,7 +132,7 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                                 <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                        onclick="location.href='@Url.Action(@*"Edit", "Order",new { id = item.Id }*@)'">
+                                        onclick="location.href='@Url.Action("Edit", "Order",new { Id = item.ID })'">
                                     <i class="fas fa-edit"></i>
                                 </button>
                             </td>

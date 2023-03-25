@@ -16,7 +16,11 @@ namespace Nike.Areas.Admin.Controllers
         // GET: Admin/NhanVien
         public ActionResult Index(string searchString)
         {
-          
+            NhanVien nv = (NhanVien)Session["NV"];
+            if (nv.MaChucVu == 1)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var dsNhanVien = (from s in _db.NhanViens select s).ToList();
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -29,15 +33,9 @@ namespace Nike.Areas.Admin.Controllers
             }        
             return View();
         }
-        List<SelectListItem> genderList = new List<SelectListItem>()
-        {
-            new SelectListItem { Text = "Male", Value = "true" },
-            new SelectListItem { Text = "Female", Value = "false" }
-        };
         public ActionResult Create()
         {
             ViewBag.MaChucVu = new SelectList(_db.ChucVus ,"MaChucVu", "ChucVu1");
-            ViewBag.GenderList = genderList;
             return View();
         }
         [HttpPost]

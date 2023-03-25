@@ -12,17 +12,17 @@
         @using (Html.BeginForm("EditProFile", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "validate" })
             @Html.HiddenFor(model => model.idUser)
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "validate" })
             @Html.HiddenFor(model => model.Password)
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "validate" })
             @Html.HiddenFor(model => model.ConfirmPassword)
             <div class="form-group">
                 <h5>Tên</h5>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "validate" })
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <h5>Họ</h5>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "validate" })
                 </div>
             </div>
 
@@ -38,23 +38,23 @@
                 <h5>Email</h5>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "validate" })
                 </div>
             </div>
 
             @*<div class="form-group">
-                <h5>Mật khẩu</h5>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+                    <h5>Mật khẩu</h5>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "validate" })
+                    </div>
+                </div>*@
 
             <div class="form-group">
                 <h5>Địa chỉ</h5>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "validate" })
                 </div>
             </div>
 
@@ -62,7 +62,7 @@
                 <h5>Ngày sinh</h5>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "validate" })
                 </div>
             </div>
 
@@ -71,7 +71,7 @@
                 <h5>Chứng minh thư</h5>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.CMT, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CMT, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.CMT, "", new { @class = "validate" })
                 </div>
             </div>
 
@@ -79,7 +79,7 @@
                 <h5>Số điện thoại</h5>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "validate" })
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
                 <h5>Ảnh đại diện</h5>
                 <div id="myfileupload" class="col-md-10">
                     <input type="file" name="file" id="file" class="form-control" />
-                    @Html.ValidationMessageFor(model => model.Picture, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Picture, "", new { @class = "validate" })
                 </div>
             </div>
             <hr />
@@ -105,4 +105,12 @@
         }
     </div>
 </div>
+
+<style>
+    .validate {
+        color: var(--primary-color);
+        margin: 10px 0 0 10px;
+        display: block;
+    }
+</style>
 

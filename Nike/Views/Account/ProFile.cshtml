@@ -4,6 +4,11 @@
 @{
     ViewBag.Title = "Trang cá nhân";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+}
+@{
+    KhachHang khSession = (KhachHang)Session["Taikhoan"];
+    KhachHang kh = _db.KhachHangs.Find(khSession.idUser);
 }
 
 <div class="app__container">
@@ -12,9 +17,9 @@
             <div class="grid__column-2">
                 <nav class="category">
                     <div class="center">
-                        @{ if (Session["Avatarkh"] != null)
+                        @{ if (kh.Picture != null)
                             {
-                                <img src="~/Hinh/NhanVien/@Session["Avatarkh"].ToString()"
+                                <img src="~/Hinh/KhachHang/@Url.Content(kh.Picture)"
                                      alt="" class="navbar__item-user-avt">
                             }
                             else
@@ -25,7 +30,7 @@
 
                         <h3 class="category__heading">
 
-                            <span class="profile__user-name">@Session["FullNamekh"]</span>
+                            <span class="profile__user-name">@kh.FullName()</span>
                         </h3>
                     </div>
 
@@ -96,9 +101,9 @@
                             <div class="grid__column-4 center">
                                 <div class="profile__avatar">
                                     <div class="profile__avatar-item">
-                                        @{ if (Session["Avatarkh"] != null)
+                                        @{ if (kh.Picture != null)
                                             {
-                                                <img src="~/Hinh/NhanVien/@Session["Avatarkh"].ToString()" alt="avatar" style="border-radius: 50%;width:100%; height:100%" />
+                                                <img src="~/Hinh/KhachHang/@Url.Content(kh.Picture)" alt="avatar" style="border-radius: 50%;width:300px; height:300px" />
                                             }
                                             else
                                             {

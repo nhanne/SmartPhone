@@ -1,5 +1,7 @@
 ﻿@using Nike.Models;
-
+@{ 
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,11 +25,16 @@
 </head>
 
 <body onload="time()" class="app sidebar-mini rtl">
+
     @{
         if (Session["NV"] == null)
         {
             Response.Redirect("~/Admin/Home/Login");
         }
+    }
+    @{
+        NhanVien nvSession = (NhanVien)Session["NV"];
+        NhanVien nv = _db.NhanViens.Find(nvSession.Id);
     }
     <!-- Navbar-->
     <header class="app-header">
@@ -45,19 +52,16 @@
         </ul>
     </header>
     <!-- Sidebar menu-->
-    @{ 
-        NhanVien nv = (NhanVien)Session["NV"];
 
-    }
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
         <div class="app-sidebar__user">
-            <img class="app-sidebar__user-avatar" src="~/Hinh/NhanVien/@Session["Avatar"].ToString()" width="50px"
+            <img class="app-sidebar__user-avatar" src="~/Hinh/NhanVien/@nv.Picture" width="50px"
                  alt="User Image">
             <div>
 
-                <p class="app-sidebar__user-name"><b>@Session["FullName"]</b></p>
-                <p class="app-sidebar__user-designation">@Session["ChucVu"]</p>
+                <p class="app-sidebar__user-name"><b>@nv.FullName</b></p>
+                <p class="app-sidebar__user-designation">@nv.ChucVu.ChucVu1</p>
             </div>
         </div>
         <hr>
@@ -96,7 +100,6 @@
         </ul>
     </aside>
     <main class="app-content">
-
         @RenderBody()
     </main>
     <script src="~/Assets/Admin/js/jquery-3.2.1.min.js"></script>

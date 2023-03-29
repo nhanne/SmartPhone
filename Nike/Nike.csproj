@@ -176,16 +176,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CatalogController.cs" />
-    <Compile Include="Areas\Admin\Controllers\KhachHangController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
-    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\GiohangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -328,30 +319,12 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_layoutadmin.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Catalog\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Catalog\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Assets\Admin\vendor\bootstrap\css\bootstrap-grid.css.map" />
     <Content Include="Assets\Admin\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
     <Content Include="Assets\Admin\vendor\bootstrap\css\bootstrap-reboot.css.map" />
     <Content Include="Assets\Admin\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
     <Content Include="Assets\Admin\vendor\bootstrap\css\bootstrap.css.map" />
     <Content Include="Assets\Admin\vendor\bootstrap\css\bootstrap.min.css.map" />
-    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanVien\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanVien\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanVien\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanVien\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\KhachHang\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\Edit.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -374,9 +347,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Catalog\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Catalog\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Catalog\Delete.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -387,11 +357,9 @@
     <Content Include="Views\Account\EditProFile.cshtml" />
     <Content Include="Views\Account\OrderList.cshtml" />
     <Content Include="Views\Account\CancelOrder.cshtml" />
-    <Content Include="Views\Home\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Assets\Scripts\" />
   </ItemGroup>
   <ItemGroup>

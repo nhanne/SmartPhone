@@ -18,22 +18,10 @@
             <div class="tile-body">
 
                 <div class="row element-button">
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" style="display:flex;align-items:center">
                         <a class="btn btn-add btn-sm" href="@Url.Action("Create","NhanVien")" title="Thêm">
                             <i class="fas fa-plus"></i>
                             Tạo mới nhân viên
-                        </a>
-                    </div>
-                    <div class="col-sm-2">
-                        <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chép">
-                            <i class="fas fa-copy"></i> Sao chép
-                        </a>
-                    </div>
-
-
-                    <div class="col-sm-2">
-                        <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)">
-                            <i class="fas fa-trash-alt"></i> Xóa tất cả
                         </a>
                     </div>
                 </div>
@@ -48,7 +36,7 @@
                             <label>
                                 Tìm kiếm:
 
-                                @Html.TextBox("searchString", null, new { @class = "form-control form-control-sm" })
+                                @Html.TextBox("searchString", null, new { @class = "form-control form-control-sm", @placeholder ="Nhập họ tên" })
 
                             </label>
                         }
@@ -58,8 +46,7 @@
                     <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
                            id="sampleTable">
                         <thead>
-                            <tr>
-
+                            <tr class="label">
                                 <th>ID nhân viên</th>
                                 <th width="150">Họ và tên</th>
                                 <th width="20">Ảnh thẻ</th>
@@ -116,3 +103,8 @@
     </div>
 </div>
 
+<style>
+    tr.label th{
+        text-align:center;
+    }
+</style>

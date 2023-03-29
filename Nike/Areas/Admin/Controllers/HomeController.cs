@@ -32,7 +32,7 @@ namespace Nike.Areas.Admin.Controllers
                 else if (obj != null && obj.MaChucVu == 1)
                 {
                     Session["NV"] = obj;
-                    return RedirectToAction("Index", "POS");
+                    return RedirectToAction("Index", "Order");
                 }
                 else
                 {

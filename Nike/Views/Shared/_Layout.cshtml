@@ -27,7 +27,10 @@
             kh = _db.KhachHangs.Find(khsession.idUser);
         }
         else { kh = null; }
-    }
+
+
+
+}
     <div class="app">
         <header class="header">
             <div class="grid">
@@ -57,6 +60,7 @@
                         </li>
                     </ul>
                     <ul class="navbar__list">
+                        @if (kh!=null) {
                         <li class="navbar__item navbar__has-notify">
                             <a href="" class="navbar__item-link">
                                 <i class="navbar__icon fa-solid fa-bell"></i>Thông báo
@@ -80,38 +84,13 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="navbar__notify-item">
-                                        <a href="" class="navbar__notify-link">
-                                            <img src="https://cf.shopee.vn/file/20b238faac523df26278269376e5549a_tn"
-                                                 alt="" class="navbar__notify-img">
-                                            <div class="navbar__notify-info">
-                                                <span class="navbar__notify-name"> Chia sẻ nhận xét về sản phẩm </span>
-                                                <span class="navbar__notify-desc">
-                                                    Đơn hàng 220112J3DU3YWE đã hoàn thành.
-                                                    Bạn hãy đánh giá sản phẩm trước ngày
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="navbar__notify-item navbar__notify-item--viewed">
-                                        <a href="" class="navbar__notify-link">
-                                            <img src="https://cf.shopee.vn/file/ade732d34d81a743f9a3e2f769971603_tn"
-                                                 alt="" class="navbar__notify-img">
-                                            <div class="navbar__notify-info">
-                                                <span class="navbar__notify-name"> Giao kiện hàng thành công </span>
-                                                <span class="navbar__notify-desc">
-                                                    Kiện hàng SPXVN01182700872C của đơn
-                                                    hàng đã giao thành công đến bạn.
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
                                 </ul>
                                 <footer class="navbar_notify-footer">
                                     <a href="" class="navbar_notify-footer-btn">Xem tất cả</a>
                                 </footer>
                             </div>
                         </li>
+                        }
                         <li class="navbar__item">
                             <a href="" class="navbar__item-link">
                                 <i class="navbar__icon fa-solid fa-circle-question"></i>Trợ giúp
@@ -183,7 +162,7 @@
                         </div>
 
 
-                        <button class="header-search__box-search-btn">
+                        <button class="header-search__box-search-btn" onclick="location.href='@Url.Action("Index", "Home")'">
                             <i class="header-search__box-search-btn-icon fa-solid fa-magnifying-glass"></i>
                         </button>
                     }

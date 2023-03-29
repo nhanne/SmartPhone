@@ -93,7 +93,11 @@
                             <div class="ordList-item__footer">
                                 <div class="ordList-item__footer-date">
                                     <div class="ordList-item__footer-dateOrd">Ngày đặt: @(order.NgayDat?.ToString("dd/MM/yyyy"))</div>
-                                    <div class="ordList-item__footer-dateOrd">Ngày nhận hàng: @(order.NgayGiao?.ToString("dd/MM/yyyy"))</div>
+                                    @if (order.Status == "Hoàn thành")
+                                    {
+                                        <div class="ordList-item__footer-dateOrd">Ngày nhận hàng: @(order.NgayGiao?.ToString("dd/MM/yyyy"))</div>
+                                    }
+
                                 </div>
 
                                 <div>

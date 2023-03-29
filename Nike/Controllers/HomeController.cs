@@ -55,13 +55,17 @@ namespace Nike.Controllers
                         ViewBag.currentSort = "hot";
                         break;
                     default:
-                        ViewBag.products = dsProduct.Where(s => s.ProductName.ToLower().Contains(sort) || s.Catalog.CatalogName.ToLower().Contains(sort)).ToPagedList(pageIndex, 8);
+                        ViewBag.products = dsProduct.Where(s => s.ProductName.ToLower().Contains(sort) || s.Catalog.CatalogName.ToLower().Contains(sort));
                         ViewBag.currentSort = "";
                         break;
-                  
                 }
             }
            
+        }
+        public ActionResult Product(int? id)
+        {
+            Product product = _db.Products.Find(id);
+            return View(product);
         }
 
 

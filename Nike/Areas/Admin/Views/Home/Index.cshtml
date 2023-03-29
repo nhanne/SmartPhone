@@ -1,5 +1,6 @@
 ﻿@using Nike.Models;
-
+@using PagedList;
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -63,17 +64,22 @@
                     <i class='icon bx bxs-error-alt fa-3x'></i>
                     <div class="info">
                         <h4>Sắp hết hàng</h4>
-                        <p><b>
-                        @{ 
-                            int var = 0;
-                            foreach(var item in dsProduct) {
-                                if (item.SoLuong <50 && item.SoLuong > 0) {
-                                    var++;
+                        <p>
+                            <b>
+                                @{
+                                    int var = 0;
+                                    foreach (var item in dsProduct)
+                                    {
+                                        if (item.SoLuong < 50 && item.SoLuong > 0)
+                                        {
+                                            var++;
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                           
-                            @var sản phẩm</b></p>
+
+                                @var sản phẩm
+                            </b>
+                        </p>
                         <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
                     </div>
                 </div>

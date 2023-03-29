@@ -72,7 +72,7 @@ namespace Nike.Areas.Admin.Controllers
         }
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost([Bind(Include="ID,CatalogCode,CatalogName,hihi")] Catalog catalogs)
+        public ActionResult EditPost([Bind(Include="ID,CatalogCode,CatalogName")] Catalog catalogs)
         {
             Catalog catalog = _db.Catalogs.Find(catalogs.ID);
             if (ModelState.IsValid)
@@ -118,17 +118,10 @@ namespace Nike.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int ID)
         {
-            try
-            {
                 Catalog catalog = _db.Catalogs.Find(ID);
                 _db.Catalogs.Remove(catalog);
                 _db.SaveChanges();
-            }
-            catch
-            {
-
-            }
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
         }
     }
 }

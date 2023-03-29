@@ -93,22 +93,6 @@ namespace Nike.Controllers
             return RedirectToAction("Index","Home");
         }
 
-        //create a string MD5,Dùng chuyển đổi một chuỗi về dạng mã hóa MD5
-        public static string GetMD5(string str)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] fromData = Encoding.UTF8.GetBytes(str);
-            byte[] targetData = md5.ComputeHash(fromData);
-            string byte2String = null;
-
-            for (int i = 0; i < targetData.Length; i++)
-            {
-                byte2String += targetData[i].ToString("x2");
-
-            }
-            return byte2String;
-        }
-
 
         public ActionResult ProFile()
         {
@@ -189,7 +173,6 @@ namespace Nike.Controllers
             var orderList = (from s in _db.Orders select s).ToList();
             var orderDetail = (from s in _db.Order_Detail select s).ToList();
             ViewBag.orderDetail = orderDetail;
-            //ViewBag.orderList = orderList;
             if (String.IsNullOrEmpty(sr))
             {
                 ViewBag.orderList = orderList;
@@ -215,8 +198,6 @@ namespace Nike.Controllers
                         break;
                 }
             }
-
-            //ViewBag.TongSoLuong = TongSoLuong();
             KhachHang kh = new KhachHang();
             if(Session["Taikhoan"] == null)
             {

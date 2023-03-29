@@ -16,9 +16,9 @@ namespace Nike.Areas.Admin.Controllers
             NhanVien nv = (NhanVien)Session["NV"];
             if (nv.MaChucVu == 1)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Order");
             }
-            var dsKhachHang = (from s in _db.KhachHangs select s).ToList();
+            var dsKhachHang = _db.KhachHangs.ToList();
             return View(dsKhachHang);
         }
     }

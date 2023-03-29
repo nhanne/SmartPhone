@@ -53,9 +53,9 @@ namespace Nike.Models
         public string Picture { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
         public string Address { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập ngày sinh")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{mm/dd/yyyy}")]
+        //[Required(ErrorMessage = "Vui lòng nhập ngày sinh")]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{mm/dd/yyyy}")]
         public Nullable<System.DateTime> NgaySinh { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập số chứng minh thư")]
         public string CMT { get; set; }
@@ -73,7 +73,7 @@ namespace Nike.Models
         [Required(ErrorMessage = "Vui lòng nhập Tên")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Vui lòng nhập tên thật")]
         public string FirstName { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập THọ")]
+        [Required(ErrorMessage = "Vui lòng nhập Họ")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Vui lòng nhập họ thật")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập Email")]

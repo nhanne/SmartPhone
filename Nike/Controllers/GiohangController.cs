@@ -155,8 +155,6 @@ namespace Nike.Controllers
             order.KhachHangID = kh.idUser;
             order.NgayDat = DateTime.Now;
             order.NgayGiao = order.NgayDat.Value.AddDays(3);
-            //var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]);
-            //order.NgayGiao = DateTime.Parse(ngaygiao).AddHours(12);
             order.Status = "Chưa giao hàng";
             order.Payment = false;
             order.Address = kh.Address;

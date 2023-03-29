@@ -15,12 +15,12 @@
             <div class="grid__column-8 detail">
                 <h2 class="detail__name">@Model.ProductName</h2>
                 <div class="detail__quanti">
-                    <span class="detail__SoLuong">Số lượng: @Model.SoLuong |</span>
-                    <span class="detail__ProductSold">@Model.ProductSold đã bán |</span>
+                    <span style="color: var(--primary-color); border: 1px solid var(--primary-color)">128GB</span>
+                    <span class="detail__ProductSold">| @Model.ProductSold đã bán </span>
                 </div>
                 <div class="detail__price">
-                    <span class="detail__price-old">@string.Format("{0:#,0}", Model.PriceOld)</span>
-                    <span class="detail__unit-price">@string.Format("{0:#,0}", Model.UnitPrice)</span>
+                    <span class="detail__price-old">@string.Format("{0:#,0}", Model.PriceOld) đ</span>
+                    <span class="detail__unit-price">@string.Format("{0:#,0}", Model.UnitPrice) đ</span>
                     <span class="detail__product-sale"> @Model.ProductSale% Giảm</span>
                 </div>
                 <div class="detail__info">

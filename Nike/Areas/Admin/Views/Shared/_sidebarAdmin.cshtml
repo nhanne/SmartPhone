@@ -1,0 +1,54 @@
+﻿
+@using Nike.Models;
+@{
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+    //NhanVien nvSession = (NhanVien)Session["NV"];
+    //NhanVien nv = _db.NhanViens.Find(nvSession.Id);
+}
+<!-- Sidebar menu-->
+
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+    <div class="app-sidebar__user">
+        @*<img class="app-sidebar__user-avatar" src="~/Hinh/NhanVien/@nv.Picture" width="50px"
+             alt="User Image">*@
+        @*<div>
+
+            <p class="app-sidebar__user-name"><b>@nv.FullName</b></p>
+            <p class="app-sidebar__user-designation">@nv.ChucVu.ChucVu1</p>
+        </div>*@
+    </div>
+    <hr>
+    <ul class="app-menu">
+        <li>
+            <a class="app-menu__item active bg-light" href="@Url.Action("Index","Home")">
+                <i class='app-menu__icon bx bx-tachometer'></i><span class="app-menu__label">Bảng điều khiển</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("Index","NhanVien")">
+                <i class='app-menu__icon bx bx-id-card'></i> <span class="app-menu__label">Quản lý nhân viên</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("Index","KhachHang")">
+                <i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Quản lý khách hàng</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("Index","Product")">
+                <i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("Index","Order")">
+                <i class='app-menu__icon bx bx-task'></i><span class="app-menu__label">Quản lý đơn hàng</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="#">
+                <i class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span>
+            </a>
+        </li>
+    </ul>
+</aside>

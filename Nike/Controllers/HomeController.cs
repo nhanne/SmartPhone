@@ -17,6 +17,7 @@ namespace Nike.Controllers
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
 
         public ActionResult Index(string sort, int pageIndex = 1)
+
         {
             Sort(sort, pageIndex);
             return View();
@@ -63,6 +64,12 @@ namespace Nike.Controllers
                 }
             }
 
+        }
+
+        public ActionResult Product(int? id)
+        {
+            Product product = _db.Products.Find(id);
+            return View(product);
         }
 
     }

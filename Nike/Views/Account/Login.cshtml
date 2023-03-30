@@ -1,0 +1,43 @@
+﻿@model Nike.Models.KhachHang
+
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-form">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="auth-form__container">
+            <div class="auth-form__header">
+                <h3 class="auth-form__heading">Đăng nhập</h3>
+                <span>@Html.ActionLink("Đăng ký", "Register", "Account", new { @class = "auth-form__switch-btn myactionlink" }) </span>
+            </div>
+            <div class="auth-form__form">
+                <div class="auth-form__group">
+                    @Html.TextBoxFor(m => m.Email, "s", new { @class = "auth-form__input", @placeholder = "Email của bạn" })
+                </div>
+                <div class="auth-form__group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "auth-form__input", @placeholder = "Password" })
+                </div>
+
+            </div>
+            <div class="auth-form__aside">
+                <div class="auth-form__help">
+                    <a href="" class="auth-form__help-link auth-form__help-forgot">Quên mật khẩu</a>
+                    <span class="auth-form__help--separate"></span>
+                    <a href="" class="auth-form__help-link ">Cần trợ giúp ?</a>
+                </div>
+            </div>
+            <div class="auth-form__controls">
+                <button class="btn btn--hover" type="button" onclick="location.href='@Url.Action("Index", "Home")'">TRỞ LẠI</button>
+                <input type="submit" name="submit" class="btn btn--primary" value="Login" />
+            </div>
+        </div>
+
+    }
+</div>
+
+

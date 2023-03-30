@@ -53,31 +53,5 @@ namespace Nike.Controllers
             }
             return iTongTien;
         }
-        //Xóa sản phẩm khỏi giỏ hàng code bởi Phát
-        public ActionResult Xoagiohang(int IdProduct)
-        {
-            // Lấy giỏ hàng từ session
-            List<Giohang> listGiohang = Laygiohang();
-            // Kiểm tra sản phẩm có trong giỏ hàng hay không
-            Giohang product = listGiohang.SingleOrDefault(n => n.IdProduct == IdProduct);
-            //nếu tồn tại thì sửa số lượng
-            if (product != null)
-            {
-                listGiohang.RemoveAll(n => n.IdProduct == IdProduct);
-                return RedirectToAction("Index");
-            }
-            if (listGiohang.Count == 0)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            return RedirectToAction("Index");
-        }
-        // Xoa toàn bộ giỏ hàng code bởi Phát
-        public ActionResult DeleteAll()
-        {
-            List<Giohang> listGiohang = Laygiohang();
-            listGiohang.Clear();
-            return RedirectToAction("Index", "Home");
-        }
     }
 }

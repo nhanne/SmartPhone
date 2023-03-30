@@ -41,8 +41,6 @@ namespace Nike.Controllers
                 }
             }
             return View();
-
-
         }
 
         // Đăng nhập và đăng xuất của Phat

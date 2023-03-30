@@ -79,5 +79,40 @@ namespace Nike.Controllers
             listGiohang.Clear();
             return RedirectToAction("Index", "Home");
         }
+        // Thêm sản phẩm vào giỏ hàng
+        public ActionResult Themgiohang(int IdProduct, string strURL)
+        {
+            // Lấy ra session giỏ hàng
+            List<Giohang> listGiohang = Laygiohang();
+            // Kiểm tra sản phẩm này có trong giỏ hàng chưa
+            Giohang product = listGiohang.Find(n => n.IdProduct == IdProduct);
+            if (product == null)
+            {
+                product = new Giohang(IdProduct);
+                listGiohang.Add(product);
+                return Redirect(strURL);
+            }
+            else
+            {
+                product.SoLuong++;
+                return Redirect(strURL);
+            }
+        }
+        public ActionResult BuyNow(int IdProduct)
+        {
+            List<Giohang> listGiohang = Laygiohang();
+            // Kiểm tra sản phẩm này có trong giỏ hàng chưa
+            Giohang product = listGiohang.Find(n => n.IdProduct == IdProduct);
+            if (product == null)
+            {
+                product = new Giohang(IdProduct);
+                listGiohang.Add(product);
+            }
+            else
+            {
+                product.SoLuong++;
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

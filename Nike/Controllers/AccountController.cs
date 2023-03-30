@@ -1,6 +1,7 @@
 ﻿using Nike.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -128,6 +129,39 @@ namespace Nike.Controllers
                 kh = (KhachHang)Session["Taikhoan"];
             }
             return View(kh);
+        }
+        //Hủy đơn hàng của Thắng
+        public ActionResult CancelOrder(int ID)
+        {
+            var orderList = (from s in _db.Orders select s).ToList();
+            Order order = _db.Orders.Find(ID);
+            if (order.Status == "Chưa giao hàng")
+            {
+                order.Status = "Đã hủy";
+            }
+            else
+            {
+                order.Status = order.Status;
+            }
+            return View(order);
+
+        }
+        [HttpPost, ActionName("CancelOrder")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CancelOrderConfirmed(int ID)
+        {
+            try
+            {
+                Order order = _db.Orders.Find(ID);
+                order.Status = "Đã hủy";
+                _db.Entry(order).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("OrderList");
         }
     }
 }

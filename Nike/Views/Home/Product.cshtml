@@ -1,8 +1,147 @@
-﻿
+﻿@using Nike.Models;
+@model Nike.Models.Product
 @{
-    ViewBag.Title = "Product";
+    ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    KhachHang kh = (KhachHang)Session["Taikhoan"];
 }
 
-<h2>Product</h2>
+<div class="app__container">
+    <div class="grid app__content">
+        <div class="grid__row" style="padding:40px 0;">
+            <div class="grid__column-6">
+                <img src="~/Hinh/@Url.Content(@Model.Picture)" alt="" class="detail__picture">
+            </div>
+            <div class="grid__column-8 detail">
+                <h2 class="detail__name">@Model.ProductName</h2>
+                <div class="detail__quanti">
+                    <span style="color: var(--primary-color); border: 1px solid var(--primary-color)">128GB</span>
+                    <span class="detail__ProductSold">| @Model.ProductSold đã bán </span>
+                </div>
+                <div class="detail__price">
+                    <span class="detail__price-old">@string.Format("{0:#,0}", Model.PriceOld) đ</span>
+                    <span class="detail__unit-price">@string.Format("{0:#,0}", Model.UnitPrice) đ</span>
+                    <span class="detail__product-sale"> @Model.ProductSale% Giảm</span>
+                </div>
+                <div class="detail__info">
+                    @if (kh != null)
+                    {
+                        <div class="detail__info-deli">
+                            <span class="detail__info-label">Vận chuyển: </span>Tới địa chỉ: @kh.Address
+                        </div>
+                    }
+                    <div class="detail__info-brand">
+                        <span class="detail__info-label">Nhãn hiệu: </span> @Model.Catalog.CatalogName
+                    </div>
+                    <div class="detail__info-quanti">
+                        <span class="detail__info-label">Số lượng: </span> 1
+                    </div>
+
+                </div>
+                <div class="detail__desc">
+                    <h5>Bộ sản phẩm bao gồm: </h5>
+                    <ul class="detail__ul">
+                        <li>Điện thoại </li>
+                        <li>Dây sạc</li>
+                        <li>HDSD Bảo hành điện tử 12 tháng.</li>
+                    </ul>
+                </div>
+                <div class="detail__operation">
+                    <button class="detail__operation-addCart btn btn-order" type="button" title="Order"
+                            onclick="location.href='@Url.Action("Themgiohang", "Giohang",new {  IdProduct = @Model.Id,@strURL = Request.Url.ToString() })'">
+                        Thêm vào giỏ hàng
+                    </button>
+                    <button class="detail__operation-buynow btn" onclick="location.href='@Url.Action("BuyNow", "Giohang",new {  IdProduct = @Model.Id })'">Mua ngay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<style>
+    .detail__picture {
+        width: 100%;
+        height: 430px;
+        background-repeat: no-repeat;
+    }
+
+    .detail {
+        font-size: 1.6rem;
+        position: relative;
+    }
+
+    .detail__price {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        background-color: #FAFAFA;
+    }
+
+    .detail__price-old {
+        color: #878787;
+        margin-right: 10px;
+        text-decoration: line-through;
+    }
+
+    .detail__unit-price {
+        margin-right: 10px;
+        color: #D0011B;
+        font-size: 2.6rem;
+    }
+
+    .detail__product-sale {
+        text-transform: uppercase;
+        background-color: #D0011B;
+        padding: 5px;
+        color: var(--white-color);
+    }
+
+    .detail__info {
+        margin: 10px 0;
+    }
+
+    .detail__info-label {
+        display: inline-block;
+        width: 100px;
+        height: 30px;
+        color: #878787;
+    }
+
+    .__info-deli {
+    }
+
+    .detail__info-brand {
+    }
+
+    .detail__info-quanti {
+    }
+
+    .detail__operation {
+    }
+
+    .detail__operation-addCart {
+        color: #d0011b;
+        border: 1px solid #d0011b;
+        padding: 0px 4px;
+    }
+
+        .detail__operation-addCart .fa-cart-plus {
+            display: inline-block;
+            margin: 0 8px;
+        }
+
+    .detail__operation-buynow {
+        background-color: #d0011b;
+        color: var(--white-color);
+    }
+
+    .detail__ul li {
+        color: #6f6c6c;
+        margin: 15px 0;
+    }
+</style>
+
 

@@ -51,15 +51,15 @@ namespace Nike.Models
         }
 
         public string Picture { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
+    
         public string Address { get; set; }
         //[Required(ErrorMessage = "Vui lòng nhập ngày sinh")]
         //[DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{mm/dd/yyyy}")]
         public Nullable<System.DateTime> NgaySinh { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập số chứng minh thư")]
+     
         public string CMT { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
+    
         public string Sdt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -85,9 +85,12 @@ namespace Nike.Models
         }
 
         public string Picture { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
         public string Address { get; set; }
         public Nullable<System.DateTime> NgaySinh { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập số chứng minh thư")]
         public string CMT { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
         public string Sdt { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

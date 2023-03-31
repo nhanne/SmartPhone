@@ -31,8 +31,8 @@
             <div class="grid__column-10">
                 <div class="home-filter">
                     <span class="home-filter__label">Sắp xếp theo</span>
-                    <a href="#">Mới nhất</a>
-                    <a href="#">Bán chạy</a>
+                    <a href="@Url.Action("Index","Home",new {sort = "new" })" class="home-filter__btn btn btn--primary">Mới nhất</a>
+                    <a href="@Url.Action("Index","Home",new {sort = "hot" })" class="home-filter__btn btn">Bán chạy</a>
 
 
                     <div class="select-input">

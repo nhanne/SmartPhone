@@ -34,7 +34,11 @@
                         <span class="detail__info-label">Nhãn hiệu: </span> @Model.Catalog.CatalogName
                     </div>
                     <div class="detail__info-quanti">
-                        <span class="detail__info-label">Số lượng: </span> 1
+                        <span class="detail__info-label">Tình trạng: </span>
+                        @if (Model.SoLuong > 0)
+                        {<span>Còn hàng</span> }
+                        else
+                        { <span> Hết hàng </span>}
                     </div>
 
                 </div>
@@ -46,13 +50,16 @@
                         <li>HDSD Bảo hành điện tử 12 tháng.</li>
                     </ul>
                 </div>
-                <div class="detail__operation">
-                    <button class="detail__operation-addCart btn btn-order" type="button" title="Order"
-                            onclick="location.href='@Url.Action("Themgiohang", "Giohang",new {  IdProduct = @Model.Id,@strURL = Request.Url.ToString() })'">
-                        Thêm vào giỏ hàng
-                    </button>
-                    <button class="detail__operation-buynow btn" onclick="location.href='@Url.Action("BuyNow", "Giohang",new {  IdProduct = @Model.Id })'">Mua ngay</button>
-                </div>
+                @if (Model.SoLuong > 0)
+                {
+                    <div class="detail__operation">
+                        <button class="detail__operation-addCart btn btn-order" type="button" title="Order"
+                                onclick="location.href='@Url.Action("Themgiohang", "Giohang", new { IdProduct = @Model.Id, @strURL = Request.Url.ToString() })'">
+                            Thêm vào giỏ hàng
+                        </button>
+                        <button class="detail__operation-buynow btn" onclick="location.href='@Url.Action("BuyNow", "Giohang", new { IdProduct = @Model.Id })'">Mua ngay</button>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -143,5 +150,4 @@
         margin: 15px 0;
     }
 </style>
-
 

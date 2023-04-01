@@ -8,6 +8,8 @@
     var currentSort = ViewBag.currentSort;
     var currentPage = ViewBag.currentPage;
 }
+
+@Html.Hidden("sort")
 <div class="app__container">
     <div class="grid">
         <div class="grid__row app__content">
@@ -31,8 +33,9 @@
             <div class="grid__column-10">
                 <div class="home-filter">
                     <span class="home-filter__label">Sắp xếp theo</span>
-                    <a href="@Url.Action("Index","Home",new {sort = "new" })" class="home-filter__btn btn btn--primary">Mới nhất</a>
+                    <a href="@Url.Action("Index","Home",new {sort = "new" })" class="home-filter__btn btn @*btn--primary*@">Mới nhất</a>
                     <a href="@Url.Action("Index","Home",new {sort = "hot" })" class="home-filter__btn btn">Bán chạy</a>
+                    <a href="@Url.Action("Index","Home",new {sort = "selling" })" class="home-filter__btn btn">Còn hàng</a>
 
 
                     <div class="select-input">
@@ -44,23 +47,8 @@
                             </li>
                             <li class="select-input__item">
                                 <a href="@Url.Action("Index","Home",new { sort = "desc" })" class="select-input__link">Giá: cao đến thấp</a>
-
                             </li>
                         </ul>
-                    </div>
-                    <div class="home-filter__page">
-                        <span class="home-filter__page-num">
-                            <span class="home-filter__page-current">1</span>/14
-                        </span>
-                        <div class="home-filter__page-control">
-                            <a href="" class="home-filter__page-btn home-filter__page-btn--disabled">
-                                <i class="home-filter__page-icon fa-solid fa-caret-left"></i>
-                            </a>
-                            <a href="" class="home-filter__page-btn">
-                                <i class="home-filter__page-icon fa-solid fa-caret-right"></i>
-                            </a>
-
-                        </div>
                     </div>
                 </div>
 

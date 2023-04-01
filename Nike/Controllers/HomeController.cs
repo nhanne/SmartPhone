@@ -57,6 +57,10 @@ namespace Nike.Controllers
                         ViewBag.products = dsProduct.OrderByDescending(c => c.ProductSold).ToPagedList(pageIndex, 8);
                         ViewBag.currentSort = "hot";
                         break;
+                    case "selling":
+                        ViewBag.products = dsProduct.Where(c => c.SoLuong > 0).ToPagedList(pageIndex, 8);
+                        ViewBag.currentSort = "selling";
+                        break;
                     default:
                         ViewBag.products = dsProduct.Where(s => s.ProductName.ToLower().Contains(sort) || s.Catalog.CatalogName.ToLower().Contains(sort));
                         ViewBag.currentSort = "";

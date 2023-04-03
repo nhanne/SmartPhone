@@ -17,7 +17,6 @@ namespace Nike.Controllers
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
 
         public ActionResult Index(string sort, int pageIndex = 1)
-
         {
             Sort(sort, pageIndex);
             return View();
@@ -26,6 +25,7 @@ namespace Nike.Controllers
         {
             //Catalog
             ViewBag.catalogs = (from s in _db.Catalogs select s).ToList();
+            Console.WriteLine(ViewBag.catalogs);
             //Product
             var dsProduct = (from s in _db.Products select s).ToList();
             var totalPage = (double)dsProduct.Count() / (double)8;

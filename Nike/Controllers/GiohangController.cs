@@ -73,6 +73,19 @@ namespace Nike.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult Capnhatgiohang(int IdProduct, FormCollection f)
+        {
+            // Lấy giỏ hàng từ session
+            List<Giohang> listGiohang = Laygiohang();
+            // Kiểm tra sản phẩm có trong giỏ hàng hay không
+            Giohang product = listGiohang.SingleOrDefault(n => n.IdProduct == IdProduct);
+            if (product != null)
+            {
+                product.SoLuong = int.Parse(f["txtSoLuong"].ToString());
+            }
+            return RedirectToAction("Index");
+        }
         public ActionResult DeleteAll()
         {
             List<Giohang> listGiohang = Laygiohang();

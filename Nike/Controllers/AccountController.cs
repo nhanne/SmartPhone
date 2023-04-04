@@ -87,18 +87,6 @@ namespace Nike.Controllers
         }
         //hoàng - code
 
-        public ActionResult ProFile()
-        {
-            KhachHang kh = (KhachHang)Session["Taikhoan"];
-            KhachHang khachHang = _db.KhachHangs.Find(kh.idUser);
-
-            if (kh != null && khachHang != null)
-            {
-                return View(khachHang);
-            }
-            return HttpNotFound();
-
-        }
         public ActionResult EditProFile(int idUser)
         {
             KhachHang khsession = (KhachHang)Session["Taikhoan"];

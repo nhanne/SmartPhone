@@ -375,6 +375,8 @@
     <Content Include="Views\Home\Product.cshtml" />
     <Content Include="Views\Account\CancelOrder.cshtml" />
     <Content Include="Views\Giohang\DatHang.cshtml" />
+    <Content Include="Views\Account\EditProFile.cshtml" />
+    <Content Include="Views\Account\ProFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

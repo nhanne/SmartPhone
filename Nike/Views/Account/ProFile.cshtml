@@ -1,0 +1,124 @@
+﻿@using Nike.Models
+@model Nike.Models.KhachHang
+
+@{
+    ViewBag.Title = "Trang cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+}
+@{
+    KhachHang khSession = (KhachHang)Session["Taikhoan"];
+    KhachHang kh = _db.KhachHangs.Find(khSession.idUser);
+}
+
+<div class="app__container">
+    <div class="grid">
+        <div class="grid__row app__content">
+            <div class="grid__column-2">
+                <nav class="category">
+                    <div class="center">
+                        @{ if (kh.Picture != null)
+                            {
+                                <img src="~/Hinh/KhachHang/@Url.Content(kh.Picture)"
+                                     alt="" class="navbar__item-user-avt">
+                            }
+                            else
+                            {
+                                <img src="" alt="" class="navbar__item-user-avt">
+                            }
+                        }
+
+                        <h3 class="category__heading">
+
+                            <span class="profile__user-name">@kh.FullName()</span>
+                        </h3>
+                    </div>
+
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="@Url.Action("ProFile","Account")" class="category-item__link"> Tài khoản của tôi</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="@Url.Action("OrderList","Account")" class="category-item__link">Đơn mua</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="" class="category-item__link">Thông báo</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+            <div class="grid__column-10">
+                <div class="profile">
+                    <div class="profile__heading">
+                        <h1 class="profile__heading-title">Hồ Sơ Của Tôi</h1>
+                        <div class="profile__heading-mota">Quản lí thông tin hồ sơ để bảo mật tài khoản</div>
+                    </div>
+                    <hr>
+                    <div class="profile_body">
+                        <div class="grid__row">
+                            <div class="grid__column-8">
+                                <table class="profile__info">
+
+                                    <tr class="profile__info-item">
+                                        <td class="profile__info-item--label">Email</td>
+                                        <td> @Model.Email</td>
+                                    </tr>
+
+                                    <tr class="profile__info-item">
+                                        <td class="profile__info-item--label">Họ Tên</td>
+                                        <td>@Model.FullName()</td>
+                                    </tr>
+                                    <tr class="profile__info-item">
+                                        <td class="profile__info-item--label">Mật khẩu</td>
+                                        <td>*******</td>
+                                    </tr>
+                                    <tr class="profile__info-item">
+                                        <td class="profile__info-item--label">Số điện thoại</td>
+                                        <td>@Model.Sdt</td>
+                                    </tr>
+                                    <tr class="profile__info-item">
+                                        <td class="profile__info-item--label">Địa chỉ</td>
+                                        <td>@Model.Address</td>
+                                    </tr>
+                                    <tr class="profile__info-item">
+                                        <td class="profile__info-item--label">CMND/CMT</td>
+                                        <td>@Model.CMT</td>
+                                    </tr>
+                                    <tr class="profile__info-item">
+                                        <td class="profile__info-item--label">Ngày sinh</td>
+                                        <td>@(Model.NgaySinh?.ToString("dd-MM-yyyy"))</td>
+                                    </tr>
+                                    <tr class="profile__info-item">
+                                        <td class="profile__info-item--label"></td>
+                                        <td>
+                                            @Html.ActionLink("Sửa hồ sơ", "EditProFile", "Account", new { idUser = @Model.idUser }, new { @class = "btn btn--primary" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="grid__column-4 center">
+                                <div class="profile__avatar">
+                                    <div class="profile__avatar-item">
+                                        @{ if (kh.Picture != null)
+                                            {
+                                                <img src="~/Hinh/KhachHang/@Url.Content(kh.Picture)" alt="avatar" style="border-radius: 5%;width:100%; max-height:300px" />
+                                            }
+                                            else
+                                            {
+                                                <img src="" alt="" class="navbar__item-user-avt">
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

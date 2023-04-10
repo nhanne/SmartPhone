@@ -381,10 +381,10 @@
     <Content Include="Views\Account\CancelOrder.cshtml" />
     <Content Include="Views\Giohang\DatHang.cshtml" />
     <Content Include="Views\Account\EditProFile.cshtml" />
-    <Content Include="Views\Account\ProFile.cshtml" />
     <Content Include="Views\Shared\_navHeader.cshtml" />
     <Content Include="Views\Shared\_footer.cshtml" />
     <Content Include="Views\Giohang\Xacnhandonhang.cshtml" />
+    <Content Include="Views\Account\ProFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

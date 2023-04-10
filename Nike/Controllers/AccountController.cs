@@ -85,6 +85,18 @@ namespace Nike.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+        //Duy - code
+        public ActionResult ProFile()
+        {
+            KhachHang kh = (KhachHang)Session["Taikhoan"];
+            KhachHang khachHang = _db.KhachHangs.Find(kh.idUser);
+
+            if (kh!= null && khachHang!=null)
+            {
+                return View(khachHang);
+            }
+            return HttpNotFound();
+        }
         //hoàng - code
 
         public ActionResult EditProFile(int idUser)

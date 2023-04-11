@@ -23,6 +23,8 @@ namespace Nike.Models
             this.Orders = new HashSet<Order>();
         }
 
+        public string oldPassword { get; set; }
+
         [Key, Column(Order = 1)]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int idUser { get; set; }
@@ -95,5 +97,21 @@ namespace Nike.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+    }
+
+    public partial class ChangePassword
+    {
+        public int idUser { get; set; }
+
+        public string oldPassword { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập Mật khẩu")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$", ErrorMessage = "Mật khẩu tối thiêu 8 kí tự, bao gồm 1 in hoa, 1 số và 1 ký tự đặc biệt")]
+        public string Password { get; set; }
+
+        [NotMapped]
+        [Required(ErrorMessage = "Vui lòng nhập nhập lại mật khẩu")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Mật khẩu không trùng khớp")]
+        public string ConfirmPassword { get; set; }
     }
 }

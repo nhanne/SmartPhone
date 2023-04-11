@@ -39,31 +39,26 @@ namespace Nike.Controllers
             else
             {
                 sort = sort.ToLower();
+                ViewBag.currentSort = sort;
                 switch (sort)
                 {
                     case "asc":
                         ViewBag.products = dsProduct.OrderBy(c => c.UnitPrice).ToPagedList(pageIndex, 8);
-                        ViewBag.currentSort = "asc";
                         break;
                     case "desc":
                         ViewBag.products = dsProduct.OrderByDescending(c => c.UnitPrice).ToPagedList(pageIndex, 8);
-                        ViewBag.currentSort = "desc";
                         break;
                     case "new":
                         ViewBag.products = dsProduct.OrderByDescending(c => c.Id).ToPagedList(pageIndex, 8);
-                        ViewBag.currentSort = "new";
                         break;
                     case "hot":
                         ViewBag.products = dsProduct.OrderByDescending(c => c.ProductSold).ToPagedList(pageIndex, 8);
-                        ViewBag.currentSort = "hot";
                         break;
                     case "selling":
                         ViewBag.products = dsProduct.Where(c => c.SoLuong > 0).ToPagedList(pageIndex, 8);
-                        ViewBag.currentSort = "selling";
                         break;
                     default:
-                        ViewBag.products = dsProduct.Where(s => s.ProductName.ToLower().Contains(sort) || s.Catalog.CatalogName.ToLower().Contains(sort));
-                        ViewBag.currentSort = "";
+                        ViewBag.products = dsProduct.Where(s => s.ProductName.ToLower().Contains(sort) || s.Catalog.CatalogName.ToLower().Contains(sort)).ToPagedList(pageIndex, 8);
                         break;
                 }
             }

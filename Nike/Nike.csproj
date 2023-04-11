@@ -176,6 +176,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GiohangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -345,6 +349,13 @@
     <Content Include="Assets\Admin\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
     <Content Include="Assets\Admin\vendor\bootstrap\css\bootstrap.css.map" />
     <Content Include="Assets\Admin\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_layoutadmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_sidebarAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -365,7 +376,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -377,9 +387,14 @@
     <Content Include="Views\Giohang\DatHang.cshtml" />
     <Content Include="Views\Account\EditProFile.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Shared\_navHeader.cshtml" />
+    <Content Include="Views\Shared\_footer.cshtml" />
+    <Content Include="Views\Giohang\Xacnhandonhang.cshtml" />
+    <Content Include="Views\Account\ProFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Assets\Scripts\" />
   </ItemGroup>
   <ItemGroup>

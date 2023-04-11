@@ -179,5 +179,9 @@ namespace Nike.Controllers
             }
             return RedirectToAction("Index");
         }
+        public ActionResult Xacnhandonhang()
+        {
+            return View();
+        }
     }
 }

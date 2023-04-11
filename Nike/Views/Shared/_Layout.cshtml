@@ -117,6 +117,9 @@
                                             <a href="@Url.Action("Profile","Account")"> Tài khoản của tôi</a>
                                         </li>
                                         <li class="navbar__item-user-item">
+                                            <a href="@Url.Action("ChangePassword","Account" ,new { idUser = kh.idUser }) ">Đổi mật khẩu</a>
+                                        </li>
+                                        <li class="navbar__item-user-item">
                                             <a href="@Url.Action("OrderList","Account")">Đơn mua</a>
                                         </li>
                                         <li class="navbar__item-user-item">

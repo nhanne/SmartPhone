@@ -147,6 +147,43 @@ namespace Nike.Controllers
             }
             return View(kh);
         }
+        public ActionResult ChangePassword(int idUser)
+        {
+            KhachHang khsession = (KhachHang)Session["Taikhoan"];
+            KhachHang kh = _db.KhachHangs.Find(idUser);
+            kh.ConfirmPassword =null;
+            kh.Password = null;
+            if (khsession.idUser != kh.idUser)
+            {
+                return HttpNotFound();
+
+            }
+            return View(kh);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword([Bind(Include = "idUser,Password,ConfirmPassword,oldPassword")] KhachHang kh, HttpPostedFileBase file)
+        {
+            KhachHang khachhang = _db.KhachHangs.Find(kh.idUser);
+            ModelState.Remove("FirstName");
+            ModelState.Remove("LastName"); 
+            ModelState.Remove("Email");
+            if (ModelState.IsValid)
+            {
+                if(!khachhang.Password.Equals(kh.oldPassword))
+                {
+                    ModelState.AddModelError(nameof(KhachHang.oldPassword), "Mật khẩu cũ không trùng khớp");
+                    return View(kh);
+                }
+                khachhang.Password = kh.Password;
+                khachhang.ConfirmPassword = kh.ConfirmPassword;
+                _db.Entry(khachhang).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("ProFile");
+            }
+            return View(kh);
+        }
         public ActionResult OrderList(string sr)
         {
 

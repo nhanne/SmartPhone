@@ -1,4 +1,5 @@
-﻿<footer class="footer">
+﻿@Styles.Render("~/Assets/Css/main.css")
+<footer class="footer">
     <div class="grid">
 
         <div class="grid__row">
@@ -9,7 +10,7 @@
                         <a href="" class="footer__list-item-link">Trung tâm trợ giúp</a>
                     </li>
                     <li class="footer__list-item">
-                        <a href="" class="footer__list-item-link">Shopee mall</a>
+                        <a href="" class="footer__list-item-link">HUFLIT mall</a>
                     </li>
                     <li class="footer__list-item">
                         <a href="" class="footer__list-item-link">Hướng dẫn mua hàng</a>
@@ -46,24 +47,18 @@
             </div>
             <div class="grid__column-2-5">
                 <h3 class="footer__heading">Theo dõi chúng tôi</h3>
-                <ul class="footer__list">
-                    <li class="footer__list-item">
-                        <a href="https://www.facebook.com/ttnhan12" class="footer__list-item-link">
-                            <i class="footer__list-item-link-icon fa-brands fa-facebook"></i>
-                            Facebook
-                        </a>
+                <ul class="social_media">
+                    <li style="--i:#5599ff;--j: #51dcff;">
+                        <span class="icon"><i class="fab fa-facebook"></i></span>
+                        <a href="https://www.facebook.com/ttnhan12" class="titulo">Facebook</a>
                     </li>
-                    <li class="footer__list-item">
-                        <a href="https://www.instagram.com/tnhannn___/" class="footer__list-item-link">
-                            <i class="footer__list-item-link-icon fa-brands fa-instagram"></i>
-                            Instagram
-                        </a>
+                    <li style="--i:#a955ff;--j: #ea51ff;">
+                        <span class="icon"><i class="fab fa-instagram"></i></span>
+                        <a href="https://www.instagram.com/tnhannn___/" class="titulo">Instagram</a>
                     </li>
-                    <li class="footer__list-item">
-                        <a href="" class="footer__list-item-link">
-                            <i class="footer__list-item-link-icon fa-brands fa-linkedin"></i>
-                            Likedin
-                        </a>
+                    <li style="--i:#7455ff;--j: #a251ff;">
+                        <span class="icon"><i class="fab fa-linkedin"></i></span>
+                        <span class="titulo">Linkedin</span>
                     </li>
                 </ul>
             </div>

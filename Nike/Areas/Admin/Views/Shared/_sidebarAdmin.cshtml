@@ -1,14 +1,14 @@
 ﻿@using Nike.Models;
 @{
     QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
-    //NhanVien nvSession = (NhanVien)Session["NV"];
-    //NhanVien nv = _db.NhanViens.Find(nvSession.Id);
+    NhanVien nvSession = (NhanVien)Session["NV"];
+    NhanVien nv = _db.NhanViens.Find(nvSession.Id);
 }
 <!-- Sidebar menu-->
 
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
-    @*<div class="app-sidebar__user">
+    <div class="app-sidebar__user">
         <img class="app-sidebar__user-avatar" src="~/Hinh/NhanVien/@nv.Picture" width="50px"
              alt="User Image">
         <div>
@@ -16,7 +16,7 @@
             <p class="app-sidebar__user-name"><b>@nv.FullName</b></p>
             <p class="app-sidebar__user-designation">@nv.ChucVu.ChucVu1</p>
         </div>
-    </div>*@
+    </div>
     <hr>
     <ul class="app-menu">
         <li>

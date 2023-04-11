@@ -281,11 +281,6 @@
     <Content Include="Assets\Css\main.css" />
     <Content Include="Assets\img\app_store.png" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Hinh\KhachHang\avt_nhan.jpg" />
-    <Content Include="Hinh\KhachHang\avt_phat.jpg" />
-    <Content Include="Hinh\NhanVien\avt_nhan.jpg" />
-    <Content Include="Hinh\NhanVien\avt_phat.jpg" />
-    <Content Include="Hinh\NhanVien\default.png" />
     <Content Include="Assets\img\google_play.png" />
     <Content Include="Assets\img\qr_code.png" />
     <Content Include="Assets\img\shopeeicon.png" />
@@ -297,6 +292,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Hinh\13.jpg" />
+    <Content Include="Hinh\13mini.jpg" />
+    <Content Include="Hinh\13pro.jpg" />
+    <Content Include="Hinh\14.jpg" />
+    <Content Include="Hinh\14pro.jpg" />
+    <Content Include="Hinh\iphone-14-pro-max-vang-thumb-600x600.jpg" />
+    <Content Include="Hinh\iPhone-14.jpg" />
+    <Content Include="Hinh\ipse.jpg" />
+    <Content Include="Hinh\KhachHang\07E0BAA6-9C50-4977-A835-F000120E5BF8.jpg" />
+    <Content Include="Hinh\KhachHang\avt_nhan.jpg" />
+    <Content Include="Hinh\KhachHang\avt_phat.jpg" />
+    <Content Include="Hinh\KhachHang\Screenshot 2023-03-15 002159.png" />
+    <Content Include="Hinh\KhachHang\Screenshot 2023-03-15 082437.png" />
+    <Content Include="Hinh\KhachHang\Screenshot 2023-03-20 141603.png" />
+    <Content Include="Hinh\logo.png" />
+    <Content Include="Hinh\NhanVien\60348659_648805918896304_5312012433546543104_n.jpg" />
+    <Content Include="Hinh\NhanVien\avt_nhan.jpg" />
+    <Content Include="Hinh\NhanVien\avt_phat.jpg" />
+    <Content Include="Hinh\NhanVien\default.png" />
+    <Content Include="Hinh\NhanVien\hinhphone.jpg" />
     <Content Include="Hinh\pro01.PNG" />
     <Content Include="Hinh\pro02.PNG" />
     <Content Include="Hinh\pro03.PNG" />
@@ -304,6 +319,9 @@
     <Content Include="Hinh\pro05.PNG" />
     <Content Include="Hinh\pro06.png" />
     <Content Include="Hinh\pro07.png" />
+    <Content Include="Hinh\sony-h8266-2-300x300.jpg" />
+    <Content Include="Hinh\sony-xperia-edge-300x300.jpg" />
+    <Content Include="Hinh\vivo-y35-thumb-den-600x600.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -333,6 +351,7 @@
     <Content Include="Areas\Admin\Views\Shared\_layoutadmin.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_sidebarAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -353,13 +372,20 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Giohang\Index.cshtml" />
     <Content Include="Views\Account\OrderList.cshtml" />
+    <Content Include="Views\Home\Product.cshtml" />
+    <Content Include="Views\Account\CancelOrder.cshtml" />
+    <Content Include="Views\Giohang\DatHang.cshtml" />
+    <Content Include="Views\Account\EditProFile.cshtml" />
+    <Content Include="Views\Shared\_navHeader.cshtml" />
+    <Content Include="Views\Shared\_footer.cshtml" />
+    <Content Include="Views\Giohang\Xacnhandonhang.cshtml" />
+    <Content Include="Views\Account\ProFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

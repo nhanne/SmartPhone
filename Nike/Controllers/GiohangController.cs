@@ -73,11 +73,115 @@ namespace Nike.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult Capnhatgiohang(int IdProduct, FormCollection f)
+        {
+            // Lấy giỏ hàng từ session
+            List<Giohang> listGiohang = Laygiohang();
+            // Kiểm tra sản phẩm có trong giỏ hàng hay không
+            Giohang product = listGiohang.SingleOrDefault(n => n.IdProduct == IdProduct);
+            if (product != null)
+            {
+                product.SoLuong = int.Parse(f["txtSoLuong"].ToString());
+            }
+            return RedirectToAction("Index");
+        }
         public ActionResult DeleteAll()
         {
             List<Giohang> listGiohang = Laygiohang();
             listGiohang.Clear();
             return RedirectToAction("Index", "Home");
+        }
+        // Thêm sản phẩm vào giỏ hàng
+        public ActionResult Themgiohang(int IdProduct, string strURL)
+        {
+            // Lấy ra session giỏ hàng
+            List<Giohang> listGiohang = Laygiohang();
+            // Kiểm tra sản phẩm này có trong giỏ hàng chưa
+            Giohang product = listGiohang.Find(n => n.IdProduct == IdProduct);
+            if (product == null)
+            {
+                product = new Giohang(IdProduct);
+                listGiohang.Add(product);
+                return Redirect(strURL);
+            }
+            else
+            {
+                product.SoLuong++;
+                return Redirect(strURL);
+            }
+        }
+        [HttpGet]
+        public ActionResult DatHang()
+        {
+            // Kiểm tra đăng nhập
+            if (Session["Taikhoan"] == null || Session["Taikhoan"].ToString() == "")
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (Session["Giohang"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            //Lấy giỏ hàng từ session 
+            List<Giohang> listGiohang = Laygiohang();
+            ViewBag.TongSoLuong = TongSoLuong();
+            ViewBag.TongTien = TongTien();
+            return View(listGiohang);
+        }
+        public ActionResult DatHang(FormCollection collection)
+        {
+            var dsProduct = (from s in _db.Products select s).ToList();
+            //Thêm đơn hàng
+            Order order = new Order();
+            KhachHang khsession = (KhachHang)Session["Taikhoan"];
+            KhachHang kh = _db.KhachHangs.Find(khsession.idUser);
+            List<Giohang> gh = Laygiohang();
+            order.KhachHangID = kh.idUser;
+            order.NgayDat = DateTime.Now;
+            order.NgayGiao = order.NgayDat.Value.AddDays(3);
+            order.Status = "Chưa giao hàng";
+            order.Payment = false;
+            order.Address = kh.Address;
+            order.ThanhTien = TongTien();
+            order.TongSoLuong = TongSoLuong();
+            _db.Orders.Add(order);
+            _db.SaveChanges();
+            foreach (var item in gh)
+            {
+                Order_Detail ctdh = new Order_Detail();
+                ctdh.ID_Order = order.ID;
+                ctdh.ID_Product = item.IdProduct;
+                ctdh.SoLuong = item.SoLuong;
+                ctdh.Price = item.Price;
+                //Product product = dsProduct.Find(n => n.Id == item.IdProduct);
+                //product.ProductSold += ctdh.SoLuong;
+                //product.SoLuong = ctdh.SoLuong - product.ProductSold;
+                _db.Order_Detail.Add(ctdh);
+            }
+            _db.SaveChanges();
+            Session["Giohang"] = null;
+            return RedirectToAction("Xacnhandonhang", "Giohang");
+        }
+        public ActionResult BuyNow(int IdProduct)
+        {
+            List<Giohang> listGiohang = Laygiohang();
+            // Kiểm tra sản phẩm này có trong giỏ hàng chưa
+            Giohang product = listGiohang.Find(n => n.IdProduct == IdProduct);
+            if (product == null)
+            {
+                product = new Giohang(IdProduct);
+                listGiohang.Add(product);
+            }
+            else
+            {
+                product.SoLuong++;
+            }
+            return RedirectToAction("Index");
+        }
+        public ActionResult Xacnhandonhang()
+        {
+            return View();
         }
     }
 }

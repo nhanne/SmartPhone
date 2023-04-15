@@ -117,13 +117,16 @@
                                 }
                                 else
                                 {
-                                    <img src="" alt="" class="navbar__item-user-avt">
+                                    <img src="~/Hinh/user.jpg" alt="" class="navbar__item-user-avt">
                                 }
                             }
                             <span class="navbar__item-user-name"> @kh.FullName()</span>
                             <ul class="navbar__item-user-menu">
                                 <li class="navbar__item-user-item">
                                     <a href="@Url.Action("Profile","Account")"> Tài khoản của tôi</a>
+                                </li>
+                                <li class="navbar__item-user-item">
+                                    <a href="@Url.Action("ChangePassword","Account", new {idUser = kh.idUser })"> Đổi mật khẩu</a>
                                 </li>
                                 <li class="navbar__item-user-item">
                                     <a href="@Url.Action("OrderList","Account")">Đơn mua</a>
@@ -162,7 +165,7 @@
             @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "header-search__box-search" }))
             {
                 <div class="header-search__box-search-wrap">
-                    @Html.TextBox("sort", null, new { @class = "header-search__box-search-input", @placeholder = "Tìm kiếm sản phẩm" })
+                    @Html.TextBox("searchStr", null, new { @class = "header-search__box-search-input", @placeholder = "Tìm kiếm sản phẩm" })
                 </div>
 
 
@@ -198,7 +201,7 @@
                                     @foreach (var item in list)
                                     {
                                         <li class="header__cart-item">
-                                            <img src="~/Hinh/@Url.Content(@item.Picture)" alt="" class="header__cart-img">
+                                            <img src="~/Hinh/Product/@Url.Content(@item.Picture)" alt="" class="header__cart-img">
                                             <div class="header__cart-item-info">
                                                 <div class="header__cart-item-head">
                                                     <h5 class="header__cart-item-name">@item.ProductName</h5>

@@ -67,7 +67,16 @@
 
                                 <td>@item.ProductCode</td>
                                 <td>@item.ProductName</td>
-                                <td> <img src="~/Hinh/@Url.Content(@item.Picture)" alt="Image" width="100" height="100" /></td>
+                                <td>
+                                    @if (item.Picture == null)
+                                    {
+                                        <img src="~/Hinh/Product/hinhphone.jpg" alt="Image" width="100" height="100" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Hinh/Product/@Url.Content(@item.Picture)" alt="Image" width="100" height="100" />
+                                    }
+                                </td>
 
                                 <td>
                                     @if (@item.SoLuong >= 0)

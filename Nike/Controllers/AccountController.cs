@@ -32,6 +32,8 @@ namespace Nike.Controllers
                 if (check == null)
                 {
                     _db.Configuration.ValidateOnSaveEnabled = false;
+                    String anh = "user.jpg";
+                    khachhang.Picture = anh;
                     _db.KhachHangs.Add(khachhang);
                     _db.SaveChanges();
                     return RedirectToAction("Login");

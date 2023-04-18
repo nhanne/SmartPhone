@@ -87,7 +87,7 @@
             <!-- col-12 -->
             <div class="col-md-12">
                 <div class="tile">
-                    <h3 class="tile-title">Tình trạng đơn hàng</h3>
+                    <h3 class="tile-title">Đơn hàng xử lí</h3>
                     <div>
                         <table class="table table-bordered">
                             <thead>
@@ -102,6 +102,7 @@
                                 @foreach (var item in dsOrder)
                                 {
                                     <tr>
+                                        @if(item.Status == "Chưa giao hàng" || item.Status == "Đang giao hàng") { 
                                         <td>@item.ID</td>
                                         <td>@item.KhachHang.FullName()</td>
                                         <td>
@@ -113,17 +114,12 @@
                                                 case "Chưa giao hàng":
                                                     <span class="badge bg-info">@item.Status</span>
                                                     break;
-                                                case "Hoàn thành":
-                                                    <span class="badge bg-success">@item.Status</span>
-                                                    break;
                                                 case "Đang giao hàng":
                                                     <span class="badge bg-warning">@item.Status</span>
                                                     break;
-                                                case "Đã hủy":
-                                                    <span class="badge bg-danger">@item.Status</span>
-                                                    break;
                                             }
                                         </td>
+                                        }
                                     </tr>
                                 }
                             </tbody>
@@ -192,3 +188,9 @@
     <!--END right-->
 </div>
 
+<style>
+    .tile{
+        height: 500px;
+        overflow: auto;
+    }
+</style>

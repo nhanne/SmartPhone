@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     KhachHang kh = (KhachHang)Session["Taikhoan"];
 }
-
+@Html.HiddenFor(Model => Model.Id)
 <div class="app__container">
     <div class="grid app__content">
         <div class="grid__row" style="padding:40px 0;">
             <div class="grid__column-6">
-                <img src="~/Hinh/@Url.Content(@Model.Picture)" alt="" class="detail__picture">
+                <img src="~/Hinh/Product/@Url.Content(@Model.Picture)" alt="" class="detail__picture">
             </div>
             <div class="grid__column-8 detail">
                 <h2 class="detail__name">@Model.ProductName</h2>

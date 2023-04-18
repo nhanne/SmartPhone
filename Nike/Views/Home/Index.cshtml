@@ -6,6 +6,7 @@
     var data = ViewBag.products;
     var totalPage = ViewBag.totalPage;
     var currentSort = ViewBag.currentSort;
+    var currentSearch = ViewBag.searchStr;
     var currentPage = ViewBag.currentPage;
 }
 
@@ -50,6 +51,11 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="home-filter__page">
+                        <span class="home-filter__page-num">
+                            <span class="home-filter__page-current">Trang @ViewBag.CurrentPage</span> / @ViewBag.totalPage
+                        </span>
+                    </div>
                 </div>
 
                 <div class="home-product">
@@ -61,7 +67,7 @@
                                 <a class="home-product__item" href="@Url.Action("Product","Home",new { @item.Id })">
 
                                     <div class="home-product__item-img"
-                                         style="background-image: url(/Hinh/@Url.Content(@item.Picture));">
+                                         style="background-image: url(/Hinh/Product/@Url.Content(@item.Picture));">
                                     </div>
                                     <h4 class="home-product__item-name">
                                         @item.ProductName
@@ -115,17 +121,20 @@
                     @if (currentPage != 1)
                     {
                         <li class="pagination-item">
-                            <a href="@Url.Action("Index","Home",new {pageIndex = currentPage - 1 })" class="pagination-item__link">
+                            <a href="@Url.Action("Index","Home",new {sort= currentSort ,pageIndex = currentPage - 1 })" class="pagination-item__link">
                                 <i class="pagination-item__icon fas fa-angle-left"></i>
                             </a>
                         </li>
                     }
-                    @for (int i = 1; i <= totalPage; i++)
+
+
+
+                    @for (int i = 1; i <= ViewBag.totalPage; i++)
                     {
                         if (String.IsNullOrEmpty(currentSort))
                         {
                             <li class="pagination-item">
-                                <a href="@Url.Action("Index","Home",new {pageIndex = i })" class="pagination-item__link">
+                                <a href="@Url.Action("Index","Home",new {searchStr = currentSearch, pageIndex = i })" class="pagination-item__link">
                                     @i
                                 </a>
                             </li>
@@ -138,11 +147,15 @@
                                 </a>
                             </li>
                         }
+                       
                     }
+
+
+
                     @if (currentPage != totalPage)
                     {
                         <li class="pagination-item">
-                            <a href="@Url.Action("Index","Home",new {pageIndex = currentPage + 1 })" class="pagination-item__link">
+                            <a href="@Url.Action("Index","Home",new {sort= currentSort, pageIndex = currentPage + 1 })" class="pagination-item__link">
                                 <i class="pagination-item__icon fas fa-angle-right"></i>
                             </a>
                         </li>

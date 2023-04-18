@@ -17,6 +17,7 @@ namespace Nike.Controllers
         {
             return View();
         }
+        // Đăng ký - Nhân
         public ActionResult Register()
         {
             return View();

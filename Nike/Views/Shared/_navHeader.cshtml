@@ -63,7 +63,7 @@
                                     {
                                         <li class="navbar__notify-item navbar__notify-item--viewed">
                                             <a href="" class="navbar__notify-link">
-                                                <img src="~/Hinh/Icon/deli.png"
+                                                <img src="~/Hinh/deli.png"
                                                      alt="" class="navbar__notify-img">
                                                 <div class="navbar__notify-info">
                                                     @{
@@ -161,7 +161,7 @@
                     <img src="~/Hinh/logo.png" class="header-search__logo-img" />
                 </a>
             </div>
-
+            @* Tìm kiếm sản phẩm theo tên - Thịnh *@
             @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "header-search__box-search" }))
             {
                 <div class="header-search__box-search-wrap">

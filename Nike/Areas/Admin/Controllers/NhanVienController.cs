@@ -25,6 +25,7 @@ namespace Nike.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var dsNhanVien = (from s in _db.NhanViens select s).ToList();
+            // Tìm kiếm nhân viên trong quản lí nhân viên - Thịnh 
             if (!String.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.ToLower();

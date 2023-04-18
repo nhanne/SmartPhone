@@ -345,6 +345,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Hinh\deli.png" />
     <Content Include="Hinh\KhachHang\07E0BAA6-9C50-4977-A835-F000120E5BF8.jpg" />
     <Content Include="Hinh\KhachHang\avt_nhan.jpg" />
     <Content Include="Hinh\KhachHang\avt_phat.jpg" />
@@ -483,6 +484,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\myScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

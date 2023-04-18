@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     KhachHang kh = (KhachHang)Session["Taikhoan"];
 }
-
+@Html.HiddenFor(Model => Model.Id)
 <div class="app__container">
     <div class="grid app__content">
         <div class="grid__row" style="padding:40px 0;">

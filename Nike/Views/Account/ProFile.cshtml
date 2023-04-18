@@ -1,51 +1,18 @@
-﻿@using Nike.Models
-@model Nike.Models.KhachHang
+﻿@model Nike.Models.KhachHang
 
 @{
     ViewBag.Title = "Trang cá nhân";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
 }
-@{
-    KhachHang khSession = (KhachHang)Session["Taikhoan"];
-    KhachHang kh = _db.KhachHangs.Find(khSession.idUser);
-}
+
 
 <div class="app__container">
     <div class="grid">
         <div class="grid__row app__content">
             <div class="grid__column-2">
-                <nav class="category">
-                    <div class="center">
-                        @{ if (kh.Picture != null)
-                            {
-                                <img src="~/Hinh/KhachHang/@Url.Content(kh.Picture)"
-                                     alt="" class="navbar__item-user-avt">
-                            }
-                            else
-                            {
-                                <img src="" alt="" class="navbar__item-user-avt">
-                            }
-                        }
-
-                        <h3 class="category__heading">
-
-                            <span class="profile__user-name">@kh.FullName()</span>
-                        </h3>
-                    </div>
-
-                    <ul class="category-list">
-                        <li class="category-item">
-                            <a href="@Url.Action("ProFile","Account")" class="category-item__link"> Tài khoản của tôi</a>
-                        </li>
-                        <li class="category-item">
-                            <a href="@Url.Action("OrderList","Account")" class="category-item__link">Đơn mua</a>
-                        </li>
-                        <li class="category-item">
-                            <a href="" class="category-item__link">Thông báo</a>
-                        </li>
-                    </ul>
-                </nav>
+                @{
+                    Html.RenderPartial("menuProfile");
+                }
             </div>
 
 
@@ -101,14 +68,11 @@
                             <div class="grid__column-4 center">
                                 <div class="profile__avatar">
                                     <div class="profile__avatar-item">
-                                        @{ if (kh.Picture != null)
+                                        @{ if (Model.Picture != null)
                                             {
-                                                <img src="~/Hinh/KhachHang/@Url.Content(kh.Picture)" alt="avatar" style="border-radius: 5%;width:100%; max-height:300px" />
+                                                <img src="~/Hinh/KhachHang/@Url.Content(Model.Picture)" alt="avatar" class="profile__avatar" />
                                             }
-                                            else
-                                            {
-                                                <img src="" alt="" class="navbar__item-user-avt">
-                                            }
+                                           
                                         }
 
                                     </div>
@@ -122,3 +86,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    img.profile__avatar {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #dfdfdf;
+    }
+</style>

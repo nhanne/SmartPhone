@@ -1,0 +1,91 @@
+﻿@model Nike.Models.NhanVien
+
+@{
+    ViewBag.Title = "Thêm nhân viên mới";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+}
+
+@using (Html.BeginForm("Create", "NhanVien", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Thêm mới nhân viên</h4>
+        <hr>
+        <div class="row">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group col-md-3">
+                <label class="control-label">Họ và tên </label>
+                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label">Email</label>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label">Mật khẩu </label>
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label">Chọn chức vụ </label>
+                @Html.DropDownList("MaChucVu", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaChucVu, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="control-label">Ngày sinh </label>
+                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="control-label">Địa chỉ thường trú </label>
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="control-label">Số điện thoại </label>
+                @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label">Giới tính là nam ? </label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label class="control-label">Ảnh sản phẩm</label>
+                <div id="myfileupload">
+                    <input type="file" name="file" id="file" style="width: 100%;" />
+                    @Html.ValidationMessageFor(model => model.Picture, "", new { @class = "text-danger" })
+                </div>
+                <div id="thumbbox">
+                    <img height="450" width="400" alt="Thumb image" id="thumbimage"
+                         style="display: none" />
+                    <a class="removeimg" href="javascript:"></a>
+                </div>
+                <div id="boxchoice">
+                    <a href="javascript:" class="Choicefile">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Chọn ảnh
+                    </a>
+                    <p style="clear:both"></p>
+                </div>
+                <input type="submit" value="Tạo nhân viên" class="btn btn-save" />
+                <a class="btn btn-cancel" href="@Url.Action("Index","NhanVien")">Hủy bỏ</a>
+            </div>
+          
+        </div>
+    </div>
+}
+
+

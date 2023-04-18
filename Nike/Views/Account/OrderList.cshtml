@@ -11,37 +11,9 @@
     <div class="grid">
         <div class="grid__row app__content">
             <div class="grid__column-2">
-                <nav class="category">
-                    <div class="center">
-                        @{ if (Session["Avatarkh"] != null)
-                            {
-                                <img src="~/Hinh/NhanVien/@Session["Avatarkh"].ToString()"
-                                     alt="" class="navbar__item-user-avt">
-                            }
-                            else
-                            {
-                                <img src="" alt="" class="navbar__item-user-avt">
-                            }
-                        }
-
-                        <h3 class="category__heading">
-
-                            <span class="profile__user-name">Nhân Trần</span>
-                        </h3>
-                    </div>
-
-                    <ul class="category-list">
-                        <li class="category-item">
-                            <a href="@Url.Action("ProFile","Account")" class="category-item__link"> Tài khoản của tôi</a>
-                        </li>
-                        <li class="category-item">
-                            <a href="@Url.Action("OrderList","Account")" class="category-item__link">Đơn mua</a>
-                        </li>
-                        <li class="category-item">
-                            <a href="" class="category-item__link">Thông báo</a>
-                        </li>
-                    </ul>
-                </nav>
+                @{
+                    Html.RenderPartial("menuProfile");
+                }
             </div>
 
 
@@ -76,7 +48,7 @@
 
                                         <li class="ordList-item__order-item">
                                             <div class="ordList-item__order-product">
-                                                <img src="~/Hinh/@Url.Content(item.Product.Picture)"
+                                                <img src="~/Hinh/Product/@Url.Content(item.Product.Picture)"
                                                      alt="" class="ordList-item__order-img">
                                                 <div class="orderList-item__order-info">
                                                     <h4 class="ordList-item__order-name"> @item.Product.ProductName  </h4>

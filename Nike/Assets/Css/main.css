@@ -30,6 +30,8 @@
     width: 22px;
     height: 22px;
     border-radius: 50%;
+    object-fit: cover;
+    background: #dfdfdf;
     border: 1px solid rgba(0, 0, 0, .2);
 }
 
@@ -1572,7 +1574,7 @@ ul.social_media {
         position: relative;
         list-style: none;
         width: 30px;
-        height: 30px;
+        height: 25px;
         border-radius: 30px;
         cursor: pointer;
         display: flex;
@@ -1651,3 +1653,14 @@ ul.social_media {
             transform: scale(1);
             transition-delay: 0.25s;
         }
+
+/*User Account*/
+.validate {
+    color: var(--primary-color);
+    margin: 10px 0 0 10px;
+    display: block;
+}
+
+.form-group {
+    margin: 10px
+}

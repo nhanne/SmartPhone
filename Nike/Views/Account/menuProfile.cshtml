@@ -1,0 +1,38 @@
+﻿@using Nike.Models
+@{
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+    KhachHang khSession = (KhachHang)Session["Taikhoan"];
+    KhachHang kh = _db.KhachHangs.Find(khSession.idUser);
+}
+<nav class="category">
+    <div class="center">
+        @{ if (kh.Picture != null)
+            {
+                <img src="~/Hinh/KhachHang/@Url.Content(kh.Picture)"
+                     alt="" class="navbar__item-user-avt">
+            }
+            else
+            {
+                <img src="~/Hinh/user.jpg" alt="" class="navbar__item-user-avt">
+            }
+        }
+
+        <h3 class="category__heading">
+
+            <span class="profile__user-name">@kh.FullName()</span>
+        </h3>
+    </div>
+
+    <ul class="category-list">
+        <li class="category-item">
+            <a href="@Url.Action("ProFile", "Account")" class="category-item__link"> Tài khoản của tôi</a>
+        </li>
+        <li class="category-item">
+            <a href="@Url.Action("OrderList", "Account")" class="category-item__link">Đơn mua</a>
+        </li>
+        <li class="category-item">
+            <a href="@Url.Action("ChangePassword", "Account", new { idUser = kh.idUser})" class="category-item__link">Đổi mật khẩu</a>
+        </li>
+    </ul>
+</nav>
+

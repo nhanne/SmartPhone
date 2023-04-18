@@ -92,7 +92,7 @@ namespace Nike.Controllers
             listGiohang.Clear();
             return RedirectToAction("Index", "Home");
         }
-        // Thêm sản phẩm vào giỏ hàng
+        // Thêm sản phẩm vào giỏ hàng - Thắng
         public ActionResult Themgiohang(int IdProduct, string strURL)
         {
             // Lấy ra session giỏ hàng
@@ -111,6 +111,7 @@ namespace Nike.Controllers
                 return Redirect(strURL);
             }
         }
+        // Đặt hàng - Thịnh
         [HttpGet]
         public ActionResult DatHang()
         {

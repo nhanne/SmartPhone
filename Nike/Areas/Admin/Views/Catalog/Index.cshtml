@@ -1,0 +1,47 @@
+﻿@model Nike.Models.Catalog
+
+@{
+    ViewBag.Title = "Danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+}
+
+
+<p>
+    @Html.ActionLink("Tạo mới một doanh mục", "Create", "Catalog", new { @class = "myactionlink" })
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                Mã Danh Mục
+            </th>
+            <th>
+                Nhãn Hiệu
+            </th>
+            <th>
+                Xuất Xứ
+            </th>
+            <th>
+                Thao Tác
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in ViewBag.catalogs)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.CatalogCode</td>
+            <td>@item.CatalogName</td>
+            <td>@item.ProductOrigin</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = @item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = @item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = @item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

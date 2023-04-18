@@ -30,6 +30,8 @@
     width: 22px;
     height: 22px;
     border-radius: 50%;
+    object-fit: cover;
+    background: #dfdfdf;
     border: 1px solid rgba(0, 0, 0, .2);
 }
 

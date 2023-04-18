@@ -1,0 +1,91 @@
+﻿@model Nike.Models.Product
+
+@{
+    ViewBag.Title = "Thêm sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Product", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Tạo mới sản phẩm</h3>
+                    <div class="tile-body">
+                        <div class="row element-button">
+
+                            <div class="col-sm-2">
+                                <a class="btn btn-add btn-sm" href="@Url.Action("Index","Catalog")">
+                                    <i class="fas fa-folder-plus"></i> Thêm danh mục
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Tên sản phẩm </label>
+                                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group  col-md-4">
+                                <label class="control-label">Số lượng</label>
+                                @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="exampleSelect1" class="control-label">Danh mục</label>
+                                @Html.DropDownList("CatalogId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CatalogId, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4 ">
+                                <label for="exampleSelect1" class="control-label">Giảm giá (%)</label>
+                                @Html.EditorFor(model => model.ProductSale, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ProductSale, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Giá vốn</label>
+                                @Html.EditorFor(model => model.PriceOld, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PriceOld, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">Ảnh sản phẩm</label>
+                                <div id="myfileupload">
+                                    <input type="file" name="file" id="file" style="width: 100%;" />
+                                    @Html.ValidationMessageFor(model => model.Picture, "", new { @class = "text-danger" })
+                                </div>
+                                <div id="thumbbox">
+                                    <img height="450" width="400" alt="Thumb image" id="thumbimage"
+                                         style="display: none" />
+                                    <a class="removeimg" href="javascript:"></a>
+                                </div>
+                                <div id="boxchoice">
+                                    <a href="javascript:" class="Choicefile">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        Chọn ảnh
+                                    </a>
+                                    <p style="clear:both"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <input type="submit" value="Create" class="btn btn-save" />
+                    <a class="btn btn-cancel" href="@Url.Action("Index","Product")">Hủy bỏ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
+

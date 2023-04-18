@@ -70,7 +70,7 @@
                                     <div class="profile__avatar-item">
                                         @{ if (Model.Picture != null)
                                             {
-                                                <img src="~/Hinh/KhachHang/@Url.Content(Model.Picture)" alt="avatar" style="border-radius: 5%;width:100%; max-height:300px" />
+                                                <img src="~/Hinh/KhachHang/@Url.Content(Model.Picture)" alt="avatar" class="profile__avatar" />
                                             }
                                            
                                         }
@@ -86,3 +86,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    img.profile__avatar {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #dfdfdf;
+    }
+</style>

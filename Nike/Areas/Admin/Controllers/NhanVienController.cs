@@ -134,6 +134,37 @@ namespace Nike.Areas.Admin.Controllers
             return View(nv);
 
         }
+        //Xóa nhân viên - Duy
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            NhanVien nhanvien = _db.NhanViens.Find(id);
+            if (nhanvien == null)
+            {
+                return HttpNotFound();
+            }
+            return View(nhanvien);
+        }
+        // POST: LoaiPhong/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int Id)
+        {
+            try
+            {
+                NhanVien nhanvien = _db.NhanViens.Find(Id);
+                _db.NhanViens.Remove(nhanvien);
+                _db.SaveChanges();
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("Index");
+        }
 
     }
 }

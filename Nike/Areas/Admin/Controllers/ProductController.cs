@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using System.IO;
+using System.Net;
+using System.Data.Entity;
 
 namespace Nike.Areas.Admin.Controllers
 {
@@ -79,9 +81,59 @@ namespace Nike.Areas.Admin.Controllers
             ViewBag.CatalogId = new SelectList(_db.Catalogs, "ID", "CatalogName", model.CatalogId);
             return View(model);
         }
+        // Chức năng sửa thông tin sản phẩm - Nhân
+        public ActionResult Edit(int Id)
+        {
 
+
+            if (Id.ToString() == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = _db.Products.Find(Id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CatalogId = new SelectList(_db.Catalogs, "ID", "CatalogName", product.CatalogId);
+            return View(product);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,CatalogId,Picture,ProductName,ProductCode,PriceOld,UnitPrice,ProductSold,ProductSale,SoLuong")] Product product, HttpPostedFileBase file)
+        {
+            Product pr = _db.Products.Find(product.Id);
+            if (ModelState.IsValid)
+            {
+                String anh = pr.Picture;
+                if (file != null)
+                {
+                    string pic = System.IO.Path.GetFileName(file.FileName);
+                    String path = System.IO.Path.Combine(
+                                           Server.MapPath("~/Hinh"), pic);
+                    file.SaveAs(path);
+                    anh = pic;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        byte[] array = ms.GetBuffer();
+                    }
+                }
+                pr.Picture = anh;
+                pr.CatalogId = product.CatalogId;
+                pr.ProductName = product.ProductName;
+                pr.PriceOld = product.PriceOld;
+                pr.UnitPrice = (pr.ProductSale != null) ? (pr.UnitPrice = (pr.PriceOld - (pr.PriceOld * int.Parse(pr.ProductSale)) / 100)) : (pr.UnitPrice = pr.PriceOld);
+                pr.ProductCode = product.ProductCode;
+                pr.ProductSold = product.ProductSold;
+                pr.ProductSale = product.ProductSale;
+                pr.SoLuong = 500 - pr.ProductSold;
+                _db.Entry(pr).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.CatalogId = new SelectList(_db.Catalogs, "ID", "CatalogName", pr.CatalogId);
+            return View(product);
+        }
     }
-
-
-
 }

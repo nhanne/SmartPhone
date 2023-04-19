@@ -863,6 +863,20 @@
     }
 
 
+.category-item-click--active .category-item__link {
+    color: var(--primary-color);
+}
+
+    .category-item-click--active .category-item__link::before {
+        position: absolute;
+        top: 50%;
+        left: 7px;
+        transform: translateY(-50%);
+        content: "";
+        border: 4px solid;
+        border-color: transparent transparent transparent var(--primary-color);
+    }
+
 /* Home sort + filter  */
 
 .home-filter {

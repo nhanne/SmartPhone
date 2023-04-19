@@ -8,12 +8,20 @@
             $(this).removeClass("category-item--active"); // loại bỏ class "hover" khi hover ra
         }
     );
-    // Thêm class active
-    var currentUrl = window.location.href;
-    $(".menu li a.category-link").each(function () {
-        if ($(this).attr("href").indexOf("?sort=@item.CatalogName.ToLower()") !== -1) {
-            $(this).parent().addClass("category-item--active");
-        }
-    });
-
 });
+//Them class active
+const currentUrl = window.location.href
+const getNameCate = currentUrl.split('?sort=')?.[1]
+if (getNameCate) {
+    const allCateDom = document.querySelectorAll('.category-item')
+    let activeCate
+    for (var i = 0; i < allCateDom.length; i++) {
+        if (allCateDom[i].textContent.trim() === getNameCate) {
+            activeCate = allCateDom[i]
+            break
+        }
+    }
+    if (activeCate) {
+        activeCate.classList.add("category-item-click--active")
+    }   
+}

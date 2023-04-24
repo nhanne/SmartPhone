@@ -6,6 +6,7 @@
     ViewBag.Title = "Danh sách sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
     var currentSearch = ViewBag.searchStr;
+    var currentSort = ViewBag.Sort;
     var totalPage = ViewBag.totalPage;
     var dsProduct = ViewBag.products;
 }
@@ -25,7 +26,7 @@
                 <div class="row element-button">
                     <div class="col-sm-2">
                         <a class="btn btn-add btn-sm" href="@Url.Action("Index","Catalog")">
-                            <i class="fas fa-folder-plus"></i> Thêm danh mục
+                            <i class="fas fa-folder-plus"></i> Danh sách danh mục
                         </a>
                     </div>
                     <div class="col-sm-2">
@@ -34,7 +35,21 @@
                             Tạo mới sản phẩm
                         </a>
                     </div>
-
+                    <div class="col-sm-2">
+                        <a class="btn btn-warning btn-sm" href="@Url.Action("Index","Product", new {@sort = "pre-sold" })">
+                            Sắp hết hàng
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-danger btn-sm" href="@Url.Action("Index","Product", new {@sort = "sold" })">
+                            Hết hàng
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-success btn-sm" href="@Url.Action("Index","Product")">
+                            Mặc định
+                        </a>
+                    </div>
                 </div>
 
                 <div class="row" style="align-items:center">
@@ -98,10 +113,10 @@
                                     @{ if (item.SoLuong > 0 && item.SoLuong > 50)
                                         {
                                         <span class="badge bg-success">Còn hàng</span> }
-                                        else if (item.SoLuong < 50)
+                                        else if (item.SoLuong > 0 && item.SoLuong < 50)
                                         {
                                         <span class="badge badge-warning">Sắp hết hàng</span> }
-                                        else
+                                        else 
                                         {
                                         <span class="badge bg-danger">Hết hàng</span>
                                         }

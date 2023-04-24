@@ -31,7 +31,7 @@ namespace Nike.Models
         public string ProductSale { get; set; }
         public Nullable<double> PriceOld { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập số lượng")]
-        [Range(1, int.MaxValue, ErrorMessage = "Vui lòng nhập số lượng > 0")]
+        [Range(0, int.MaxValue, ErrorMessage = "Vui lòng nhập số lượng > 0")]
         public Nullable<int> SoLuong { get; set; }
     
         public virtual Catalog Catalog { get; set; }

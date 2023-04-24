@@ -61,6 +61,23 @@
     <!--===============================================================================================-->
     <script type="text/javascript" src="~/Assets/Admin/js/plugins/chart.js"></script>
     <script type="text/javascript">
+        // Thêm active vào category
+        const currentUrl = window.location.href
+        const getNameCate = currentUrl.split('Admin')?.[1]
+        console.log(getNameCate)
+        if (getNameCate) {
+            const allCate = document.querySelectorAll('.app-menu__item')
+            let activeCate
+            for (var i = 0; i < allCate.length; i++) {
+                if (allCate[i].getAttribute('href').split('Admin')?.[1] === getNameCate) {
+                    activeCate = allCate[i]
+                    break
+                }
+            }
+            if (activeCate) {
+                activeCate.classList.add("active")
+            }
+        }
         var data = {
             labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
             datasets: [{

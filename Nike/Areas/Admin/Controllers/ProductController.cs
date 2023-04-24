@@ -18,22 +18,36 @@ namespace Nike.Areas.Admin.Controllers
         // GET: Product
   
 
-        public ActionResult Index(int? page, string searchString)
+        public ActionResult Index(string sort, int? page, string searchString)
         {
             const int pageSize = 10;
             int pageNumber = page ?? 1;
 
             var products = _db.Products.ToList();
+
             // tìm kiếm sản phẩm - Duy
             if (!String.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.ToLower();
                 ViewBag.searchStr = searchString;
-
                 products = products.Where(p => p.ProductName.ToLower().Contains(searchString) ||
                                                 p.Catalog.CatalogName.ToLower().Contains(searchString))
                                                 .ToList();
             }
+            else
+            {
+                ViewBag.Sort = sort;
+                switch (sort)
+                {
+                    case "pre-sold":
+                        products = products.Where(p => p.SoLuong < 50).ToList();
+                        break;
+                    case "sold":
+                        products = products.Where(p => p.SoLuong == 0).ToList();
+                        break;
+                }
+            }
+
 
             ViewBag.totalPage = Math.Ceiling((double)products.Count() / pageSize);
             ViewBag.products = products.ToPagedList(pageNumber, pageSize);

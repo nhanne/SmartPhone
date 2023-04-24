@@ -3,7 +3,7 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Bảng điều khiển";
     Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
     QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
     var dsKhachHang = _db.KhachHangs.ToList();
@@ -41,9 +41,9 @@
                 <div class="widget-small info coloured-icon">
                     <i class='icon bx bxs-data fa-3x'></i>
                     <div class="info">
-                        <h4>Tổng sản phẩm</h4>
+                        <h4>Tổng sản phẩm tồn kho</h4>
                         <p><b>@dsProduct.Count() sản phẩm</b></p>
-                        <p class="info-tong">Tổng số sản phẩm được quản lý.</p>
+                        <p class="info-tong">Tổng số sản phẩm được quản lý trong cửa hàng.</p>
                     </div>
                 </div>
             </div>
@@ -80,14 +80,14 @@
                                 @var sản phẩm
                             </b>
                         </p>
-                        <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
+                        <p class="info-tong">Số sản phẩm cảnh báo có số lượng dưới 50.</p>
                     </div>
                 </div>
             </div>
             <!-- col-12 -->
             <div class="col-md-12">
                 <div class="tile">
-                    <h3 class="tile-title">Đơn hàng xử lí</h3>
+                    <h3 class="tile-title">Đơn hàng cần được xử lí</h3>
                     <div>
                         <table class="table table-bordered">
                             <thead>

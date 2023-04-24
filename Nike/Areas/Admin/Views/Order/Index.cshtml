@@ -1,0 +1,146 @@
+﻿@using Nike.Models
+@model IEnumerable<Nike.Models.Order>
+
+@{
+    ViewBag.Title = "Quản lí đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+}
+<div class="app-title">
+    <ul class="app-breadcrumb breadcrumb side">
+        <li class="breadcrumb-item active"><a href="#"><b>Danh sách đơn hàng</b></a></li>
+    </ul>
+    <div id="clock"></div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+
+
+                <div class="row" style="display:flex;align-items:center">
+                    <div class="col-sm-2">
+
+                        <a class="btn bg-info btn-sm" href="@Url.Action("Index","Order",new {sort = "Wait" })">
+                            Chưa giao hàng
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <a class="btn bg-warning btn-sm" href="@Url.Action("Index","Order",new { sort = "Deli" })">
+                            Đang giao hàng
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <a class="btn bg-success btn-sm" href="@Url.Action("Index","Order",new { sort = "Done" })">
+                            Hoàn thành
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <a class="btn bg-danger btn-sm" href="@Url.Action("Index","Order",new { sort = "Cancel" })">
+                            Đã hủy
+                        </a>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        @using (Html.BeginForm("Index", "Order", FormMethod.Get, new { @class = "dataTables_filter d-flex justify-content-end" }))
+                        {
+                            <label>
+                                Tìm kiếm:
+
+                                @Html.TextBox("sort", null, new { @class = "form-control form-control-sm" })
+
+                            </label>
+                        }
+                    </div>
+                </div>
+                <table class="table">
+                    <tr>
+                        <th>
+                            ID đơn hàng
+                        </th>
+                        <th>
+                            Khách hàng
+                        </th>
+                        <th>
+                            Đơn hàng
+                        </th>
+                        <th>
+                            Số lượng
+                        </th>
+                        <th>
+                            Tổng tiền
+                        </th>
+                        <th>
+                            Tình trạng
+                        </th>
+                        <th>
+                            Tính năng
+                        </th>
+                    </tr>
+                    @{
+                        QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+                        var orderDetail = from s in _db.Order_Detail select s;
+                        ViewBag.orderDetail = orderDetail.ToList();
+                    }
+                    @foreach (var item in ViewBag.orderList)
+                    {
+                        <tr>
+                            <td>
+                                @item.ID
+                            </td>
+                            <td>
+                                @item.KhachHang.FullName()
+                            </td>
+                            <td>
+                                @foreach (var product in ViewBag.orderDetail)
+                                {
+
+                                    if (item.ID == product.ID_Order)
+                                    {
+                                        <p>@product.Product.ProductName <span style="font-weight:bold">x @product.SoLuong</span></p>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @item.TongSoLuong
+                            </td>
+                            <td>
+                                @string.Format("{0:#,0}", item.ThanhTien)
+                            </td>
+                            <td>
+                                @switch (item.Status)
+                                {
+                                    case "Chưa giao hàng":
+                                        <span class="badge bg-info">@item.Status</span>
+                                        break;
+                                    case "Hoàn thành":
+                                        <span class="badge bg-success">@item.Status</span>
+                                        break;
+                                    case "Đang giao hàng":
+                                        <span class="badge bg-warning">@item.Status</span>
+                                        break;
+                                    case "Đã hủy":
+                                        <span class="badge bg-danger">@item.Status</span>
+                                        break;
+                                }
+
+                            </td>
+                            <td class="table-td-center">
+                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                        onclick="location.href='@Url.Action(@*"Delete", "Order",new { id = item.Id }*@)'">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
+                                        onclick="location.href='@Url.Action("Edit", "Order",new { Id = item.ID })'">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

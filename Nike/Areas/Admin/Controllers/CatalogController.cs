@@ -1,7 +1,9 @@
 ﻿using Nike.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -52,6 +54,58 @@ namespace Nike.Areas.Admin.Controllers
                 return View(model);
             }
         }
+        public ActionResult Edit(int ID)
+        {
+            if (ID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Catalog catalog = _db.Catalogs.Find(ID);
+            if (catalog == null)
+            {
+                return HttpNotFound();
+            }
+            return View(catalog);
+        }
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost([Bind(Include = "ID,CatalogCode,CatalogName")] Catalog catalogs)
+        {
+            Catalog catalog = _db.Catalogs.Find(catalogs.ID);
+            if (ModelState.IsValid)
+            {
+                catalog.ID = catalogs.ID;
+                catalog.CatalogCode = catalogs.CatalogCode;
+                catalog.CatalogName = catalogs.CatalogName;
+                _db.Entry(catalog).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(catalog);
+        }
+        public ActionResult Delete(int ID)
+        {
 
+            if (ID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Catalog catalog = _db.Catalogs.Find(ID);
+            if (catalog == null)
+            {
+                return HttpNotFound();
+            }
+            return View(catalog);
+        }
+        // POST: KhachHang/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int ID)
+        {
+            Catalog catalog = _db.Catalogs.Find(ID);
+            _db.Catalogs.Remove(catalog);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

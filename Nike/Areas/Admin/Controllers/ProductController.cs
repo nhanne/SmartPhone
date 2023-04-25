@@ -34,13 +34,14 @@ namespace Nike.Areas.Admin.Controllers
                                                 p.Catalog.CatalogName.ToLower().Contains(searchString))
                                                 .ToList();
             }
+            // sắp xếp sản phẩm
             else
             {
                 ViewBag.Sort = sort;
                 switch (sort)
                 {
                     case "pre-sold":
-                        products = products.Where(p => p.SoLuong < 50).ToList();
+                        products = products.Where(p => p.SoLuong < 50 && p.SoLuong >0 ).ToList();
                         break;
                     case "sold":
                         products = products.Where(p => p.SoLuong == 0).ToList();

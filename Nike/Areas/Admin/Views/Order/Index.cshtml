@@ -15,45 +15,53 @@
     <div class="col-md-12">
         <div class="tile">
             <div class="tile-body">
-
-
-                <div class="row" style="display:flex;align-items:center">
+                <div class="row element-button">
                     <div class="col-sm-2">
 
-                        <a class="btn bg-info btn-sm" href="@Url.Action("Index","Order",new {sort = "Wait" })">
+                        <a class="btn btn-info btn-sm" href="@Url.Action("Index","Order",new {sort = "Wait" })">
                             Chưa giao hàng
                         </a>
                     </div>
                     <div class="col-sm-2">
 
-                        <a class="btn bg-warning btn-sm" href="@Url.Action("Index","Order",new { sort = "Deli" })">
+                        <a class="btn btn-warning btn-sm" href="@Url.Action("Index","Order",new { sort = "Deli" })">
                             Đang giao hàng
                         </a>
                     </div>
                     <div class="col-sm-2">
 
-                        <a class="btn bg-success btn-sm" href="@Url.Action("Index","Order",new { sort = "Done" })">
+                        <a class="btn btn-success btn-sm" href="@Url.Action("Index","Order",new { sort = "Done" })">
                             Hoàn thành
                         </a>
                     </div>
                     <div class="col-sm-2">
 
-                        <a class="btn bg-danger btn-sm" href="@Url.Action("Index","Order",new { sort = "Cancel" })">
+                        <a class="btn btn-danger btn-sm" href="@Url.Action("Index","Order",new { sort = "Cancel" })">
                             Đã hủy
                         </a>
                     </div>
-                    <div class="col-sm-12 col-md-4">
+                </div>
+
+                <div class="row" style="align-items:center">
+                    <div class="col-sm-12 col-md-6">
+                        <span>Trang @*@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/ @totalPage*@</span>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        @* Tìm kiếm sản phẩm trong admin - Phạm Duy *@
                         @using (Html.BeginForm("Index", "Order", FormMethod.Get, new { @class = "dataTables_filter d-flex justify-content-end" }))
                         {
                             <label>
                                 Tìm kiếm:
 
-                                @Html.TextBox("sort", null, new { @class = "form-control form-control-sm" })
+                                @Html.TextBox("searchStr", null, new { @class = "form-control form-control-sm", @placeholder = "Nhập số điện thoại khách hàng" })
 
                             </label>
                         }
                     </div>
                 </div>
+
+               
+
                 <table class="table">
                     <tr>
                         <th>

@@ -12,15 +12,31 @@ namespace Nike.Areas.Admin.Controllers
     {
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
         // GET: Admin/Order
-        public ActionResult Index(string sort)
+        public ActionResult Index(string searchStr,string sort, int? page)
         {
-            Sort(sort);
+            const int pageSize = 10;
+            int pageNumber = page ?? 1;
+            var orders = _db.Orders.ToList();
+            if (!String.IsNullOrEmpty(searchStr))
+            {
+                searchStr = searchStr.ToLower();
+                ViewBag.searchStr = searchStr;
+                orders = orders.Where(p => p.KhachHang.Sdt.ToString().ToLower().Contains(searchStr)).ToList();
+                ViewBag.orderList = orders;
+            }
+            else
+            {
+                Sort(sort);
+            }
+            
             return View();
+
         }
 
 
         public void Sort(string sort)
         {
+            ViewBag.Sort = sort;
             var orderList = (from s in _db.Orders select s).ToList();
             foreach (var order in orderList)
             {
@@ -28,6 +44,7 @@ namespace Nike.Areas.Admin.Controllers
                 {
                     Order editOrder = _db.Orders.Find(order.ID);
                     editOrder.Status = "Hoàn thành";
+                    editOrder.Payment = true;
                     _db.Entry(editOrder).State = EntityState.Modified;
                     _db.SaveChanges();
                 }

@@ -1,0 +1,99 @@
+﻿@model Nike.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Picture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Picture)
+        </dd>
+
+        <dt>
+            Tên sản phẩm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            Mã Sản Phẩm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCode)
+        </dd>
+
+
+        <dt>
+            Đã bán
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductSold)
+        </dd>
+
+        <dt>
+            Danh mục
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.CatalogName)
+        </dd>
+
+        <dt>
+            Xuất xứ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.ProductOrigin)
+        </dd>
+
+        <dt>
+            Giảm giá
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductSale)
+        </dd>
+
+        <dt>
+            Giá vốn
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceOld)
+        </dd>
+
+        <dt>
+            Giá bán
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

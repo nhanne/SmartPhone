@@ -17,7 +17,9 @@ namespace Nike.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var catalog = (from s in _db.Catalogs select s).ToList();
+            var catalog = (from s 
+                           in _db.Catalogs 
+                           select s).ToList();
             ViewBag.catalogs = catalog;
             return View();
 

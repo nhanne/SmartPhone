@@ -151,5 +151,39 @@ namespace Nike.Areas.Admin.Controllers
             ViewBag.CatalogId = new SelectList(_db.Catalogs, "ID", "CatalogName", pr.CatalogId);
             return View(product);
         }
+
+        // Hàm xóa sản phẩm - Phát
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = _db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
+        }
+
+        // POST: LoaiPhong/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int Id)
+        {
+            try
+            {
+                Product product = _db.Products.Find(Id);
+                _db.Products.Remove(product);
+                _db.SaveChanges();
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }

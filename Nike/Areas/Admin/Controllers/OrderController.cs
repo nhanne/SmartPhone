@@ -17,6 +17,7 @@ namespace Nike.Areas.Admin.Controllers
             const int pageSize = 10;
             int pageNumber = page ?? 1;
             var orders = _db.Orders.ToList();
+            // Tìm kiếm đơn hàng = Sđt - Sprin 6
             if (!String.IsNullOrEmpty(searchStr))
             {
                 searchStr = searchStr.ToLower();

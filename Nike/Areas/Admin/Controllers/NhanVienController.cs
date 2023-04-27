@@ -148,22 +148,14 @@ namespace Nike.Areas.Admin.Controllers
             }
             return View(nhanvien);
         }
-        // POST: LoaiPhong/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int Id)
         {
-            try
-            {
                 NhanVien nhanvien = _db.NhanViens.Find(Id);
                 _db.NhanViens.Remove(nhanvien);
                 _db.SaveChanges();
-            }
-            catch
-            {
-
-            }
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
         }
 
     }

@@ -291,6 +291,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Hinh\KhachHang\user.jpg" />
     <Content Include="Scripts\myScript.js" />
     <Content Include="Assets\Admin\css\main.css" />
     <Content Include="Assets\Admin\css\style.css" />

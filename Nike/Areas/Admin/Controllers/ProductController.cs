@@ -167,7 +167,6 @@ namespace Nike.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: LoaiPhong/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int Id)

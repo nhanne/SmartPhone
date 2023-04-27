@@ -158,5 +158,20 @@ namespace Nike.Areas.Admin.Controllers
                 return RedirectToAction("Index");
         }
 
+
+        // Xem chi tiết Nhân viên- Nhân
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            NhanVien nhanvien = _db.NhanViens.Find(id);
+            if (nhanvien == null)
+            {
+                return HttpNotFound();
+            }
+            return View(nhanvien);
+        }
     }
 }

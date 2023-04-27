@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -31,6 +32,20 @@ namespace Nike.Areas.Admin.Controllers
             }
 
             return View(ViewBag.NhanVien);
+        }
+
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            KhachHang khachhang = _db.KhachHangs.Find(id);
+            if (khachhang == null)
+            {
+                return HttpNotFound();
+            }
+            return View(khachhang);
         }
     }
 }

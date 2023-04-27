@@ -483,6 +483,9 @@
     <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Catalog\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Catalog\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\KhachHang\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Detail.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

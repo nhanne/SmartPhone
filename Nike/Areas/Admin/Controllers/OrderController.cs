@@ -91,6 +91,42 @@ namespace Nike.Areas.Admin.Controllers
             return View(order);
         }
 
+        public ActionResult Edit(int Id)
+        {
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = _db.Orders.Find(Id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Status = new SelectList(_db.Order_Status, "Status", "Status", order.Status);
+            return View(order);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID")] Order model)
+        {
+            Order order = _db.Orders.Find(model.ID);
+            order.Status = "Đang giao hàng";
+            order.NgayGiao = DateTime.Now.AddDays(3);
+            var ordList_Detail = _db.Order_Detail.ToList();
+            foreach (var item in ordList_Detail)
+            {
+                if (item.ID_Order == order.ID)
+                {
+                    Product product = _db.Products.Find(item.ID_Product);
+                    product.SoLuong -= 1;
+                    product.ProductSold += 1;
+                    _db.Entry(product).State = EntityState.Modified;
+                }
+            }
 
+            _db.Entry(order).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

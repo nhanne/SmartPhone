@@ -32,7 +32,7 @@ namespace Nike.Models
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Vui lòng nhập tên thật")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập Họ")]
-        [StringLength(50, MinimumLength = 2,ErrorMessage = "Vui lòng nhập họ thật")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Vui lòng nhập họ thật")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập Email")]
@@ -53,17 +53,17 @@ namespace Nike.Models
         }
 
         public string Picture { get; set; }
-    
+
         public string Address { get; set; }
         //[Required(ErrorMessage = "Vui lòng nhập ngày sinh")]
         //[DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{mm/dd/yyyy}")]
         public Nullable<System.DateTime> NgaySinh { get; set; }
-     
+
         public string CMT { get; set; }
-    
+
         public string Sdt { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

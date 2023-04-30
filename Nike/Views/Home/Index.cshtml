@@ -55,6 +55,33 @@
                         <span class="home-filter__page-num">
                             <span class="home-filter__page-current">Trang @ViewBag.CurrentPage</span> / @ViewBag.totalPage
                         </span>
+                        <div class="home-filter__page-control">
+                            @if (currentPage <= 1)
+                            {
+                                <a href="#" class="home-filter__page-btn home-filter__page-btn--disabled">
+                                    <i class="home-filter__page-icon fa-solid fa-caret-left"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index","Home",new {searchStr = currentSearch,sort= currentSort, pageIndex = currentPage - 1 })" class="home-filter__page-btn">
+                                    <i class="home-filter__page-icon fa-solid fa-caret-left"></i>
+                                </a>
+                            }
+
+                            @if (currentPage < totalPage)
+                            {
+                                <a href="@Url.Action("Index","Home",new {searchStr = currentSearch,sort= currentSort, pageIndex = currentPage + 1 })" class="home-filter__page-btn">
+                                    <i class="home-filter__page-icon fa-solid fa-caret-right"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="home-filter__page-btn home-filter__page-btn--disabled">
+                                    <i class="home-filter__page-icon fa-solid fa-caret-right"></i>
+                                </a>
+                            }
+                        </div>
                     </div>
                 </div>
 
@@ -121,16 +148,20 @@
                     @if (currentPage != 1)
                     {
                         <li class="pagination-item">
-                            <a href="@Url.Action("Index","Home",new {sort= currentSort ,pageIndex = currentPage - 1 })" class="pagination-item__link">
+                            <a href="@Url.Action("Index","Home",new {sort= currentSort ,pageIndex = 1})" class="pagination-item__link">
                                 <i class="pagination-item__icon fas fa-angle-left"></i>
                             </a>
                         </li>
                     }
+                  
 
 
-
-                    @for (int i = 1; i <= ViewBag.totalPage; i++)
+                    @for (int i = currentPage; i <= (totalPage + currentPage) / 2; i++)
                     {
+                        if (currentPage == totalPage)
+                        {
+                            break;
+                        }
                         if (String.IsNullOrEmpty(currentSort))
                         {
                             <li class="pagination-item">
@@ -147,15 +178,25 @@
                                 </a>
                             </li>
                         }
-                       
+                    }
+                    @if (totalPage > 5)
+                    {
+                        <li class="pagination-item">
+                            <a href="#" class="pagination-item__link">...</a>
+                        </li>
                     }
 
+                    <li class="pagination-item">
+                        <a href="@Url.Action("Index","Home",new {sort= currentSort ,pageIndex = totalPage })" class="pagination-item__link">
+                            @totalPage
+                        </a>
+                    </li>
 
 
                     @if (currentPage != totalPage)
                     {
                         <li class="pagination-item">
-                            <a href="@Url.Action("Index","Home",new {sort= currentSort, pageIndex = currentPage + 1 })" class="pagination-item__link">
+                            <a href="@Url.Action("Index","Home",new {sort= currentSort, pageIndex = totalPage })" class="pagination-item__link">
                                 <i class="pagination-item__icon fas fa-angle-right"></i>
                             </a>
                         </li>

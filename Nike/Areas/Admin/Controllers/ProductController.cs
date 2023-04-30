@@ -16,32 +16,46 @@ namespace Nike.Areas.Admin.Controllers
         // GET: Admin/Product
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
         // GET: Product
-        public ActionResult Index(int? page, string searchString)
+  
+
+        public ActionResult Index(string sort, int? page, string searchString)
         {
-            int pageNum = (page ?? 1);
-            int pageSize = 10;
-            var dsProduct = (from s in _db.Products select s).ToList().ToPagedList(pageNum, pageSize);
-            var totalPage = (double)dsProduct.Count();
-            ViewBag.totalPage = Math.Ceiling(totalPage);
-           
-            // Tìm kiêm sản phẩm - Duy
+            const int pageSize = 10;
+            int pageNumber = page ?? 1;
+
+            var products = _db.Products.ToList();
+
+            // tìm kiếm sản phẩm - Duy
             if (!String.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.ToLower();
                 ViewBag.searchStr = searchString;
-
-                var dsSearch = _db.Products.ToList().Where(s => s.ProductName.ToLower().Contains(searchString) || s.Catalog.CatalogName.ToLower().Contains(searchString));
-                totalPage = (double)dsSearch.Count() / 10;
-                ViewBag.totalPage = Math.Ceiling(totalPage);
-                ViewBag.products = dsSearch.ToPagedList(pageNum, pageSize);
+                products = products.Where(p => p.ProductName.ToLower().Contains(searchString) ||
+                                                p.Catalog.CatalogName.ToLower().Contains(searchString))
+                                                .ToList();
             }
-            //
+            // sắp xếp sản phẩm
             else
             {
-                ViewBag.products = dsProduct;
+                ViewBag.Sort = sort;
+                switch (sort)
+                {
+                    case "pre-sold":
+                        products = products.Where(p => p.SoLuong < 50 && p.SoLuong >0 ).ToList();
+                        break;
+                    case "sold":
+                        products = products.Where(p => p.SoLuong == 0).ToList();
+                        break;
+                }
             }
-            return View(dsProduct);
+
+
+            ViewBag.totalPage = Math.Ceiling((double)products.Count() / pageSize);
+            ViewBag.products = products.ToPagedList(pageNumber, pageSize);
+
+            return View(ViewBag.products);
         }
+
         // Tạo sản phẩm mới - Nhân
         public ActionResult Create()
         {
@@ -73,7 +87,9 @@ namespace Nike.Areas.Admin.Controllers
                 Random prCode = new Random();
                 model.ProductCode = String.Concat("PR", prCode.Next(5000, 7000).ToString());
                 model.ProductSold = 0;
-                model.UnitPrice = (model.ProductSale != null) ? (model.UnitPrice = (model.PriceOld - (model.PriceOld * int.Parse(model.ProductSale)) / 100)) : (model.UnitPrice = model.PriceOld);
+                model.UnitPrice = model.ProductSale != null
+                    ? (model.UnitPrice = model.PriceOld - (model.PriceOld * int.Parse(model.ProductSale)) / 100)
+                    :  model.UnitPrice = model.PriceOld;
                 _db.Products.Add(model);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
@@ -135,5 +151,38 @@ namespace Nike.Areas.Admin.Controllers
             ViewBag.CatalogId = new SelectList(_db.Catalogs, "ID", "CatalogName", pr.CatalogId);
             return View(product);
         }
+
+        // Hàm xóa sản phẩm - Phát
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = _db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int Id)
+        {
+            try
+            {
+                Product product = _db.Products.Find(Id);
+                _db.Products.Remove(product);
+                _db.SaveChanges();
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }

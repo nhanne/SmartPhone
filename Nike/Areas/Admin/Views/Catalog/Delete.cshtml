@@ -1,0 +1,50 @@
+﻿@model Nike.Models.Catalog
+
+@{
+    ViewBag.Title = "Xóa danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Xóa Danh Mục</title>
+</head>
+<body>
+    <h3>Bạn có chắc muốn xóa danh mục này ?</h3>
+    <div>
+        <h4>Catalog</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CatalogCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CatalogCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CatalogName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CatalogName)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

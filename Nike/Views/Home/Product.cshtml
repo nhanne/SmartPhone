@@ -1,7 +1,7 @@
 ﻿@using Nike.Models;
 @model Nike.Models.Product
 @{
-    ViewBag.Title = "Chi tiết sản phẩm";
+    ViewBag.Title = Model.ProductName ;
     Layout = "~/Views/Shared/_Layout.cshtml";
     KhachHang kh = (KhachHang)Session["Taikhoan"];
 }
@@ -38,7 +38,7 @@
                         @if (Model.SoLuong > 0)
                         {<span>Còn hàng</span> }
                         else
-                        { <span> Hết hàng </span>}
+                        { <span style="text-decoration: line-through red"> Hết hàng </span>}
                     </div>
 
                 </div>
@@ -58,6 +58,12 @@
                             Thêm vào giỏ hàng
                         </button>
                         <button class="detail__operation-buynow btn" onclick="location.href='@Url.Action("BuyNow", "Giohang", new { IdProduct = @Model.Id })'">Mua ngay</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="detail__operation">
+                        <button class="detail__operation-addCart btn btn-order" onclick="location.href='@Url.Action("Index", "Home")'">Quay về trang chủ</button>
                     </div>
                 }
             </div>

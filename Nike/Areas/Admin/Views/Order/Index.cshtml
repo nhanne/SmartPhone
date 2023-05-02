@@ -143,6 +143,10 @@
                                         onclick="location.href='@Url.Action("Edit", "Order",new { Id = item.ID })'">
                                     <i class="fas fa-edit"></i>
                                 </button>
+                                <button class="btn btn-primary btn-sm user-btn" type="button" title="Xem"
+                                        onclick="location.href='@Url.Action("Detail", "Order",new { Id = item.ID })'">
+                                    <i class="fas fa-cart-arrow-down"></i>
+                                </button>
                             </td>
                         </tr>
                     }

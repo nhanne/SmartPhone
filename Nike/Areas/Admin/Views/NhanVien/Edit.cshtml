@@ -31,9 +31,9 @@
                 @Html.EditorFor(model => model.Password, new
                 {
                     htmlAttributes = new
-                    {@*@type = "password",*@ @class = "form-control"
-                }
-            })
+                    {@*@type = "password",*@@class = "form-control"
+}
+})
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
             <div class="form-group col-md-3">
@@ -89,7 +89,7 @@
                 <a class="btn btn-cancel" href="@Url.Action("Index","NhanVien")">Hủy bỏ</a>
             </div>
 
-           
+
         </div>
     }
 </div>

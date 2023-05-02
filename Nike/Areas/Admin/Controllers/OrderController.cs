@@ -128,5 +128,19 @@ namespace Nike.Areas.Admin.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        //[HttpPost, ActionName("Edit")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult HuyDon(int Id)
+        //{
+        //    if (Id.ToString() == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Order order = _db.Orders.Find(Id);
+        //    order.Status = "Đã hủy";
+        //    _db.Entry(order).State = EntityState.Modified;
+        //    _db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
     }
 }

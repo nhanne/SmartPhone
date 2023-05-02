@@ -20,7 +20,7 @@ namespace Nike.Models
         {
             this.Order_Detail = new HashSet<Order_Detail>();
         }
-    
+
         public int Id { get; set; }
         public Nullable<int> CatalogId { get; set; }
         public string Picture { get; set; }
@@ -33,7 +33,7 @@ namespace Nike.Models
         [Required(ErrorMessage = "Vui lòng nhập số lượng")]
         [Range(0, int.MaxValue, ErrorMessage = "Vui lòng nhập số lượng > 0")]
         public Nullable<int> SoLuong { get; set; }
-    
+
         public virtual Catalog Catalog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Detail> Order_Detail { get; set; }

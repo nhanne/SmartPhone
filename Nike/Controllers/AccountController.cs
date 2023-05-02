@@ -60,19 +60,10 @@ namespace Nike.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = _db.KhachHangs.Where(s => s.Email.Equals(email) && s.Password.Equals(password)).ToList();
                 KhachHang kh = _db.KhachHangs.SingleOrDefault(s => s.Email.Equals(email) && s.Password.Equals(password));
                 if (kh != null)
                 {
                     Session["Taikhoan"] = kh;
-                }
-                if (data.Count() > 0)
-                {
-                    //add session
-                    Session["FullNamekh"] = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
-                    Session["Emailkh"] = data.FirstOrDefault().Email;
-                    Session["idUserkh"] = data.FirstOrDefault().idUser;
-                    Session["Avatarkh"] = data.FirstOrDefault().Picture;
                     return RedirectToAction("Index", "Home");
                 }
                 else

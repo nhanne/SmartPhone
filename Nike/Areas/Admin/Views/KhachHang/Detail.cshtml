@@ -1,0 +1,83 @@
+﻿@model Nike.Models.KhachHang
+@{
+
+    ViewBag.Title = "Thông tin cá nhân khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
+}
+
+<div class="app-title">
+    <ul class="app-breadcrumb breadcrumb side">
+        <li class="breadcrumb-item active"><a href="#"><b>Khách hàng: #@Model.idUser</b></a></li>
+    </ul>
+    <div id="clock"></div>
+</div>
+
+<div class="row detail">
+        <div class="col-md-4 detail__avatar">
+            <img src="~/Hinh/KhachHang/@Model.Picture" alt="Ảnh đại diện" />
+        </div>
+        <div class="col-md-8">
+            <div class="detail__item">
+                <label class="control-label">Họ và tên: </label>
+                @Model.FullName()
+            </div>
+            <div class="detail__item">
+                <label class="control-label">Email: </label>
+                @Model.Email
+            </div> <div class="detail__item">
+                <label class="control-label">Địa chỉ thường trú: </label>
+                @Model.Address
+            </div> <div class="detail__item">
+                <label class="control-label">Ngày sinh: </label>
+                @(Model.NgaySinh?.ToString("dd/MM/yyyy"))
+            </div> <div class="detail__item">
+                <label class="control-label">Số điện thoại: </label>
+                @Model.Sdt
+            </div>
+            <div class="detail__item">
+                <label class="control-label">Số chứng minh thư: </label>
+                @Model.CMT
+            </div>
+            <div class="row btn">
+                <button class="btn btn-save btn-sm edit" type="button" title="Sửa"
+                        onclick="location.href='@Url.Action("Edit", "KhachHang",new { id = Model.idUser })'">
+                    Chỉnh sửa thông tin
+                </button>
+                <a class="btn btn-cancel" href="@Url.Action("Index","KhachHang")">Hủy bỏ</a>
+            </div>
+        </div> 
+
+     
+    </div>
+
+    <style>
+        .detail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        detail__avatar {
+        }
+
+        .detail__avatar img {
+            height: 80%;
+            width: 80%;
+            object-fit: cover;
+        }
+
+        .detail__item {
+            margin: 20px 0;
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 15px;
+            line-height: 1.5;
+            color: black;
+            background-color: #f1f1f1;
+            background-clip: padding-box;
+            height: 45px;
+            border: 1px solid #dadada;
+            border-radius: .357rem;
+        }
+    </style>

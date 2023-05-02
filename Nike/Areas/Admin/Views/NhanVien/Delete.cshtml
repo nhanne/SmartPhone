@@ -6,11 +6,10 @@
     Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
 }
 
-<h2>Xóa chức vụ</h2>
 
-<h3>Bạn có chắc muốn xóa đi nhân viên này ?</h3>
-<div>
-    <h4>@Model.FullName, @Model.ChucVu.ChucVu1, @Model.Email, @Model.Sdt</h4>
+
+<div class="confirm__delete">
+    <h3>Bạn có chắc muốn xóa đi nhân viên này ?</h3>
     <hr />
 
     @using (Html.BeginForm())
@@ -18,9 +17,15 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Quay về", "Index")
+            <input type="submit" value="Delete" class="btn btn-save" />
+            @Html.ActionLink("Quay về", "Index", null, new { @class = "btn btn-cancel" })
         </div>
     }
 </div>
 
+<style>
+    .confirm__delete {
+        padding: 250px 300px;
+        background-color: rgb(166 200 236);
+    }
+</style>

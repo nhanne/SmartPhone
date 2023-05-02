@@ -291,6 +291,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Hinh\KhachHang\user.jpg" />
     <Content Include="Scripts\myScript.js" />
     <Content Include="Assets\Admin\css\main.css" />
     <Content Include="Assets\Admin\css\style.css" />
@@ -482,6 +483,12 @@
     <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Catalog\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Catalog\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\KhachHang\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Edit.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -495,6 +502,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\myScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

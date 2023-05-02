@@ -101,15 +101,31 @@
 
                         }
                     </div>
-                    <div class="tile-footer col-md-12">
-                        <button class="btn btn-warning huy-san-pham" type="button" onclick="location.href='@Url.Action("HuyDon", "Order", new { Id = orders.ID  })'">Hủy đơn hàng</button>
-                    </div>
-                   
+                        @if (orders.Status == "Chưa giao hàng")
+                        {
+                            <div class="tile-footer col-md-12">
+                                <button class="btn btn-warning huy-san-pham" id="huydonhang" type="button" onclick="cancelOrder()">Hủy đơn hàng</button>
+                            </div>
+                        }
+
+
 
                 </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+    function cancelOrder() {
+        $.ajax({
+            url: "@(Url.Action("HuyDon", "Order", new { Id = orders.ID }))",
+            type: "POST",
+            success: function (data) {
+                window.location.href = "/Admin/Order"
+            }
+        });
+
+    }
+    </script>
 }
 <style>
     .huy-san-pham {

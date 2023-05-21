@@ -98,7 +98,15 @@
                                 @item.ID
                             </td>
                             <td>
-                                @item.KhachHang.FullName()
+                                @if (item.KhachHang != null)
+                                {
+                                    @item.KhachHang.FullName()
+                                }
+                                else
+                                {
+                                    <p>Chưa đăng ký tài khoản trong hệ thống</p>
+                                }
+
                             </td>
                             <td>
                                 @foreach (var product in ViewBag.orderDetail)

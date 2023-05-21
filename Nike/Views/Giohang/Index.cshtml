@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Giỏ hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+
 }
 
 
@@ -35,8 +37,8 @@
                                         <input class="grid-cart-column-1" type="number" min="1" name="txtSoLuong" value="@item.SoLuong" />
                                         <span class="grid-cart-column-1">@string.Format("{0:#,0}", item.Price) ₫</span>
                                         <div class="grid-cart-column-1 cart__button">
-                                            @Html.ActionLink("Xóa", "Xoagiohang", new { @Idproduct = item.IdProduct }, new { @class = "btn cart__button-delete" })
-                                            <input type="submit" value="Cập nhật" class="btn cart__button-update" />
+                                            @Html.ActionLink("Xóa", "Xoagiohang", new { @Idproduct = item.IdProduct }, new { @class = "btn cart__button-delete btn--danger" })
+                                            <input type="submit" value="Cập nhật" class="btn cart__button-update btn--success" />
                                         </div>
                                     </div>
                                     <hr>
@@ -50,8 +52,18 @@
                             <span class="grid-cart-column-1"></span>
                             <span class="grid-cart-column-1">Tổng tiền: @String.Format("{0:#,0}", ViewBag.Tongtien) ₫</span>
                             <div class="grid-cart-column-1 cart__button">
-                                @Html.ActionLink("Xóa giỏ hàng", "DeleteAll", "GioHang", new { @class = "btn cart__button-deleteAll" })
-                                @Html.ActionLink("Đặt hàng", "DatHang", "GioHang", new { @class = "btn cart__button-order" })
+                                @Html.ActionLink("Xóa giỏ hàng", "DeleteAll", "GioHang", new { @class = "btn cart__button-deleteAll btn--danger" })
+                                @{    
+                                    KhachHang khsession = (KhachHang)Session["Taikhoan"];
+                                    if (khsession != null){
+                                        KhachHang kh = _db.KhachHangs.Find(khsession.idUser);
+                                        @Html.ActionLink("Đặt hàng", "DatHang", "GioHang", new { @class = "btn cart__button-order" })
+                                    }else
+                                        {
+                                        @Html.ActionLink("Đặt hàng", "DatHangkoTK", "GioHang", new { @class = "btn cart__button-order" })
+                                        }
+                                  }
+
                             </div>
                         </div>
                     </div>
@@ -70,9 +82,7 @@
                         <button onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn--primary">MUA NGAY</button>
                     </div>
                 </div>
-
             </div>
-
         }
     }
 }

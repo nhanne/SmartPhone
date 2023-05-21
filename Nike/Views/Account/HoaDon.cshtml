@@ -1,0 +1,61 @@
+﻿@model Nike.Models.Order
+@using Nike.Models
+@{
+    ViewBag.Title = "HoaDon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+}
+
+<div class="grid">
+    <div class="header__info">
+        <div class="header__info--KH">
+            <h1>@Model.KhachHang.FullName()</h1>
+            <p>@Model.KhachHang.Address</p>
+            <p>@Model.KhachHang.Sdt</p>
+            <p>@Model.KhachHang.Email</p>
+        </div>
+        <div class="header__info--Date">
+            <p>Ngày đặt hàng:@(Model.NgayDat?.ToString("dd/MM/yyyy"))</p>
+            <p>Ngày giao hàng: @(Model.NgayDat?.ToString("dd/MM/yyyy"))</p>
+        </div>
+    </div>
+    <div class="body">
+        <ul class="ordList-item__order">
+            @foreach (var item in _db.Order_Detail.ToList())
+            {
+                if (item.ID_Order == Model.ID)
+                {
+
+                    <li class="ordList-item__order-item">
+                        <div class="ordList-item__order-product">
+                            <img src="~/Hinh/Product/@Url.Content(item.Product.Picture)"
+                                 alt="" class="ordList-item__order-img">
+                            <div class="orderList-item__order-info">
+                                <h4 class="ordList-item__order-name"> @item.Product.ProductName  </h4>
+                                <span class="ordList-item__order-brand">Phân loại hàng: @item.Product.Catalog.CatalogName</span>
+                                <span class="ordList-item__order-quanti">x @item.SoLuong</span>
+                            </div>
+                        </div>
+                        <span class="ordList-item__order-price"> @string.Format("{0:#,0}", item.Product.UnitPrice) đ</span>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    <div class="ordList-item__footer">
+        <div style="padding: 8px">Tổng tiền: <span class="ordList-item__footer-price">  @string.Format("{0:#,0}", Model.ThanhTien) đ</span></div>
+        <button class="btn btn--success"
+                onclick="location.href='@Url.Action("HoaDon", "Account")'">
+            Xuất hóa đơn
+        </button>
+    </div>
+</div>
+
+<style>
+    .header__info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+</style>

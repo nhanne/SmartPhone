@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Xác nhận thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="cart--no-card" style="height: 70vh">
+    <div class="cart--no-card-class">
+        <div class="cart--no-card-icon-class">
+           
+        </div>
+        <div class="cart--no-card-title"><h1>@ViewBag.Message</h1></div>
+        <div class="cart--no-card-button">
+            <button onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn--black">Quay về</button>
+        </div>
+    </div>
+
+</div>
+

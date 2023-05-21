@@ -26,10 +26,10 @@
                     <a href="@Url.Action("OrderList","Account",new {sr = "Cancel" })" class="ordList-filter__btn btn">Đã hủy</a>
 
                 </div>
-                @using (Html.BeginForm("OrderList", "Account", FormMethod.Get, new { @class = "dataTables_filter d-flex justify-content-end" }))
+                @*@using (Html.BeginForm("OrderList", "Account", FormMethod.Get, new { @class = "dataTables_filter d-flex justify-content-end" }))
                 {
                     @Html.TextBox("sr", null, new { @class = "ordList-search", placeholder = "Tìm kiếm theo ID đơn hàng" })
-                }
+                }*@
                 @foreach (var order in ViewBag.orderList)
                 {
                     if (order.KhachHangID == Model.idUser)
@@ -65,18 +65,24 @@
                             <div class="ordList-item__footer">
                                 <div class="ordList-item__footer-date">
                                     <div class="ordList-item__footer-dateOrd">Ngày đặt: @(order.NgayDat?.ToString("dd/MM/yyyy"))</div>
-                                    <div class="ordList-item__footer-dateOrd">Ngày nhận hàng: @(order.NgayGiao?.ToString("dd/MM/yyyy"))</div>
                                 </div>
 
                                 <div>
                                     @if (order.Status == "Chưa giao hàng")
                                     {
-                                        <button class="btn btn--primary orderList-btn--cancel"
+                                        <button class="btn btn--danger orderList-btn--cancel"
                                                 onclick="location.href='@Url.Action("CancelOrder", "Account",new { ID = order.ID })'">
                                             Hủy đơn hàng
                                         </button>
                                     }
-                                    <span>Thành tiền: <span class="ordList-item__footer-price">  @string.Format("{0:#,0}", order.ThanhTien) đ</span></span>
+                                    else if(order.Status == "Hoàn thành")
+                                    {
+                                        <button class="btn btn--success"
+                                                onclick="location.href='@Url.Action("HoaDon", "Account",new { ID = order.ID })'">
+                                            Xem hóa đơn
+                                        </button>
+                                    }
+                                    <span style="border-left: 1px solid black;padding: 8px">Tổng tiền: <span class="ordList-item__footer-price">  @string.Format("{0:#,0}", order.ThanhTien) đ</span></span>
 
                                 </div>
                             </div>

@@ -32,7 +32,6 @@ namespace Nike.Controllers
                 var check = _db.KhachHangs.FirstOrDefault(s => s.Email == khachhang.Email);
                 if (check == null)
                 {
-                    _db.Configuration.ValidateOnSaveEnabled = false;
                     String anh = "user.jpg";
                     khachhang.Picture = anh;
                     _db.KhachHangs.Add(khachhang);
@@ -60,15 +59,18 @@ namespace Nike.Controllers
         {
             if (ModelState.IsValid)
             {
-                KhachHang kh = _db.KhachHangs.SingleOrDefault(s => s.Email.Equals(email) && s.Password.Equals(password));
+                KhachHang kh = _db.KhachHangs.FirstOrDefault(s => s.Email.Equals(email) && s.Password.Equals(password));
                 if (kh != null)
                 {
                     Session["Taikhoan"] = kh;
+                    Session["NV"] = null;
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Sai email hoặc mật khẩu");
+                    //ModelState.AddModelError("", "Sai email hoặc mật khẩu");
+                    ViewBag.error = "Vui lòng thử lại, xin cảm ơn.";
+                    return View();
                 }
             }
             return View();
@@ -267,6 +269,20 @@ namespace Nike.Controllers
 
             }
             return RedirectToAction("OrderList");
+        }
+
+        public ActionResult HoaDon(int ID)
+        {
+            Order order = _db.Orders.Find(ID);
+            KhachHang kh = (KhachHang)Session["TaiKhoan"];
+            if (order.KhachHangID == kh.idUser)
+            {
+                return View(order);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
     }
 }

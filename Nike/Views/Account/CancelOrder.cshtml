@@ -6,20 +6,17 @@
 }
 
 
-<div class="grid center">
+<div class="grid center" style="height: 50vh">
     <div>
 
 
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            <h4>Xác nhận hủy đơn hàng #@Model.ID</h4>
-
-
-
             <div class="form-actions no-color">
-                <input type="submit" value="Hủy đơn hàng" class="btn btn-default" /> |
-                @Html.ActionLink("Quay về", "OrderList", null, new { @class = "btn" })
+                <h2 style="text-align:center; border: 1px solid var(--primary-color ); padding: 8px">Xác nhận hủy đơn hàng</h2>
+                <input type="submit" value="Hủy đơn hàng" class="btn btn--danger" /> 
+                @Html.ActionLink("Quay về", "OrderList", null, new { @class = "btn btn--primary" })
             </div>
         }
     </div>

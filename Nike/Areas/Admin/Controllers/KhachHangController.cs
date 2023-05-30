@@ -20,18 +20,20 @@ namespace Nike.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Order");
             }
             var dsKhachHang = _db.KhachHangs.ToList();
+
             // Tìm kiếm khách hàng trong quản lí khách hàng bằng email - Duy 
             if (!String.IsNullOrEmpty(searchStr))
             {
                 searchStr = searchStr.ToLower();
-                ViewBag.NhanVien = dsKhachHang.Where(s => s.Email.ToLower().Contains(searchStr));
+                dsKhachHang = dsKhachHang.Where(s => s.Email.ToLower().Contains(searchStr)).ToList();
+                ViewBag.dsKh = dsKhachHang;
             }
             else
             {
-                ViewBag.NhanVien = dsKhachHang;
+                ViewBag.dsKH = dsKhachHang;
             }
 
-            return View(ViewBag.NhanVien);
+            return View();
         }
 
         public ActionResult Detail(int? id)

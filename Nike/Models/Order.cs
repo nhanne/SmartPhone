@@ -22,7 +22,6 @@ namespace Nike.Models
     
         public int ID { get; set; }
         public Nullable<int> KhachHangID { get; set; }
-        public Nullable<int> Id_NV { get; set; }
         public string Status { get; set; }
         public string Address { get; set; }
         public Nullable<bool> Payment { get; set; }
@@ -30,11 +29,12 @@ namespace Nike.Models
         public Nullable<System.DateTime> NgayGiao { get; set; }
         public Nullable<double> ThanhTien { get; set; }
         public Nullable<int> TongSoLuong { get; set; }
+        public Nullable<int> Id_NV { get; set; }
     
         public virtual KhachHang KhachHang { get; set; }
-        public virtual NhanVien NhanVien { get; set; }
         public virtual Order_Status Order_Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Detail> Order_Detail { get; set; }
+        public virtual NhanVien NhanVien { get; set; }
     }
 }

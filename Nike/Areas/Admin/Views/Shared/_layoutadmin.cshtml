@@ -36,7 +36,7 @@
         <ul class="app-nav">
             <!-- User Menu-->
             <li>
-                <a class="app-nav__item" href="@Url.Action("Logout","Home")"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+                <a class="app-nav__item" href="@Url.Action("Logout", "Home")"><i class='bx bx-log-out bx-rotate-180'></i> </a>
 
             </li>
         </ul>
@@ -61,35 +61,70 @@
     <!--===============================================================================================-->
     <script type="text/javascript" src="~/Assets/Admin/js/plugins/chart.js"></script>
     <script type="text/javascript">
-        // Thêm active vào category
-        const currentUrl = window.location.href
-        const getNameCate = currentUrl.split('Admin')?.[1]
-        console.log(getNameCate)
-        if (getNameCate) {
-            const allCate = document.querySelectorAll('.app-menu__item')
-            let activeCate
-            for (var i = 0; i < allCate.length; i++) {
-                if (allCate[i].getAttribute('href').split('Admin')?.[1] === getNameCate) {
-                    activeCate = allCate[i]
-                    break
-                }
-            }
-            if (activeCate) {
-                activeCate.classList.add("active")
+    const currentUrl = window.location.href
+    const getNameCate = currentUrl.split('Admin')?.[1]
+    console.log(getNameCate)
+    if (getNameCate) {
+        const allCate = document.querySelectorAll('.app-menu__item')
+        let activeCate
+        for (var i = 0; i < allCate.length; i++) {
+            if (allCate[i].getAttribute('href').split('Admin')?.[1] === getNameCate) {
+                activeCate = allCate[i]
+                break
             }
         }
+        if (activeCate) {
+            activeCate.classList.add("active")
+        }
+    }
+
+    async function gicungduoc() {
+        // Thêm active vào category
+        let dataOrder = []
+        async function ajaxGetOrder() {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    type: 'GET',
+                    url: "@(Url.Action("getDataOrder", "Home"))",
+                    contentType: "application/json; charset=utf-8",
+                    async: true,
+                    success: function (response) {
+                        resolve(response)
+                        //do your stuff
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    },
+                    error: function (response) {
+                        reject(response.responseText)
+                    }
+                })
+            }) 
+        }
+
+        dataOrder = await ajaxGetOrder()
+     
+    
+       
+        const doneOrder = dataOrder.filter((item) => item.Status == 'Hoàn thành')
+  
+    
+        
+        const arrChart = []
+        for (let i = 0; i < 12; i++) {
+            const order = doneOrder.filter((item) => {
+                var date = eval(item.NgayDat.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"));
+                return date.getMonth() == i
+            })
+            const totalMoney = order.reduce((total, item, index) => {
+                return total += item.ThanhTien
+            }, 0)
+            arrChart.push(totalMoney)
+        }
+        console.log()
         var data = {
-            labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
-            datasets: [{
-                label: "Dữ liệu đầu tiên",
-                fillColor: "rgba(255, 213, 59, 0.767), 212, 59)",
-                strokeColor: "rgb(255, 212, 59)",
-                pointColor: "rgb(255, 212, 59)",
-                pointStrokeColor: "rgb(255, 212, 59)",
-                pointHighlightFill: "rgb(255, 212, 59)",
-                pointHighlightStroke: "rgb(255, 212, 59)",
-                data: [20, 59, 90, 51, 56, 100]
-            },
+            labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+            datasets: [
             {
                 label: "Dữ liệu kế tiếp",
                 fillColor: "rgba(9, 109, 239, 0.651)  ",
@@ -98,7 +133,7 @@
                 pointStrokeColor: "rgb(9, 109, 239)",
                 pointHighlightFill: "rgb(9, 109, 239)",
                 pointHighlightStroke: "rgb(9, 109, 239)",
-                data: [48, 48, 49, 39, 86, 10]
+                data: arrChart
             }
             ]
         };
@@ -106,8 +141,8 @@
         var lineChart = new Chart(ctxl).Line(data);
         var ctxb = $("#barChartDemo").get(0).getContext("2d");
         var barChart = new Chart(ctxb).Bar(data);
-     
-  
+
+
 
         //Thời Gian
         function time() {
@@ -148,7 +183,9 @@
                 }
                 return i;
             }
+            }
         }
+        gicungduoc()
     </script>
 </body>
 

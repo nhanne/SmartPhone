@@ -86,13 +86,12 @@
                                             Hủy đơn hàng
                                         </button>
                                     }
-                                    else if(order.Status == "Hoàn thành")
-                                    {
+                               
                                         <button class="btn btn--success"
                                                 onclick="location.href='@Url.Action("HoaDon", "Account",new { ID = order.ID })'">
                                             Xem hóa đơn
                                         </button>
-                                    }
+                                    
                                     <span style="border-left: 1px solid black;padding: 8px">Tổng tiền: <span class="ordList-item__footer-price">  @string.Format("{0:#,0}", order.ThanhTien) đ</span></span>
 
                                 </div>

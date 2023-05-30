@@ -1,34 +1,34 @@
 ﻿@model Nike.Models.Order
 @using Nike.Models
 @{
-    ViewBag.Title = "HoaDon";
+    ViewBag.Title = "Hóa đơn";
     Layout = "~/Views/Shared/_Layout.cshtml";
     QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
 }
 
-<div class="grid">
+<div class="grid" id="sampleTable">
     <div class="header__info">
         <div class="header__info--KH">
-            <h1>@Model.KhachHang.FullName()</h1>
-            <p>@Model.KhachHang.Address</p>
-            <p>@Model.KhachHang.Sdt</p>
-            <p>@Model.KhachHang.Email</p>
+            <h1>Khách hàng: @Model.KhachHang.FullName()</h1>
+            <p>Địa chỉ giao hàng: @Model.KhachHang.Address</p>
+            <p>Số điện thoại: @Model.KhachHang.Sdt</p>
+            <p>Địa chỉ email: @Model.KhachHang.Email</p>
         </div>
         <div class="header__info--Date">
             <p>Ngày đặt hàng:@(Model.NgayDat?.ToString("dd/MM/yyyy"))</p>
-            <p>Ngày giao hàng: @(Model.NgayDat?.ToString("dd/MM/yyyy"))</p>
-            <p>Thanh Toán: 
-            @if(Model.Payment == true)
-            {
-                <span>Đã thanh toán qua ví VNPAY</span>
-            }
-            else
-            {
-                <span>Đã thanh toán bằng tiền mặt</span>
-            }
-            
+            <p>Ngày giao hàng: @(Model.NgayGiao?.ToString("dd/MM/yyyy"))</p>
+            <p>
+                Thanh Toán:
+                @if (Model.Payment == true)
+                {
+                    <span>Thanh toán qua ví VNPAY</span>
+                }
+                else
+                {
+                    <span>Thanh toán bằng tiền mặt</span>
+                }
             </p>
-
+            <p>Trạng thái: @Model.Status</p>
         </div>
     </div>
     <div class="body">
@@ -45,7 +45,7 @@
                             <div class="orderList-item__order-info">
                                 <h4 class="ordList-item__order-name"> @item.Product.ProductName  </h4>
                                 <span class="ordList-item__order-brand">Phân loại hàng: @item.Product.Catalog.CatalogName</span>
-                                <span class="ordList-item__order-quanti">x @item.SoLuong</span>
+                                <span class="ordList-item__order-quanti">Số lượng: @item.SoLuong</span>
                             </div>
                         </div>
                         <span class="ordList-item__order-price"> @string.Format("{0:#,0}", item.Product.UnitPrice) đ</span>
@@ -56,11 +56,13 @@
     </div>
     <div class="ordList-item__footer">
         <div style="padding: 8px">Tổng tiền: <span class="ordList-item__footer-price">  @string.Format("{0:#,0}", Model.ThanhTien) đ</span></div>
-        <button class="btn btn--success"
-                onclick="location.href='@Url.Action("HoaDon", "Account")'">
-            Xuất hóa đơn
-        </button>
     </div>
+</div>
+<div class="grid" style="text-align: right;margin-bottom: 10px">
+    <button class="btn btn--success"
+            onclick="myApp.printTable()">
+        Xuất hóa đơn
+    </button>
 </div>
 
 <style>
@@ -69,5 +71,17 @@
         justify-content: space-between;
         align-items: center;
     }
-
 </style>
+
+<script>
+    //In dữ liệu
+    var myApp = new function () {
+        this.printTable = function () {
+            var tab = document.getElementById('sampleTable');
+            var win = window.open('', '', 'height=700,width=700');
+            win.document.write(tab.outerHTML);
+            win.document.close();
+            win.print();
+        }
+    }
+</script>

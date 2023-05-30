@@ -53,7 +53,7 @@ namespace Nike.Areas.Admin.Controllers
             }
             if (String.IsNullOrEmpty(sort))
             {
-                ViewBag.orderList = orderList;
+                ViewBag.orderList = orderList.OrderBy(s => s.NgayDat);
             }
             else
             {

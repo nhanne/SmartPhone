@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Quản lí khách hàng";
     Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml";
-    ViewBag.dsKH = Model.ToList();
 }
 
 <div class="app-title">
@@ -118,14 +117,6 @@
                                         @item.Sdt
                                     </td>
                                     <td class="table-td-center">
-                                        <button class="btn btn-primary btn-sm trash" type="button" title="Vô hiệu hóa"
-                                                onclick="location.href='@Url.Action("Delete", "KhachHang",new { Id = item.idUser })'">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                        <button class="btn btn-primary btn-sm edit" type="button" title="Thay đổi mật khẩu"
-                                                onclick="location.href='@Url.Action("Edit", "KhachHang",new { Id = item.idUser })'">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
                                         <button class="btn btn-primary btn-sm user-btn" type="button" title="Xem thông tin"
                                                     onclick="location.href='@Url.Action("Detail", "KhachHang",new { Id = item.idUser })'">
                                             <i class="fas fa-user"></i>

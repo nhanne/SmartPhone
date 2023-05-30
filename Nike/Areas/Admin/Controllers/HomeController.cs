@@ -50,7 +50,7 @@ namespace Nike.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var obj = _db.NhanViens.Where(a => a.Email.Equals(objUser.Email) && a.Password.Equals(objUser.Password)).FirstOrDefault();
-                var data = _db.NhanViens.Where(s => s.Email.Equals(objUser.Email) && s.Password.Equals(objUser.Password)).ToList();
+                //var data = _db.NhanViens.Where(s => s.Email.Equals(objUser.Email) && s.Password.Equals(objUser.Password)).ToList();
                 if (obj != null && obj.MaChucVu == 2)
                 {
                     Session["NV"] = obj;

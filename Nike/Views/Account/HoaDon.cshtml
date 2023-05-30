@@ -17,6 +17,18 @@
         <div class="header__info--Date">
             <p>Ngày đặt hàng:@(Model.NgayDat?.ToString("dd/MM/yyyy"))</p>
             <p>Ngày giao hàng: @(Model.NgayDat?.ToString("dd/MM/yyyy"))</p>
+            <p>Thanh Toán: 
+            @if(Model.Payment == true)
+            {
+                <span>Đã thanh toán qua ví VNPAY</span>
+            }
+            else
+            {
+                <span>Đã thanh toán bằng tiền mặt</span>
+            }
+            
+            </p>
+
         </div>
     </div>
     <div class="body">

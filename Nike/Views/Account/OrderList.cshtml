@@ -18,7 +18,7 @@
 
 
             <div class="grid__column-10">
-                <div class="ordList-filter">
+                <div class="ordList-filter" style="padding:10px">
                     <a href="@Url.Action("OrderList","Account",new {sr = "" })" class="ordList-filter__btn btn">Tất cả</a>
                     <a href="@Url.Action("OrderList","Account",new {sr = "Wait" })" class="ordList-filter__btn btn">Chưa xác nhận</a>
                     <a href="@Url.Action("OrderList","Account",new {sr = "Deli" })" class="ordList-filter__btn btn">vận chuyển</a>
@@ -36,8 +36,19 @@
                     {
                         <div class="ordList-item">
                             <div class="ordList-item__label">
-                                <span class="ordList-item__label-id">#@order.ID</span>
+                                <span class="ordList-item__label-id">
+                                    #@order.ID
+                                    @if (order.Payment == true)
+                                    {
+                                        <span> đã thanh toán bằng ví VNPAY </span>
+                                    }
+                                    else
+                                    {
+                                        <span> chưa thanh toán </span>
+                                    }
+                                </span>
                                 <span>Trạng thái: <span class="ordList-item__label-status">@order.Status</span> </span>
+
                             </div>
 
                             <ul class="ordList-item__order">

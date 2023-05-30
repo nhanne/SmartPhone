@@ -56,13 +56,14 @@ namespace Nike.Models
 
         public string Address { get; set; }
         //[Required(ErrorMessage = "Vui lòng nhập ngày sinh")]
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{mm/dd/yyyy}")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{mm/dd/yyyy}")]
         public Nullable<System.DateTime> NgaySinh { get; set; }
 
         public string CMT { get; set; }
 
         public string Sdt { get; set; }
+        public int TichLuy { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }

@@ -53,17 +53,17 @@
                             <span class="grid-cart-column-1">Tổng tiền: @String.Format("{0:#,0}", ViewBag.Tongtien) ₫</span>
                             <div class="grid-cart-column-1 cart__button">
                                 @Html.ActionLink("Xóa giỏ hàng", "DeleteAll", "GioHang", new { @class = "btn cart__button-deleteAll btn--danger" })
-                                @{    
-                                    KhachHang khsession = (KhachHang)Session["Taikhoan"];
-                                    if (khsession != null){
-                                        KhachHang kh = _db.KhachHangs.Find(khsession.idUser);
-                                        @Html.ActionLink("Đặt hàng", "DatHang", "GioHang", new { @class = "btn cart__button-order" })
-                                    }else
-                                        {
-                                        @Html.ActionLink("Đặt hàng", "DatHangkoTK", "GioHang", new { @class = "btn cart__button-order" })
-                                        }
-                                  }
-
+                                @*@{
+          KhachHang khsession = (KhachHang)Session["Taikhoan"];
+          if (khsession != null){
+              KhachHang kh = _db.KhachHangs.Find(khsession.idUser);
+              @Html.ActionLink("Đặt hàng", "DatHang", "GioHang", new { @class = "btn cart__button-order" })
+          }else
+              {
+              @Html.ActionLink("Đặt hàng", "DatHangkoTK", "GioHang", new { @class = "btn cart__button-order" })
+              }
+        }*@
+                                @Html.ActionLink("Đặt hàng", "DatHang", "GioHang", new { @class = "btn cart__button-order" })
                             </div>
                         </div>
                     </div>

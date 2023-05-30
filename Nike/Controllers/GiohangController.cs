@@ -184,8 +184,28 @@ namespace Nike.Controllers
         {
             var dsProduct = (from s in _db.Products select s).ToList();
             //Thêm đơn hàng
+            var HoTen = collection["HoTen"];
+            var Sdt = collection["Sdt"];
+            var Email = collection["Email"];
+
+            KhachHang kh = new KhachHang();
+            kh.LastName = HoTen.ToString();
+            kh.Email = Email.ToString();
+            String anh = "user.jpg";
+            kh.Picture = anh;
+            if (Sdt.ToString().Length == 10)
+            {
+                kh.Sdt = Sdt.ToString();
+            }
+            else
+            {
+                kh.Sdt = null;
+            }
+            _db.KhachHangs.Add(kh);
+            _db.SaveChanges();
             Order order = new Order();
             List<Giohang> gh = Laygiohang();
+            order.KhachHangID = kh.idUser;
             order.NgayDat = DateTime.Now;
             order.NgayGiao = order.NgayDat.Value.AddDays(3);
             order.Status = "Chưa giao hàng";
@@ -232,7 +252,7 @@ namespace Nike.Controllers
             return View();
         }
 
-        public ActionResult Payment()
+        public ActionResult Payment() // tạo yêu cầu thanh toán và chuyển hướng người dùng đến trang thanh toán
         {
            
             string url = ConfigurationManager.AppSettings["Url"];
@@ -245,7 +265,7 @@ namespace Nike.Controllers
             pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.1.0
             pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
             pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-            pay.AddRequestData("vnp_Amount", (Convert.ToInt32(TongTien())*100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+            pay.AddRequestData("vnp_Amount", (TongTien()*100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
             pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
             pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
             pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND

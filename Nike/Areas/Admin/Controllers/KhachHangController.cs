@@ -20,6 +20,7 @@ namespace Nike.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Order");
             }
             var dsKhachHang = _db.KhachHangs.ToList();
+
             // Tìm kiếm khách hàng trong quản lí khách hàng bằng email - Duy 
             if (!String.IsNullOrEmpty(searchStr))
             {

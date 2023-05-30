@@ -54,7 +54,7 @@
                                     Địa chỉ
                                 </th>
                                 <th>
-                                    Ngày sinh
+                                    Loại khách hàng
                                 </th>
                                 <th>
                                     Số điện thoại
@@ -95,7 +95,25 @@
                                     <td>
                                         @item.Address
                                     </td>
-                                    <td>@(item.NgaySinh?.ToString("dd/MM/yyyy"))</td>
+                                    <td>
+                                        @if (item.TichLuy < 50)
+                                        {
+                                            <p>Khách hàng vãng lai</p>
+                                        }
+                                        else if (item.TichLuy < 100)
+                                        {
+                                            <p>Khách hàng bạc</p>
+                                        }
+                                        else if (item.TichLuy < 150)
+                                        {
+                                            <p>Khách hàng vàng  </p>
+                                        }
+                                        else
+                                        {
+                                            <p>Khách hàng kim cương</p>
+                                        }
+
+                                    </td>
                                     <td>
                                         @item.Sdt
                                     </td>

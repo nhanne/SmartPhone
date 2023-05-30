@@ -35,6 +35,7 @@
           <Property Name="NgaySinh" Type="date" />
           <Property Name="CMT" Type="nvarchar" MaxLength="50" />
           <Property Name="Sdt" Type="char" MaxLength="10" />
+          <Property Name="TichLuy" Type="int" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -64,6 +65,7 @@
           <Property Name="NgayGiao" Type="datetime" />
           <Property Name="ThanhTien" Type="float" />
           <Property Name="TongSoLuong" Type="int" />
+          <Property Name="Id_NV" Type="int" />
         </EntityType>
         <EntityType Name="Order_Detail">
           <Key>
@@ -91,10 +93,11 @@
           <Property Name="ProductName" Type="nvarchar" MaxLength="250" />
           <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
           <Property Name="PriceOld" Type="float" />
-          <Property Name="UnitPrice" Type="float" />
-          <Property Name="ProductSold" Type="int" />
           <Property Name="ProductSale" Type="nvarchar" MaxLength="50" />
+          <Property Name="UnitPrice" Type="float" />
           <Property Name="SoLuong" Type="int" />
+          <Property Name="ProductSold" Type="int" />
+          <Property Name="NgayNhapHang" Type="date" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -118,7 +121,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__KhachHang__01142BA1">
+        <Association Name="FK__Order__KhachHang__2BFE89A6">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -130,7 +133,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__Status__04E4BC85">
+        <Association Name="FK__Order__Status__2CF2ADDF">
           <End Role="Order_Status" Type="Self.Order_Status" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -142,7 +145,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order_Det__ID_Or__0A9D95DB">
+        <Association Name="FK__Order_Det__ID_Or__2FCF1A8A">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -154,7 +157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order_Det__ID_Pr__0B91BA14">
+        <Association Name="FK__Order_Det__ID_Pr__30C33EC3">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -166,7 +169,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Product__Catalog__74AE54BC">
+        <Association Name="FK__Product__Catalog__29221CFB">
           <End Role="Catalog" Type="Self.Catalog" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -175,6 +178,18 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="CatalogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_NV" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -192,25 +207,29 @@
             <End Role="ChucVu" EntitySet="ChucVu" />
             <End Role="NhanVien" EntitySet="NhanVien" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__KhachHang__01142BA1" Association="Self.FK__Order__KhachHang__01142BA1">
+          <AssociationSet Name="FK__Order__KhachHang__2BFE89A6" Association="Self.FK__Order__KhachHang__2BFE89A6">
             <End Role="KhachHang" EntitySet="KhachHang" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__Status__04E4BC85" Association="Self.FK__Order__Status__04E4BC85">
+          <AssociationSet Name="FK__Order__Status__2CF2ADDF" Association="Self.FK__Order__Status__2CF2ADDF">
             <End Role="Order_Status" EntitySet="Order_Status" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order_Det__ID_Or__0A9D95DB" Association="Self.FK__Order_Det__ID_Or__0A9D95DB">
+          <AssociationSet Name="FK__Order_Det__ID_Or__2FCF1A8A" Association="Self.FK__Order_Det__ID_Or__2FCF1A8A">
             <End Role="Order" EntitySet="Order" />
             <End Role="Order_Detail" EntitySet="Order_Detail" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order_Det__ID_Pr__0B91BA14" Association="Self.FK__Order_Det__ID_Pr__0B91BA14">
+          <AssociationSet Name="FK__Order_Det__ID_Pr__30C33EC3" Association="Self.FK__Order_Det__ID_Pr__30C33EC3">
             <End Role="Product" EntitySet="Product" />
             <End Role="Order_Detail" EntitySet="Order_Detail" />
           </AssociationSet>
-          <AssociationSet Name="FK__Product__Catalog__74AE54BC" Association="Self.FK__Product__Catalog__74AE54BC">
+          <AssociationSet Name="FK__Product__Catalog__29221CFB" Association="Self.FK__Product__Catalog__29221CFB">
             <End Role="Catalog" EntitySet="Catalog" />
             <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order" Association="Self.FK_Order">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -243,6 +262,7 @@
           <Property Name="PriceOld" Type="Double" />
           <Property Name="SoLuong" Type="Int32" />
           <NavigationProperty Name="Order_Detail" Relationship="QuanLySanPhamModel.FK__Order_Det__ID_Pr__0B91BA14" FromRole="Product" ToRole="Order_Detail" />
+          <Property Name="NgayNhapHang" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK__Product__Catalog__47DBAE45">
           <End Role="Catalog" Type="Self.Catalog" Multiplicity="0..1" />
@@ -290,6 +310,10 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Order_Detail" EntitySet="Order_Detail" />
           </AssociationSet>
+          <AssociationSet Name="FK_Order" Association="QuanLySanPhamModel.FK_Order">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -324,6 +348,7 @@
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Sex" Type="Boolean" />
           <Property Name="Sdt" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="QuanLySanPhamModel.FK_Order" FromRole="NhanVien" ToRole="Order" />
         </EntityType>
         <Association Name="FK__NhanVien__MaChuc__797309D9">
           <End Type="QuanLySanPhamModel.ChucVu" Role="ChucVu" Multiplicity="0..1" />
@@ -352,6 +377,7 @@
           <Property Name="CMT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sdt" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Orders" Relationship="QuanLySanPhamModel.FK__Order__KhachHang__01142BA1" FromRole="KhachHang" ToRole="Order" />
+          <Property Name="TichLuy" Type="Int32" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -369,6 +395,8 @@
           <Property Name="NgayGiao" Type="DateTime" Precision="3" />
           <Property Name="ThanhTien" Type="Double" />
           <Property Name="TongSoLuong" Type="Int32" />
+          <Property Name="Id_NV" Type="Int32" />
+          <NavigationProperty Name="NhanVien" Relationship="QuanLySanPhamModel.FK_Order" FromRole="Order" ToRole="NhanVien" />
         </EntityType>
         <EntityType Name="Order_Status">
           <Key>
@@ -437,6 +465,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order">
+          <End Type="QuanLySanPhamModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+          <End Type="QuanLySanPhamModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_NV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -456,6 +496,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="QuanLySanPhamModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="NgayNhapHang" ColumnName="NgayNhapHang" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="PriceOld" ColumnName="PriceOld" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -507,6 +548,7 @@
           <EntitySetMapping Name="KhachHangs">
             <EntityTypeMapping TypeName="QuanLySanPhamModel.KhachHang">
               <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="TichLuy" ColumnName="TichLuy" />
                 <ScalarProperty Name="Sdt" ColumnName="Sdt" />
                 <ScalarProperty Name="CMT" ColumnName="CMT" />
                 <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
@@ -523,6 +565,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="QuanLySanPhamModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Id_NV" ColumnName="Id_NV" />
                 <ScalarProperty Name="TongSoLuong" ColumnName="TongSoLuong" />
                 <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
                 <ScalarProperty Name="NgayGiao" ColumnName="NgayGiao" />

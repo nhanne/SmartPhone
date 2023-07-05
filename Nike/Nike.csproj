@@ -494,6 +494,8 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ThongKe\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\ThongKeDoanhThu.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\TheoTime.cshtml" />
     <None Include="Properties\PublishProfiles\nhanne-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\nhanne-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

@@ -12,12 +12,10 @@ namespace Nike.Controllers
     public class AccountController : Controller
     {
         private QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
-        // GET: Account
         public ActionResult Index()
         {
             return View();
         }
-        // Đăng ký - Nhân
         public ActionResult Register()
         {
             return View();
@@ -46,8 +44,6 @@ namespace Nike.Controllers
             }
             return View();
         }
-
-        // Đăng nhập và đăng xuất của Phat
         public ActionResult Login()
         {
             return View();
@@ -181,7 +177,7 @@ namespace Nike.Controllers
             {
                 if(!khachhang.Password.Equals(kh.oldPassword))
                 {
-                    ModelState.AddModelError(nameof(KhachHang.oldPassword), "Mật khẩu cũ không trùng khớp");
+                    ModelState.AddModelError(nameof(KhachHang.oldPassword), "Mật khẩu cũ không đúng");
                     return View(kh);
                 }
                 khachhang.Password = kh.Password;

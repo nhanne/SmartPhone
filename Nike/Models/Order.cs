@@ -19,7 +19,6 @@ namespace Nike.Models
         {
             this.Order_Detail = new HashSet<Order_Detail>();
         }
-    
         public int ID { get; set; }
         public Nullable<int> KhachHangID { get; set; }
         public string Status { get; set; }
@@ -36,5 +35,10 @@ namespace Nike.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Detail> Order_Detail { get; set; }
         public virtual NhanVien NhanVien { get; set; }
+    }
+    public class DoanhThuViewModel
+    {
+        public string Thang { get; set; }
+        public double TongDoanhThu { get; set; }
     }
 }

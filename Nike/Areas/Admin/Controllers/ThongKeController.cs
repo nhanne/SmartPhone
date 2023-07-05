@@ -55,7 +55,26 @@ namespace Nike.Areas.Admin.Controllers
             });
             return Json(new{Data = result}, JsonRequestBehavior.AllowGet);
         }
-      
+
+        public ActionResult ThongKeDoanhThu()
+        {
+            List<Order> donHangs = _db.Orders.Where(d => d.Status == "Hoàn thành").ToList();
+            //Thống kê doanh thu theo tháng 
+            List<DoanhThuViewModel> ThongKeDoanhThu = new List<DoanhThuViewModel>();
+
+            var doanhThuTheoThang = donHangs.GroupBy(d => new { d.NgayDat.Value.Year, d.NgayDat.Value.Month })
+                                    .Select(g => new DoanhThuViewModel
+                                    {
+                                        Thang = $"{g.Key.Month}/{g.Key.Year}",
+                                        TongDoanhThu = (double)g.Sum(d => d.ThanhTien)
+                                    })
+                                    .OrderBy(g => g.Thang);
+            ThongKeDoanhThu.AddRange(doanhThuTheoThang);
+
+            // Chuyển dữ liệu thống kê doanh thu qua View để hiển thị
+            return View(ThongKeDoanhThu);
+        }
+
 
     }
 }

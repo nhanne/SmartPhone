@@ -16,19 +16,19 @@
                 <span>@Html.ActionLink("Đăng ký", "Register", "Account", new { @class = "auth-form__switch-btn myactionlink" }) </span>
             </div>
             <div class="auth-form__form">
-                @if (ViewBag.error != null)
-                {
-                    <span style="color: #ff0000; display:block; margin:4px">@ViewBag.error</span>
-                }
+
                 <div class="auth-form__group">
-                    @Html.TextBoxFor(m => m.Email,"", new { @class = "auth-form__input", @placeholder = "Email của bạn" })
+                    @Html.TextBoxFor(m => m.Email, "", new { @class = "auth-form__input", @placeholder = "Email của bạn" })
                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validate" })
                 </div>
                 <div class="auth-form__group">
                     @Html.PasswordFor(m => m.Password, new { @class = "auth-form__input", @placeholder = "Password" })
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validate" })
                 </div>
-
+                @if (ViewBag.error != null)
+                {
+                    <span style="color: #ff0000; display:block; margin:4px">@ViewBag.error</span>
+                }
             </div>
             <div class="auth-form__aside">
                 <div class="auth-form__help">

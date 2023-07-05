@@ -45,8 +45,11 @@
         Html.RenderPartial("_sidebarAdmin");
     }
 
+   
+
     <main class="app-content">
         @RenderBody()
+         @RenderSection("scripts", required: false)
     </main>
     <script src="~/Assets/Admin/js/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
@@ -99,17 +102,17 @@
                         reject(response.responseText)
                     }
                 })
-            }) 
+            })
         }
 
         dataOrder = await ajaxGetOrder()
-     
-    
-       
+
+
+
         const doneOrder = dataOrder.filter((item) => item.Status == 'Hoàn thành')
-  
-    
-        
+
+
+
         const arrChart = []
         const arrChartProduct = []
 
@@ -211,6 +214,7 @@
         }
         gicungduoc()
     </script>
+
 </body>
 
 </html>

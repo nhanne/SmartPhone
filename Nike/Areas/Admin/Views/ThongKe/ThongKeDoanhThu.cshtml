@@ -1,0 +1,40 @@
+﻿@model List<Nike.Models.DoanhThuViewModel>
+@{ ViewBag.Title = "ThongKeDoanhThu";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutadmin.cshtml"; }
+
+
+<h2>Thống kê doanh thu theo tháng</h2>
+
+<canvas id="doanhThuChart" width="400" height="200"></canvas>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var doanhThuData = @Html.Raw(Json.Encode(Model));
+
+        var labels = doanhThuData.map(d => d.Thang);
+        var data = doanhThuData.map(d => d.TongDoanhThu);
+
+        var ctx = document.getElementById('doanhThuChart').getContext('2d');
+        var doanhThuChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

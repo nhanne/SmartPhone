@@ -46,6 +46,12 @@ namespace Nike.Areas.Admin.Controllers
                     case "sold":
                         products = products.Where(p => p.SoLuong == 0).ToList();
                         break;
+                    case "now":
+                        products = products.OrderByDescending(p => p.NgayNhapHang).ToList();
+                        break;
+                    default:
+                        products = products.ToList();
+                        break;
                 }
             }
 
@@ -83,6 +89,7 @@ namespace Nike.Areas.Admin.Controllers
                         byte[] array = ms.GetBuffer();
                     }
                 }
+                model.NgayNhapHang = DateTime.Now;
                 model.Picture = anh;
                 Random prCode = new Random();
                 model.ProductCode = String.Concat("PR", prCode.Next(5000, 7000).ToString());
@@ -144,6 +151,7 @@ namespace Nike.Areas.Admin.Controllers
                 pr.ProductSold = product.ProductSold;
                 pr.ProductSale = product.ProductSale;
                 pr.SoLuong = 500 - pr.ProductSold;
+                pr.NgayNhapHang = DateTime.Now;
                 _db.Entry(pr).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");

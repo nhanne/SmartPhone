@@ -29,7 +29,7 @@ namespace Nike.Areas.Admin.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.ToLower();
-                ViewBag.NhanVien = dsNhanVien.Where(s => s.FullName.ToLower().Contains(searchString));
+                ViewBag.NhanVien = dsNhanVien.Where(s => s.FullName.ToLower().Contains(searchString)).ToList();
             }
             else
             {

@@ -40,11 +40,11 @@ namespace Nike.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập Mật khẩu")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$", ErrorMessage = "Mật khẩu tối thiêu 8 kí tự, bao gồm 1 in hoa, 1 số và 1 ký tự đặc biệt")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$", ErrorMessage = "Mật khẩu tối thiểu 8 kí tự, bao gồm 1 in hoa, 1 số và 1 ký tự đặc biệt")]
         public string Password { get; set; }
 
         [NotMapped]
-        [Required(ErrorMessage = "Vui lòng nhập nhập lại mật khẩu")]
+        [Required(ErrorMessage = "Vui lòng nhập Nhập lại mật khẩu")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Mật khẩu không trùng khớp")]
         public string ConfirmPassword { get; set; }
         public string FullName()
@@ -56,13 +56,14 @@ namespace Nike.Models
 
         public string Address { get; set; }
         //[Required(ErrorMessage = "Vui lòng nhập ngày sinh")]
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{mm/dd/yyyy}")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{mm/dd/yyyy}")]
         public Nullable<System.DateTime> NgaySinh { get; set; }
 
         public string CMT { get; set; }
 
         public string Sdt { get; set; }
+        public int TichLuy { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }

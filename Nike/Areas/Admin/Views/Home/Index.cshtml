@@ -43,7 +43,7 @@
                     <div class="info">
                         <h4>Tổng sản phẩm tồn kho</h4>
                         <p><b>@dsProduct.Count() sản phẩm</b></p>
-                        <p class="info-tong">Tổng số sản phẩm được quản lý trong cửa hàng.</p>
+                        <p class="info-tong">Tổng số sản phẩm được quản lý.</p>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID đơn hàng</th>
+                                    <th width="100">Mã đơn hàng</th>
                                     <th>Tên khách hàng</th>
                                     <th>Tổng tiền</th>
                                     <th>Trạng thái</th>
@@ -101,10 +101,19 @@
                             <tbody>
                                 @foreach (var item in dsOrder)
                                 {
-                                    <tr>
-                                        @if(item.Status == "Chưa giao hàng" || item.Status == "Đang giao hàng") { 
+                                <tr>
+                                    @if (item.Status == "Chưa giao hàng" || item.Status == "Đang giao hàng")
+                                    {
                                         <td>@item.ID</td>
-                                        <td>@item.KhachHang.FullName()</td>
+                                        if (item.KhachHang != null)
+                                        {
+                                            <td>@item.KhachHang.FullName()</td>
+                                        }
+                                        else
+                                        {
+                                            <td>null</td>
+
+                                        }
                                         <td>
                                             @String.Format("{0:#,0}", item.ThanhTien) ₫
                                         </td>
@@ -119,44 +128,13 @@
                                                     break;
                                             }
                                         </td>
-                                        }
-                                    </tr>
+                                    }
+                                </tr>
                                 }
                             </tbody>
                         </table>
                     </div>
                     <!-- / div trống-->
-                </div>
-            </div>
-            <!-- / col-12 -->
-            <!-- col-12 -->
-            <div class="col-md-12">
-                <div class="tile">
-                    <h3 class="tile-title">Khách hàng mới</h3>
-                    <div>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tên khách hàng</th>
-                                    <th>Ngày sinh</th>
-                                    <th>Số điện thoại</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in dsKhachHang)
-                                {
-                                    <tr>
-                                        <td>@item.idUser</td>
-                                        <td>@item.FullName()</td>
-                                        <td>@(item.NgaySinh?.ToString("dd/MM/yyyy"))</td>
-                                        <td><span class="tag tag-success">@item.Sdt</span></td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
                 </div>
             </div>
             <!-- / col-12 -->
@@ -168,7 +146,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="tile">
-                    <h3 class="tile-title">Dữ liệu 6 tháng đầu vào</h3>
+                    <h3 class="tile-title">Thống kê số lượng sản phẩm bán được trong 12 tháng</h3>
                     <div class="embed-responsive embed-responsive-16by9">
                         <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
                     </div>
@@ -176,7 +154,7 @@
             </div>
             <div class="col-md-12">
                 <div class="tile">
-                    <h3 class="tile-title">Thống kê 6 tháng doanh thu</h3>
+                    <h3 class="tile-title">Thống kê số tiền bán được trong 12 tháng</h3>
                     <div class="embed-responsive embed-responsive-16by9">
                         <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
                     </div>
@@ -187,10 +165,14 @@
     </div>
     <!--END right-->
 </div>
+    <script>
+        var dsOrder = _db.Orders.ToList();
+        console.log(dsOrder)
+    </script>
 
 <style>
     .tile{
-        height: 500px;
+        height: 400px;
         overflow: auto;
     }
 </style>

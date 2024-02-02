@@ -14,6 +14,12 @@ namespace Nike.Models
     
     public partial class NhanVien
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NhanVien()
+        {
+            this.Orders = new HashSet<Order>();
+        }
+    
         public int Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
@@ -26,5 +32,7 @@ namespace Nike.Models
         public string Sdt { get; set; }
     
         public virtual ChucVu ChucVu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

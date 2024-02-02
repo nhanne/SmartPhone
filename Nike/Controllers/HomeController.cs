@@ -29,11 +29,11 @@ namespace Nike.Controllers
             {
                 searchStr.ToLower();
                 var dsProduct2 = _db.Products.ToList().Where(s => s.ProductName.ToLower().Contains(searchStr));
-                var totalPage = (double)dsProduct2.Count() / (double)8;
-                ViewBag.totalPage = Math.Ceiling(totalPage);
-                ViewBag.searchStr = searchStr;
-                ViewBag.products = dsProduct2.ToPagedList(pageIndex, 8);
-                ViewBag.currentPage = pageIndex;
+                    var totalPage = (double)dsProduct2.Count() / (double)8;
+                    ViewBag.totalPage = Math.Ceiling(totalPage);
+                    ViewBag.searchStr = searchStr;
+                    ViewBag.products = dsProduct2.ToPagedList(pageIndex, 8);
+                    ViewBag.currentPage = pageIndex;
             }
             return View();
         }

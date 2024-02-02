@@ -88,6 +88,7 @@
                 <div class="home-product">
                     <div class="grid__row">
                         <!-- product-item -->
+               
                         @foreach (var item in data)
                         {
                             <div class="grid__column-2-4">
@@ -143,7 +144,7 @@
                         }
                     </div>
                 </div>
-           
+                @if (currentPage <= totalPage) {
                 <ul class="pagination home-product__pagination">
                     @if (currentPage != 1)
                     {
@@ -153,7 +154,7 @@
                             </a>
                         </li>
                     }
-                  
+
 
 
                     @for (int i = currentPage; i <= (totalPage + currentPage) / 2; i++)
@@ -202,7 +203,9 @@
                         </li>
                     }
                 </ul>
-                
+                }
+
+
             </div>
         </div>
     </div>

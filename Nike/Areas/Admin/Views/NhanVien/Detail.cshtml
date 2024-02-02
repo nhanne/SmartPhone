@@ -34,27 +34,31 @@
             <label class="control-label">Số điện thoại: </label>
             @Model.Sdt
         </div>
-        <div class="detail__item">
-            <label class="control-label">Giới tính: </label>
-            @{
-                if (Model.Sex == true)
-                {
-                    <text>Nam</text>
-                }
-                else
-                {
-                    <text>Nữ</text>
-                }
+       <div class="detail__item">
+            <label class="control-label">Chức vụ: </label>
+            @Model.ChucVu.ChucVu1
+        </div>
+    <div class="detail__item">
+        <label class="control-label">Giới tính: </label>
+        @{
+            if (Model.Sex == true)
+            {
+                <text>Nam</text>
             }
-        </div>
-        <div class="row btn">
-            <button class="btn btn-save btn-sm edit" type="button" title="Sửa"
-                    onclick="location.href='@Url.Action("Edit", "NhanVien",new { id = Model.Id })'">
-                Chỉnh sửa thông tin
-            </button>
-            <a class="btn btn-cancel" href="@Url.Action("Index","NhanVien")">Hủy bỏ</a>
-        </div>
+            else
+            {
+                <text>Nữ</text>
+            }
+        }
     </div>
+    <div class="row btn">
+        <button class="btn btn-save btn-sm edit" type="button" title="Sửa"
+                onclick="location.href='@Url.Action("Edit", "NhanVien",new { id = Model.Id })'">
+            Chỉnh sửa thông tin
+        </button>
+        <a class="btn btn-cancel" href="@Url.Action("Index","NhanVien")">Hủy bỏ</a>
+    </div>
+</div>
 
 <style>
     .detail{

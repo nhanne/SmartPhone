@@ -16,7 +16,7 @@
     }
 }
 <div class="grid">
-    <h2 style="text-align: center; color: var(--primary-color">Thông tin sản phẩm</h2>
+    <h1>Thông tin sản phẩm</h1>
     <div class="grid">
         <div class="cart app__content">
             <div class="cart-list">
@@ -53,13 +53,13 @@
                     <span class="grid-cart-column-1"></span>
                     <span class="grid-cart-column-1">Tổng tiền: @String.Format("{0:#,0}", ViewBag.Tongtien) ₫</span>
                     <div class="grid-cart-column-1 cart__button">
-                        @Html.ActionLink("Quay về giỏ hàng", "Index", "GioHang", new { @class = "btn btn--primary" })
+                        @Html.ActionLink("Quay về giỏ hàng", "Index", "GioHang", new { @class = "btn btn--black" })
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <h2 style="text-align:center; color: var(--primary-color)">Thông tin đặt hàng</h2>
+    <h1>Thông tin đặt hàng</h1>
 
 
     <table align="center">
@@ -72,7 +72,20 @@
             </tr>
             <tr style="height:40px">
                 <td class="table__item">Địa chỉ khách hàng</td>
-                <td>@kh.Address</td>
+                <td class="table__item-value">
+                    <input type="text" name="DiaChi" class="input-group" />
+                    <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm" name="Tinh">
+                        <option value="" selected>Chọn tỉnh thành</option>
+                    </select>
+
+                    <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" name="Quan">
+                        <option value="" selected>Chọn quận huyện</option>
+                    </select>
+
+                    <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" name="Phuong">
+                        <option value="" selected>Chọn phường xã</option>
+                    </select>
+                </td>
             </tr>
             <tr style="height:40px">
                 <td class="table__item">Sđt khách hàng</td>
@@ -95,17 +108,72 @@
             <tr style="height:40px">
                 <td></td>
                 <td>
-                    <input type="submit" value="Đồng ý đặt hàng" class="btn btn--primary" />
+                    <input type="submit" value="Thanh toán tiền mặt" class="btn btn--success" />
+                    <input type="button" value="Thanh toán online" onclick="location.href='@Url.Action("Payment","Giohang")'" class="btn btn--warning" />
+
                 </td>
+
             </tr>
         }
     </table>
 </div>
 
 <style>
+    h1 {
+        text-align: center;
+        color: var(--primary-color);
+        text-decoration: underline 2px
+    }
+
     .table__item {
+        display: inline-table;
         font-weight: bold;
+        margin-right: 10px;
+        margin-top: 9px;
     }
 </style>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
+<script>
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+        renderCity(result.data);
+    });
+
+    function renderCity(data) {
+        for (const x of data) {
+            citis.options[citis.options.length] = new Option(x.Name, x.Id);
+        }
+        citis.onchange = function () {
+            district.length = 1;
+            ward.length = 1;
+            if (this.value != "") {
+                const result = data.filter(n => n.Id === this.value);
+
+                for (const k of result[0].Districts) {
+                    district.options[district.options.length] = new Option(k.Name, k.Id);
+                }
+            }
+        };
+        district.onchange = function () {
+            ward.length = 1;
+            const dataCity = data.filter((n) => n.Id === citis.value);
+            if (this.value != "") {
+                const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                for (const w of dataWards) {
+                    wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                }
+            }
+        };
+    }
+</script>

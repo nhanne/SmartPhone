@@ -98,7 +98,15 @@
                                 @item.ID
                             </td>
                             <td>
-                                @item.KhachHang.FullName()
+                                @if (item.KhachHang != null)
+                                {
+                                    @item.KhachHang.FullName()
+                                }
+                                else
+                                {
+                                    <p>Chưa đăng ký tài khoản trong hệ thống</p>
+                                }
+
                             </td>
                             <td>
                                 @foreach (var product in ViewBag.orderDetail)
@@ -135,19 +143,23 @@
 
                             </td>
                             <td class="table-td-center">
-                                <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                        onclick="location.href='@Url.Action(@*"Delete", "Order",new { id = item.Id }*@)'">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                                        onclick="location.href='@Url.Action("Edit", "Order",new { Id = item.ID })'">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-primary btn-sm user-btn" type="button" title="Xem"
-                                        onclick="location.href='@Url.Action("Detail", "Order",new { Id = item.ID })'">
-                                    <i class="fas fa-cart-arrow-down"></i>
-                                </button>
-                            </td>
+
+                                @if (item.Status == "Chưa giao hàng")
+                                {
+                                    <button class="btn btn-success btn-sm edit" type="button" title="Sửa"
+                                            onclick="location.href='@Url.Action("Edit", "Order",new { Id = item.ID })'">
+                                        Xử lí đơn hàng
+                                    </button>
+                                }
+                                @if (item.Status == "Hoàn thành" || item.Status == "Đã hủy")
+                                {
+                                    <button class="btn btn-primary btn-sm user-btn" type="button" title="Xem chi tiết"
+                                            onclick="location.href='@Url.Action("Detail", "Order", new { Id = item.ID })'">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                }
+                                </td>
+                            
                         </tr>
                     }
 

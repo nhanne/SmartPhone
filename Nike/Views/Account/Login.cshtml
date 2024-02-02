@@ -8,21 +8,27 @@
 <div class="auth-form">
     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
     {
-        @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
         <div class="auth-form__container">
             <div class="auth-form__header">
                 <h3 class="auth-form__heading">Đăng nhập</h3>
                 <span>@Html.ActionLink("Đăng ký", "Register", "Account", new { @class = "auth-form__switch-btn myactionlink" }) </span>
             </div>
             <div class="auth-form__form">
+
                 <div class="auth-form__group">
-                    @Html.TextBoxFor(m => m.Email, "s", new { @class = "auth-form__input", @placeholder = "Email của bạn" })
+                    @Html.TextBoxFor(m => m.Email, "", new { @class = "auth-form__input", @placeholder = "Email của bạn" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validate" })
                 </div>
                 <div class="auth-form__group">
                     @Html.PasswordFor(m => m.Password, new { @class = "auth-form__input", @placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validate" })
                 </div>
-
+                @if (ViewBag.error != null)
+                {
+                    <span style="color: #ff0000; display:block; margin:4px">@ViewBag.error</span>
+                }
             </div>
             <div class="auth-form__aside">
                 <div class="auth-form__help">

@@ -53,7 +53,7 @@ namespace Nike.Areas.Admin.Controllers
             }
             if (String.IsNullOrEmpty(sort))
             {
-                ViewBag.orderList = orderList;
+                ViewBag.orderList = orderList.OrderBy(s => s.NgayDat);
             }
             else
             {
@@ -83,64 +83,63 @@ namespace Nike.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Order order = _db.Orders.Find(id);
             if (order == null)
             {
                 return HttpNotFound();
             }
+
             return View(order);
         }
 
+
         public ActionResult Edit(int Id)
         {
-            if (Id == null)
+            if (Id <= 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Order order = _db.Orders.Find(Id);
             if (order == null)
             {
                 return HttpNotFound();
             }
+
             ViewBag.Status = new SelectList(_db.Order_Status, "Status", "Status", order.Status);
             return View(order);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID")] Order model)
         {
             Order order = _db.Orders.Find(model.ID);
+
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+
             order.Status = "Đang giao hàng";
             order.NgayGiao = DateTime.Now.AddDays(3);
-            var ordList_Detail = _db.Order_Detail.ToList();
-            foreach (var item in ordList_Detail)
+
+            var orderDetails = _db.Order_Detail.Where(item => item.ID_Order == order.ID).ToList();
+
+            foreach (var detail in orderDetails)
             {
-                if (item.ID_Order == order.ID)
-                {
-                    Product product = _db.Products.Find(item.ID_Product);
-                    product.SoLuong -= 1;
-                    product.ProductSold += 1;
-                    _db.Entry(product).State = EntityState.Modified;
-                }
+                Product product = _db.Products.Find(detail.ID_Product);
+                product.SoLuong -= 1;
+                product.ProductSold += 1;
+                _db.Entry(product).State = EntityState.Modified;
             }
 
             _db.Entry(order).State = EntityState.Modified;
             _db.SaveChanges();
+
             return RedirectToAction("Index");
         }
-        //[HttpPost, ActionName("Edit")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult HuyDon(int Id)
-        //{
-        //    if (Id.ToString() == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Order order = _db.Orders.Find(Id);
-        //    order.Status = "Đã hủy";
-        //    _db.Entry(order).State = EntityState.Modified;
-        //    _db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+
     }
 }

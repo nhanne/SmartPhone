@@ -1,8 +1,9 @@
 ﻿@using Nike.Models;
 @model Nike.Models.Product
 @{
-    ViewBag.Title = Model.ProductName ;
+    ViewBag.Title = Model.ProductName;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Hinh/Product/@Url.Content(Model.Picture)" />
     KhachHang kh = (KhachHang)Session["Taikhoan"];
 }
 @Html.HiddenFor(Model => Model.Id)

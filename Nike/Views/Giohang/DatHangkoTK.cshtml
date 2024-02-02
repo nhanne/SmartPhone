@@ -1,0 +1,143 @@
+﻿@using Nike.Models;
+@model List<Giohang>
+
+@{
+    QuanLySanPhamEntities _db = new QuanLySanPhamEntities();
+    ViewBag.Title = "Đơn đặt hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    KhachHang khsession = (KhachHang)Session["Taikhoan"];
+    if(khsession != null)
+    {
+        KhachHang kh = _db.KhachHangs.Find(khsession.idUser);
+    }
+}
+
+
+<div class="grid">
+    <h1>Thông tin sản phẩm</h1>
+    <div class="grid">
+        <div class="cart app__content">
+            <div class="cart-list">
+                <div class="cart-list__header row">
+                    <span class="grid-cart-column-6 cart-list__header-title">Sản phẩm</span>
+                    <span class="grid-cart-column-1">Đơn giá</span>
+                    <span class="grid-cart-column-1">Số lượng</span>
+                    <span class="grid-cart-column-1">Thành tiền</span>
+                </div>
+                <hr>
+                <div class="cart-list__body">
+                    @foreach (var item in Model)
+                    {
+                        using (Html.BeginForm("Capnhatgiohang", "Giohang", new { @IdProduct = item.IdProduct }))
+                        {
+                            <div class="cart-list__product row">
+                                <div class="grid-cart-column-6 cart__product-item">
+                                    <img src="~/Hinh/Product/@Url.Content(@item.Picture)" alt="Product_img" class="cart__product-img">
+                                    <span class="cart__product-name">@item.ProductName</span>
+                                </div>
+                                <span class="grid-cart-column-1">@string.Format("{0:#,0}", item.DonGia) ₫</span>
+                                <span class="grid-cart-column-1">@item.SoLuong</span>
+                                <span class="grid-cart-column-1">@string.Format("{0:#,0}", item.Price) ₫</span>
+
+                            </div>
+                            <hr>
+                        }
+                    }
+                </div>
+
+                <div class="cart-list__footer row">
+                    <div class="grid-cart-column-6 cart__total">Tổng số lượng sản phẩm: @ViewBag.Tongsoluong</div>
+                    <span class="grid-cart-column-1"></span>
+                    <span class="grid-cart-column-1"></span>
+                    <span class="grid-cart-column-1">Tổng tiền: @String.Format("{0:#,0}", ViewBag.Tongtien) ₫</span>
+                    <div class="grid-cart-column-1 cart__button">
+                        @Html.ActionLink("Quay về giỏ hàng", "Index", "GioHang", new { @class = "btn btn--black" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>Thông tin đặt hàng</h1>
+
+
+    <table align="center">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <tr style="height:40px">
+                <td class="table__item">Họ tên khách hàng</td>
+                <td class="table__item-value">
+                    <input type="text" name="HoTen" class="input-group" />
+                </td>
+            </tr>
+            <tr style="height:40px">
+                <td class="table__item">Địa chỉ khách hàng</td>
+                <td class="table__item-value">
+                    <input type="text" name="DiaChi" class="input-group" />
+                </td>
+            </tr>
+            <tr style="height:40px">
+                <td class="table__item">Sđt khách hàng</td>
+                <td class="table__item-value">
+                    <input type="text" name="Sdt" class="input-group" />
+                </td>
+            </tr>
+            <tr style="height:40px">
+                <td class="table__item">Email liên hệ</td>
+                <td class="table__item-value">
+                    <input type="text" name="Email" class="input-group" />
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td class="table__item">Ngày đặt</td>
+                <td>@DateTime.Now.ToString("dd-MM-yyyy")</td>
+            </tr>
+            <tr style="height:40px">
+                <td class="table__item">Ngày giao(dự kiến)</td>
+                <td>@DateTime.Now.AddDays(3).ToString("dd-MM-yyyy")</td>
+            </tr>
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="submit" value="Thanh toán tiền mặt" class="btn btn--success" />
+                    <input type="button" value="Thanh toán online" onclick="location.href='@Url.Action("Payment","Giohang")'" class="btn btn--warning" />
+
+                </td>
+
+            </tr>
+        }
+    </table>
+</div>
+
+<style>
+    h1 {
+        text-align: center;
+        color: var(--primary-color);
+        text-decoration: underline 2px
+    }
+
+    .table__item {
+        display: inline-table;
+        font-weight: bold;
+        margin-right: 10px;
+        margin-top: 9px;
+    }
+    .input-group {
+        display: block;
+        width: 100%;
+        height: calc(1.5em + .75rem + 2px);
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+    }
+
+</style>
+
+

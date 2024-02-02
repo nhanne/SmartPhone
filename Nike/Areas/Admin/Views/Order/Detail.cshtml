@@ -79,15 +79,23 @@
                         <label class="control-label">Trạng thái đơn hàng</label>
                         <input class="form-control" type="text" value="@orders.Status" disabled>
                     </div>
+                    <div class="form-group  col-md-6">
+                        <label class="control-label">Trạng thái đơn hàng</label>
+                        <input class="form-control" type="text" value="@orders.Status" disabled>
+                    </div>
                 </div>
                 <div class="row">
 
                     <div class="form-group  col-md-12">
                         <label class="control-label">Hình thức thanh toán</label>
-                        <select class="form-control" id="exampleSelect2" required>
-                            <option>Trả tiền mặt khi nhận hàng (COD)</option>
-                            @*<option>Thanh toán chuyển khoản</option>*@
-                        </select>
+                        @if (orders.Payment == true)
+                        {
+                            <input class="form-control" type="text" value="Thanh toán qua cổng VNPAY" disabled>
+                        }
+                        else
+                        {
+                            <input class="form-control" type="text" value="Trả tiền mặt khi nhận hàng" disabled>
+                        }
                     </div>
                     <div class="form-group  col-md-12">
                         <label class="control-label">Tổng cộng thanh toán: </label>
